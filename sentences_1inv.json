@@ -81,14 +81,10 @@
         "translation": " "
       },
       "luft": {
-        "word": "Adjektiv2",
-        "translation": " "
-      },
-      ".": {
         "word": "Objekt2",
         "translation": " "
       },
-      "nan": {
+      ".": {
         "word": "Punktum",
         "translation": " "
       },
@@ -451,30 +447,31 @@
         "translation": " "
       },
       "at": {
-        "word": "Verbum3",
+        "word": "Partikel",
         "translation": " "
       },
       "gnide": {
-        "word": "Pronomen1",
+        "word": "Verbum3",
         "translation": " "
       },
       "sig": {
-        "word": "Præposition1",
+        "word": "Pronomen1",
         "translation": " "
       },
       "mod": {
-        "word": "Pronomen2",
+        "word": "Præposition1",
         "translation": " "
       },
       "hendes": {
-        "word": "Objekt1",
+        "word": "Pronomen2",
         "translation": " "
       },
       "ben": {
-        "word": "Punktum",
+        "word": "Objekt1",
         "translation": " "
       },
       ".": {
+        "word": "Punktum",
         "translation": " "
       },
       "full_translation": " "

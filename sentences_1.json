@@ -1,897 +1,889 @@
 {
   "sentences": [
     {
-      "word_1": {
+      "Subjekt1": {
         "word": "Det",
         "translation": "Это"
       },
-      "word_2": {
+      "Verbum1": {
         "word": "var",
         "translation": "было"
       },
-      "word_3": {
+      "Adjektiv": {
         "word": "tidlig",
         "translation": "раннее"
       },
-      "word_4": {
+      "Subjekt2": {
         "word": "morgen",
         "translation": "утро"
       },
-      "word_5": {
+      "Koma": {
         "word": ",",
         "translation": ","
       },
-      "word_6": {
+      "Konjunktion": {
         "word": "og",
         "translation": "и"
       },
-      "word_7": {
+      "Subjekt3": {
         "word": "solen",
         "translation": "солнце"
       },
-      "word_8": {
+      "Verbum2": {
         "word": "begyndte",
         "translation": "начало"
       },
-      "word_9": {
+      "Verbum3": {
         "word": "at",
         "translation": "чтобы"
       },
-      "word_10": {
+      "Verbum4": {
         "word": "stå",
         "translation": "стоять/вставать"
       },
-      "word_11": {
+      "Verbum5": {
         "word": "op",
         "translation": "вверх/вставать"
       },
-      "word_12": {
+      "Punktum": {
         "word": ".",
         "translation": "."
       },
-      "full_translation": "Это было раннее утро , и солнце начало вставать."
+      "full_translation": "Это было раннее утро , и солнце начало чтобы стоять/вставать вверх/вставать ."
     },
     {
-      "word_1": {
+      "Subjekt1": {
         "word": "Emma",
         "translation": "Эмма"
       },
-      "word_2": {
+      "Verbum1": {
         "word": "åbnede",
         "translation": "открыла"
       },
-      "word_3": {
+      "Objekt1": {
         "word": "vinduet",
         "translation": "окно"
       },
-      "word_4": {
+      "Konjunktion": {
         "word": "og",
         "translation": "и"
       },
-      "word_5": {
+      "Verbum2": {
         "word": "mærkede",
         "translation": "почувствовала"
       },
-      "word_6": {
+      "Pronomen1": {
         "word": "den",
         "translation": "этот"
       },
-      "word_7": {
+      "Adjektiv1": {
         "word": "friske",
         "translation": "свежий"
       },
-      "word_8": {
+      "Objekt2": {
         "word": "luft",
         "translation": "воздух"
       },
-      "word_9": {
+      "Punktum": {
         "word": ".",
         "translation": "."
       },
-      "full_translation": "Эмма открыла окно и почувствовала свежий воздух ."
+      "full_translation": "Эмма открыла окно и почувствовала этот свежий воздух ."
     },
     {
-      "word_1": {
+      "Subjekt1": {
         "word": "Fuglene",
         "translation": "Птицы"
       },
-      "word_2": {
+      "Verbum1": {
         "word": "sang",
         "translation": "пели"
       },
-      "word_3": {
+      "Koma": {
         "word": ",",
         "translation": ","
       },
-      "word_4": {
+      "Konjunktion": {
         "word": "og",
         "translation": "и"
       },
-      "word_5": {
+      "Subjekt2": {
         "word": "alt",
         "translation": "всё"
       },
-      "word_6": {
+      "Verbum2": {
         "word": "var",
         "translation": "было"
       },
-      "word_7": {
+      "Adjektiv1": {
         "word": "stille",
         "translation": "тихо"
       },
-      "word_8": {
+      "Punktum": {
         "word": ".",
         "translation": "."
       },
       "full_translation": "Птицы пели , и всё было тихо ."
     },
     {
-      "word_1": {
+      "Adverbium1": {
         "word": "Pludselig",
         "translation": "Вдруг"
       },
-      "word_2": {
+      "Verbum1": {
         "word": "hørte",
         "translation": "услышала"
       },
-      "word_3": {
+      "Pronomen1": {
         "word": "hun",
         "translation": "она"
       },
-      "word_4": {
+      "Adjektiv1": {
         "word": "en",
         "translation": "один"
       },
-      "word_5": {
+      "Objekt1": {
         "word": "lyd",
         "translation": "звук"
       },
-      "word_6": {
+      "Præposition1": {
         "word": "i",
         "translation": "в"
       },
-      "word_7": {
+      "Objekt2": {
         "word": "haven",
         "translation": "саду"
       },
-      "word_8": {
+      "Punktum": {
         "word": ".",
         "translation": "."
       },
-      "full_translation": "Вдруг услышала она звук в саду ."
+      "full_translation": "Вдруг услышала она один звук в саду ."
     },
     {
-      "word_1": {
+      "Subjekt1": {
         "word": "Det",
         "translation": "Это"
       },
-      "word_2": {
+      "Verbum1": {
         "word": "lød",
         "translation": "звучало"
       },
-      "word_3": {
+      "Konjunktion1": {
         "word": "som",
         "translation": "как"
       },
-      "word_4": {
+      "Subjekt2": {
         "word": "noget",
         "translation": "что-то"
       },
-      "word_5": {
+      "Koma": {
         "word": ",",
         "translation": ","
       },
-      "word_6": {
+      "Pronomen1": {
         "word": "der",
         "translation": "которое"
       },
-      "word_7": {
+      "Verbum2": {
         "word": "bevægede",
         "translation": "двигалось/шевелилось"
       },
-      "word_8": {
+      "Pronomen2": {
         "word": "sig",
         "translation": "себя"
       },
-      "word_9": {
+      "Præposition1": {
         "word": "i",
         "translation": "в"
       },
-      "word_10": {
+      "Objekt1": {
         "word": "buskene",
         "translation": "кустах"
       },
-      "word_11": {
+      "Punktum": {
         "word": ".",
         "translation": "."
       },
-      "full_translation": "Показалось, что кто-то шевелится в кустах."
+      "full_translation": "Это звучало как что-то , которое двигалось/шевелилось себя в кустах ."
     },
     {
-      "word_1": {
+      "Subjekt1": {
         "word": "Emma",
         "translation": "Эмма"
       },
-      "word_2": {
+      "Verbum1": {
         "word": "blev",
         "translation": "стала"
       },
-      "word_3": {
+      "Adjektiv1": {
         "word": "nysgerrig",
         "translation": "любопытной"
       },
-      "word_4": {
+      "Konjunktion1": {
         "word": "og",
         "translation": "и"
       },
-      "word_5": {
+      "Verbum2": {
         "word": "gik",
         "translation": "пошла"
       },
-      "word_6": {
+      "Adverbium1": {
         "word": "ud",
         "translation": "наружу"
       },
-      "word_7": {
+      "Præposition1": {
         "word": "for",
         "translation": "чтобы"
       },
-      "word_8": {
+      "Verbum3": {
         "word": "at",
         "translation": "посмотреть"
       },
-      "word_9": {
+      "Verbum4": {
         "word": "se",
         "translation": "сейчас"
       },
-      "word_10": {
+      "Punktum": {
         "word": ".",
         "translation": "."
       },
-      "full_translation": "Эмме стало любопытно, и она вышла посмотреть."
+      "full_translation": "Эмма стала любопытной и пошла наружу чтобы посмотреть сейчас ."
     },
     {
-      "word_1": {
+      "Pronomen1": {
         "word": "Hun",
         "translation": "Она"
       },
-      "word_2": {
+      "Verbum1": {
         "word": "så",
         "translation": "увидела"
       },
-      "word_3": {
+      "Adjektiv1": {
         "word": "en",
         "translation": "одну"
       },
-      "word_4": {
+      "Adjektiv2": {
         "word": "lille",
         "translation": "маленькую"
       },
-      "word_5": {
+      "Adjektiv3": {
         "word": "grå",
         "translation": "серую"
       },
-      "word_6": {
+      "Objekt1": {
         "word": "kat",
         "translation": "кошку"
       },
-      "word_7": {
+      "Verbum2": {
         "word": "sidde",
         "translation": "сидеть"
       },
-      "word_8": {
+      "Præposition1": {
         "word": "i",
         "translation": "в"
       },
-      "word_9": {
+      "Objekt2": {
         "word": "græsset",
         "translation": "траве"
       },
-      "word_10": {
+      "Punktum": {
         "word": ".",
         "translation": "."
       },
-      "full_translation": "Она увидела маленькую серую кошку, сидящую на траве. "
+      "full_translation": "Она увидела одну маленькую серую кошку сидеть в траве ."
     },
     {
-      "word_1": {
+      "Pronomen1": {
         "word": "Den",
         "translation": "Она/он"
       },
-      "word_2": {
+      "Verbum1": {
         "word": "så",
         "translation": "выглядела/выглядел"
       },
-      "word_3": {
+      "Adjektiv1": {
         "word": "sulten",
         "translation": "голодной"
       },
-      "word_4": {
+      "Konjunktion1": {
         "word": "og",
         "translation": "и"
       },
-      "word_5": {
+      "Adjektiv2": {
         "word": "træt",
         "translation": "усталой"
       },
-      "word_6": {
+      "Adverbium1": {
         "word": "ud",
         "translation": "внешне"
       },
-      "word_7": {
+      "Punktum": {
         "word": ".",
         "translation": "."
       },
-      "full_translation": "Она выглядела голодной и усталой."
+      "full_translation": "Она/он выглядела/выглядел голодной и усталой внешне ."
     },
     {
-      "word_1": {
+      "Subjekt1": {
         "word": "Emma",
         "translation": "Эмма"
       },
-      "word_2": {
+      "Verbum1": {
         "word": "gik",
         "translation": "пошла"
       },
-      "word_3": {
+      "Adverbium1": {
         "word": "forsigtigt",
         "translation": "осторожно"
       },
-      "word_4": {
+      "Adverbium2": {
         "word": "hen",
         "translation": "к"
       },
-      "word_5": {
+      "Præposition1": {
         "word": "til",
         "translation": "к"
       },
-      "word_6": {
+      "Pronomen1": {
         "word": "den",
         "translation": "ней"
       },
-      "word_7": {
+      "Punktum": {
         "word": ".",
         "translation": "."
       },
-      "full_translation": "Эмма пошла осторожно к ней ."
+      "full_translation": "Эмма пошла осторожно к к ней ."
     },
     {
-      "word_1": {
+      "Subjekt1": {
         "word": "Katten",
         "translation": "Кошка"
       },
-      "word_2": {
+      "Verbum1": {
         "word": "mjavede",
         "translation": "мяукнула"
       },
-      "word_3": {
+      "Konjunktion1": {
         "word": "og",
         "translation": "и"
       },
-      "word_4": {
+      "Verbum2": {
         "word": "kom",
         "translation": "подошла"
       },
-      "word_5": {
+      "Adverbium1": {
         "word": "tættere",
         "translation": "ближе"
       },
-      "word_6": {
+      "Præposition1": {
         "word": "på",
         "translation": "к"
       },
-      "word_7": {
+      "Punktum": {
         "word": ".",
         "translation": "."
       },
-      "full_translation": "Кошка мяукнула и подошла ближе ."
+      "full_translation": "Кошка мяукнула и подошла ближе к ."
     },
     {
-      "word_1": {
+      "Subjekt1": {
         "word": "Emma",
         "translation": "Эмма"
       },
-      "word_2": {
+      "Verbum1": {
         "word": "satte",
         "translation": "села"
       },
-      "word_3": {
+      "Pronomen1": {
         "word": "sig",
         "translation": "сама"
       },
-      "word_4": {
+      "Præposition1": {
         "word": "på",
         "translation": "на"
       },
-      "word_5": {
+      "Objekt1": {
         "word": "jorden",
         "translation": "землю"
       },
-      "word_6": {
+      "Konjunktion1": {
         "word": "og",
         "translation": "и"
       },
-      "word_7": {
+      "Verbum2": {
         "word": "rakte",
         "translation": "протянула"
       },
-      "word_8": {
+      "Objekt2": {
         "word": "hånden",
         "translation": "руку"
       },
-      "word_9": {
+      "Adverbium1": {
         "word": "frem",
         "translation": "вперёд"
       },
-      "word_10": {
+      "Punktum": {
         "word": ".",
         "translation": "."
       },
-      "full_translation": "Эмма села на землю и протянула руку."
+      "full_translation": "Эмма села сама на землю и протянула руку вперёд ."
     },
     {
-      "word_1": {
+      "Subjekt1": {
         "word": "Katten",
         "translation": "Кошка"
       },
-      "word_2": {
+      "Verbum1": {
         "word": "snusede",
         "translation": "понюхала"
       },
-      "word_3": {
+      "Konjunktion1": {
         "word": "og",
         "translation": "и"
       },
-      "word_4": {
+      "Verbum2": {
         "word": "begyndte",
         "translation": "начала"
       },
-      "word_5": {
+      "Partikel": {
         "word": "at",
         "translation": "чтобы"
       },
-      "word_6": {
+      "Verbum3": {
         "word": "gnide",
         "translation": "тереться"
       },
-      "word_7": {
+      "Pronomen1": {
         "word": "sig",
         "translation": "себя"
       },
-      "word_8": {
+      "Præposition1": {
         "word": "mod",
         "translation": "о"
       },
-      "word_9": {
+      "Pronomen2": {
         "word": "hendes",
         "translation": "её"
       },
-      "word_10": {
+      "Objekt1": {
         "word": "ben",
         "translation": "ноги"
       },
-      "word_11": {
+      "Punktum": {
         "word": ".",
         "translation": "."
       },
-      "full_translation": "Кошка понюхала и начала тереться о её ноги."
+      "full_translation": "Кошка понюхала и начала чтобы тереться себя о её ноги ."
     },
     {
-      "word_1": {
+      "Pronomen1": {
         "word": "Hun",
         "translation": "Она"
       },
-      "word_2": {
+      "Verbum1": {
         "word": "smilede",
         "translation": "улыбнулась"
       },
-      "word_3": {
+      "Konjunktion1": {
         "word": "og",
         "translation": "и"
       },
-      "word_4": {
+      "Verbum2": {
         "word": "klappede",
         "translation": "погладила"
       },
-      "word_5": {
+      "Pronomen2": {
         "word": "den",
         "translation": "её/его"
       },
-      "word_6": {
+      "Adverbium1": {
         "word": "forsigtigt",
         "translation": "осторожно"
       },
-      "word_7": {
+      "Punktum": {
         "word": ".",
         "translation": "."
       },
-      "full_translation": "Она улыбнулась и погладила её осторожно ."
+      "full_translation": "Она улыбнулась и погладила её/его осторожно ."
     },
     {
-      "word_1": {
+      "Subjekt1": {
         "word": "Emma",
         "translation": "Эмма"
       },
-      "word_2": {
+      "Verbum1": {
         "word": "gik",
         "translation": "пошла"
       },
-      "word_3": {
+      "Adverbium1": {
         "word": "ind",
         "translation": "внутрь"
       },
-      "word_4": {
+      "Konjunktion1": {
         "word": "og",
         "translation": "и"
       },
-      "word_5": {
+      "Verbum2": {
         "word": "hentede",
         "translation": "принесла"
       },
-      "word_6": {
+      "Adverbium2": {
         "word": "lidt",
         "translation": "немного"
       },
-      "word_7": {
+      "Objekt1": {
         "word": "mælk",
         "translation": "молока"
       },
-      "word_8": {
+      "Konjunktion2": {
         "word": "og",
         "translation": "и"
       },
-      "word_9": {
+      "Adjektiv1": {
         "word": "en",
         "translation": "одну"
       },
-      "word_10": {
+      "Adjektiv2": {
         "word": "lille",
         "translation": "маленькую"
       },
-      "word_11": {
+      "Objekt2": {
         "word": "skål",
         "translation": "миску"
       },
-      "word_12": {
+      "Punktum": {
         "word": ".",
         "translation": "."
       },
-      "full_translation": "Эмма пошла внутрь и принесла немного молока и маленькую миску ."
+      "full_translation": "Эмма пошла внутрь и принесла немного молока и одну маленькую миску ."
     },
     {
-      "word_1": {
+      "Subjekt1": {
         "word": "Katten",
         "translation": "Кошка"
       },
-      "word_2": {
+      "Verbum1": {
         "word": "drak",
         "translation": "пила"
       },
-      "word_3": {
+      "Præposition1": {
         "word": "med",
         "translation": "с"
       },
-      "word_4": {
+      "Pronomen1": {
         "word": "det",
         "translation": "тем"
       },
-      "word_5": {
+      "Adjektiv1": {
         "word": "samme",
         "translation": "же"
       },
-      "word_6": {
+      "Punktum": {
         "word": ".",
         "translation": "."
       },
       "full_translation": "Кошка пила с тем же ."
     },
     {
-      "word_1": {
+      "Pronomen1": {
         "word": "Den",
         "translation": "Она/он"
       },
-      "word_2": {
+      "Verbum1": {
         "word": "var",
         "translation": "была/был"
       },
-      "word_3": {
+      "Adverbium1": {
         "word": "tydeligvis",
         "translation": "явно"
       },
-      "word_4": {
+      "Adverbium2": {
         "word": "meget",
         "translation": "очень"
       },
-      "word_5": {
+      "Adjektiv1": {
         "word": "tørstig",
         "translation": "жаждущей/жаждущим"
       },
-      "word_6": {
+      "Punktum": {
         "word": ".",
         "translation": "."
       },
-      "full_translation": "Было видно, что она очень хотела пить."
+      "full_translation": "Она/он была/был явно очень жаждущей/жаждущим ."
     },
     {
-      "word_1": {
+      "Præposition1": {
         "word": "Efter",
         "translation": "Через"
       },
-      "word_2": {
+      "Adjektiv1": {
         "word": "lidt",
         "translation": "немного"
       },
-      "word_3": {
+      "Subjekt1": {
         "word": "tid",
         "translation": "времени"
       },
-      "word_4": {
+      "Verbum1": {
         "word": "rejste",
         "translation": "кошка"
       },
-      "word_5": {
+      "Subjekt2": {
         "word": "katten",
         "translation": "она"
       },
-      "word_6": {
+      "Pronomen1": {
         "word": "sig",
         "translation": "встала"
       },
-      "word_7": {
+      "Konjunktion1": {
         "word": "og",
         "translation": "и"
       },
-      "word_8": {
+      "Verbum2": {
         "word": "gik",
         "translation": "пошла"
       },
-      "word_9": {
+      "Adverbium1": {
         "word": "rundt",
         "translation": "вокруг"
       },
-      "word_10": {
+      "Præposition2": {
         "word": "i",
         "translation": "в"
       },
-      "word_11": {
+      "Objekt1": {
         "word": "haven",
         "translation": "сада"
       },
-      "word_12": {
+      "Punktum": {
         "word": ".",
         "translation": "."
       },
-      "full_translation": "Через некоторое время кошка поднялась и побежала по саду."
+      "full_translation": "Через немного времени кошка она встала и пошла вокруг в сада ."
     },
     {
-      "word_1": {
+      "Pronomen1": {
         "word": "Den",
         "translation": "Она/он"
       },
-      "word_2": {
+      "Verbum1": {
         "word": "så",
         "translation": "выглядела/выглядел"
       },
-      "word_3": {
+      "Adjektiv1": {
         "word": "gladere",
         "translation": "счастливее"
       },
-      "word_4": {
+      "Adverbium1": {
         "word": "ud",
         "translation": "внешне"
       },
-      "word_5": {
+      "Adverbium2": {
         "word": "nu",
         "translation": "теперь"
       },
-      "word_6": {
+      "Punktum": {
         "word": ".",
         "translation": "."
       },
-      "full_translation": "Она выглядела счастливее."
+      "full_translation": "Она/он выглядела/выглядел счастливее внешне теперь ."
     },
     {
-      "word_1": {
+      "Subjekt1": {
         "word": "Emma",
         "translation": "Эмма"
       },
-      "word_2": {
+      "Verbum1": {
         "word": "fulgte",
         "translation": "следила"
       },
-      "word_3": {
+      "Pronomen1": {
         "word": "den",
         "translation": "за"
       },
-      "word_4": {
+      "Præposition1": {
         "word": "med",
         "translation": "ней/ним"
       },
-      "word_5": {
+      "Objekt1": {
         "word": "øjnene",
         "translation": "глазами"
       },
-      "word_6": {
+      "Punktum": {
         "word": ".",
         "translation": "."
       },
-      "full_translation": "Эмма смотрела на неё."
+      "full_translation": "Эмма следила за ней/ним глазами ."
     },
     {
-      "word_1": {
+      "Pronomen1": {
         "word": "Hun",
         "translation": "Она"
       },
-      "word_2": {
+      "Verbum1": {
         "word": "håbede",
         "translation": "надеялась"
       },
-      "word_3": {
+      "Koma": {
         "word": ",",
         "translation": ","
       },
-      "word_4": {
+      "Pronomen2": {
         "word": "den",
         "translation": "она/он"
       },
-      "word_5": {
+      "Verbum2": {
         "word": "ville",
         "translation": "хотела"
       },
-      "word_6": {
+      "Verbum3": {
         "word": "blive",
         "translation": "остаться"
       },
-      "word_7": {
-        "word": ",",
-        "translation": ","
-      },
-      "word_8": {
+      "Konjunktion1": {
         "word": "men",
         "translation": "но"
       },
-      "word_9": {
+      "Pronomen3": {
         "word": "hun",
         "translation": "она"
       },
-      "word_10": {
+      "Verbum4": {
         "word": "vidste",
         "translation": "знала"
       },
-      "word_11": {
+      "Adverbium1": {
         "word": "ikke",
         "translation": "не"
       },
-      "word_12": {
-        "word": ",",
-        "translation": ","
-      },
-      "word_13": {
+      "Konjunktion2": {
         "word": "om",
         "translation": "ли"
       },
-      "word_14": {
+      "Pronomen4": {
         "word": "den",
         "translation": "она/он"
       },
-      "word_15": {
+      "Verbum5": {
         "word": "havde",
         "translation": "имела"
       },
-      "word_16": {
+      "Adjektiv1": {
         "word": "et",
         "translation": "один"
       },
-      "word_17": {
+      "Objekt1": {
         "word": "hjem",
         "translation": "дом"
       },
-      "word_18": {
+      "Punktum": {
         "word": ".",
         "translation": "."
       },
-      "full_translation": "Она надеялась, что кошка останется, но не знала, есть ли у неё дом."
+      "full_translation": "Она надеялась , она/он хотела остаться , но она знала не , ли она/он имела один дом ."
     },
     {
-      "word_1": {
+      "Pronomen1": {
         "word": "Hun",
         "translation": "Она"
       },
-      "word_2": {
+      "Verbum1": {
         "word": "satte",
         "translation": "поставила"
       },
-      "word_3": {
+      "Objekt1": {
         "word": "skiltet",
         "translation": "табличку"
       },
-      "word_4": {
+      "Adverbium1": {
         "word": "op",
         "translation": "вверх/на"
       },
-      "word_5": {
+      "Præposition1": {
         "word": "ved",
         "translation": "у"
       },
-      "word_6": {
+      "Objekt2": {
         "word": "vejen",
         "translation": "дороге"
       },
-      "word_7": {
+      "Konjunktion1": {
         "word": "og",
         "translation": "и"
       },
-      "word_8": {
+      "Verbum2": {
         "word": "ventede",
         "translation": "ждала"
       },
-      "word_9": {
+      "Punktum": {
         "word": ".",
         "translation": "."
       },
-      "full_translation": "Она повесила табличку у дороги и ждала."
+      "full_translation": "Она поставила табличку вверх/на у дороге и ждала ."
     },
     {
-      "word_1": {
+      "Subjekt1": {
         "word": "Ingen",
         "translation": "Никто"
       },
-      "word_2": {
+      "Verbum1": {
         "word": "ringede",
         "translation": "звонил"
       },
-      "word_3": {
+      "Pronomen1": {
         "word": "den",
         "translation": "тот"
       },
-      "word_4": {
+      "Objekt1": {
         "word": "dag",
         "translation": "день"
       },
-      "word_5": {
+      "Punktum": {
         "word": ".",
         "translation": "."
       },
-      "full_translation": "В тот день никто не позвонил."
+      "full_translation": "Никто звонил тот день ."
     },
     {
-      "word_1": {
+      "Subjekt1": {
         "word": "Katten",
         "translation": "Кошка"
       },
-      "word_2": {
+      "Verbum1": {
         "word": "sov",
         "translation": "спала"
       },
-      "word_3": {
+      "Præposition1": {
         "word": "på",
         "translation": "на"
       },
-      "word_4": {
+      "Adjektiv1": {
         "word": "en",
         "translation": "одной"
       },
-      "word_5": {
+      "Objekt1": {
         "word": "pude",
         "translation": "подушке"
       },
-      "word_6": {
+      "Præposition2": {
         "word": "ved",
         "translation": "у"
       },
-      "word_7": {
+      "Pronomen1": {
         "word": "hendes",
         "translation": "её"
       },
-      "word_8": {
+      "Objekt2": {
         "word": "dør",
         "translation": "двери"
       },
-      "word_9": {
+      "Punktum": {
         "word": ".",
         "translation": "."
       },
-      "full_translation": "Кошка спала на подушке у её двери."
+      "full_translation": "Кошка спала на одной подушке у её двери ."
     }
   ]
 }
