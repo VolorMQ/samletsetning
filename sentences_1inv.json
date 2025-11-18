@@ -2,667 +2,867 @@
   "sentences": [
     {
       "Det": {
-        "word": "Subjekt"
+        "word": "Subjekt",
+        "translation": " "
       },
       "var": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "tidlig": {
-        "word": "Adjektiv"
+        "word": "Adjektiv",
+        "translation": " "
       },
       "morgen": {
-        "word": "Subjekt"
+        "word": "Subjekt",
+        "translation": " "
       },
       ",": {
-        "word": "Koma"
+        "word": "Koma",
+        "translation": " "
       },
       "og": {
-        "word": "Konjunktion"
+        "word": "Konjunktion",
+        "translation": " "
       },
       "solen": {
-        "word": "Subjekt"
+        "word": "Subjekt",
+        "translation": " "
       },
       "begyndte": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "at": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "stå": {
-        "word": "Punktum"
+        "word": "Punktum",
+        "translation": " "
       },
-      "op.": {},
-      "full_translation": NaN
+      "op.": {
+        "translation": " "
+      },
+      "full_translation": " "
     },
     {
       "Emma": {
-        "word": "Subjekt"
+        "word": "Subjekt",
+        "translation": " "
       },
       "åbnede": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "vinduet": {
-        "word": "Objekt"
+        "word": "Objekt",
+        "translation": " "
       },
       "og": {
-        "word": "Konjunktion"
+        "word": "Konjunktion",
+        "translation": " "
       },
       "mærkede": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "den": {
-        "word": "Pronomen"
+        "word": "Pronomen",
+        "translation": " "
       },
       "friske": {
-        "word": "Adjektiv"
+        "word": "Adjektiv",
+        "translation": " "
       },
       "luft.": {
-        "word": "Objekt"
+        "word": "Objekt",
+        "translation": " "
       },
       "nan": {
-        "word": "Punktum"
+        "word": "Punktum",
+        "translation": " "
       },
-      "full_translation": NaN
+      "full_translation": " "
     },
     {
       "Fuglene": {
-        "word": "Subjekt"
+        "word": "Subjekt",
+        "translation": " "
       },
       "sang": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       ",": {
-        "word": "Koma"
+        "word": "Koma",
+        "translation": " "
       },
       "og": {
-        "word": "Konjunktion"
+        "word": "Konjunktion",
+        "translation": " "
       },
       "alt": {
-        "word": "Subjekt"
+        "word": "Subjekt",
+        "translation": " "
       },
       "var": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "stille.": {
-        "word": "Adjektiv"
+        "word": "Adjektiv",
+        "translation": " "
       },
       "nan": {
-        "word": "Punktum"
+        "word": "Punktum",
+        "translation": " "
       },
-      "full_translation": NaN
+      "full_translation": " "
     },
     {
       "Pludselig": {
-        "word": "Adverbium"
+        "word": "Adverbium",
+        "translation": " "
       },
       "hørte": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "hun": {
-        "word": "Pronomen"
+        "word": "Pronomen",
+        "translation": " "
       },
       "en": {
-        "word": "Adjektiv"
+        "word": "Adjektiv",
+        "translation": " "
       },
       "lyd": {
-        "word": "Objekt"
+        "word": "Objekt",
+        "translation": " "
       },
       "i": {
-        "word": "Præposition"
+        "word": "Præposition",
+        "translation": " "
       },
       "haven.": {
-        "word": "Objekt"
+        "word": "Objekt",
+        "translation": " "
       },
       "nan": {
-        "word": "Punktum"
+        "word": "Punktum",
+        "translation": " "
       },
-      "full_translation": NaN
+      "full_translation": " "
     },
     {
       "Det": {
-        "word": "Subjekt"
+        "word": "Subjekt",
+        "translation": " "
       },
       "lød": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "som": {
-        "word": "Konjunktion"
+        "word": "Konjunktion",
+        "translation": " "
       },
       "noget": {
-        "word": "Subjekt"
+        "word": "Subjekt",
+        "translation": " "
       },
       ",": {
-        "word": "Koma"
+        "word": "Koma",
+        "translation": " "
       },
       "der": {
-        "word": "Pronomen"
+        "word": "Pronomen",
+        "translation": " "
       },
       "bevægede": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "sig": {
-        "word": "Pronomen"
+        "word": "Pronomen",
+        "translation": " "
       },
       "i": {
-        "word": "Præposition"
+        "word": "Præposition",
+        "translation": " "
       },
       "buskene.": {
-        "word": "Objekt"
+        "word": "Objekt",
+        "translation": " "
       },
       "nan": {
-        "word": "Punktum"
+        "word": "Punktum",
+        "translation": " "
       },
-      "full_translation": NaN
+      "full_translation": " "
     },
     {
       "Emma": {
-        "word": "Subjekt"
+        "word": "Subjekt",
+        "translation": " "
       },
       "blev": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "nysgerrig": {
-        "word": "Adjektiv"
+        "word": "Adjektiv",
+        "translation": " "
       },
       "og": {
-        "word": "Konjunktion"
+        "word": "Konjunktion",
+        "translation": " "
       },
       "gik": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "ud": {
-        "word": "Adverbium"
+        "word": "Adverbium",
+        "translation": " "
       },
       "for": {
-        "word": "Præposition"
+        "word": "Præposition",
+        "translation": " "
       },
       "at": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "se.": {
-        "word": "Punktum"
+        "word": "Punktum",
+        "translation": " "
       },
-      "full_translation": NaN
+      "full_translation": " "
     },
     {
       "Hun": {
-        "word": "Pronomen"
+        "word": "Pronomen",
+        "translation": " "
       },
       "så": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "en": {
-        "word": "Adjektiv"
+        "word": "Adjektiv",
+        "translation": " "
       },
       "lille": {
-        "word": "Adjektiv"
+        "word": "Adjektiv",
+        "translation": " "
       },
       "grå": {
-        "word": "Adjektiv"
+        "word": "Adjektiv",
+        "translation": " "
       },
       "kat": {
-        "word": "Objekt"
+        "word": "Objekt",
+        "translation": " "
       },
       "sidde": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "i": {
-        "word": "Præposition"
+        "word": "Præposition",
+        "translation": " "
       },
       "græsset.": {
-        "word": "Objekt"
+        "word": "Objekt",
+        "translation": " "
       },
       "nan": {
-        "word": "Punktum"
+        "word": "Punktum",
+        "translation": " "
       },
-      "full_translation": NaN
+      "full_translation": " "
     },
     {
       "Den": {
-        "word": "Pronomen"
+        "word": "Pronomen",
+        "translation": " "
       },
       "så": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "sulten": {
-        "word": "Adjektiv"
+        "word": "Adjektiv",
+        "translation": " "
       },
       "og": {
-        "word": "Konjunktion"
+        "word": "Konjunktion",
+        "translation": " "
       },
       "træt": {
-        "word": "Adjektiv"
+        "word": "Adjektiv",
+        "translation": " "
       },
       "ud.": {
-        "word": "Adverbium"
+        "word": "Adverbium",
+        "translation": " "
       },
       "nan": {
-        "word": "Punktum"
+        "word": "Punktum",
+        "translation": " "
       },
-      "full_translation": NaN
+      "full_translation": " "
     },
     {
       "Emma": {
-        "word": "Subjekt"
+        "word": "Subjekt",
+        "translation": " "
       },
       "gik": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "forsigtigt": {
-        "word": "Adverbium"
+        "word": "Adverbium",
+        "translation": " "
       },
       "hen": {
-        "word": "Adverbium"
+        "word": "Adverbium",
+        "translation": " "
       },
       "til": {
-        "word": "Præposition"
+        "word": "Præposition",
+        "translation": " "
       },
       "den.": {
-        "word": "Pronomen"
+        "word": "Pronomen",
+        "translation": " "
       },
       "nan": {
-        "word": "Punktum"
+        "word": "Punktum",
+        "translation": " "
       },
-      "full_translation": NaN
+      "full_translation": " "
     },
     {
       "Katten": {
-        "word": "Subjekt"
+        "word": "Subjekt",
+        "translation": " "
       },
       "mjavede": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "og": {
-        "word": "Konjunktion"
+        "word": "Konjunktion",
+        "translation": " "
       },
       "kom": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "tættere": {
-        "word": "Adverbium"
+        "word": "Adverbium",
+        "translation": " "
       },
       "på.": {
-        "word": "Præposition"
+        "word": "Præposition",
+        "translation": " "
       },
       "nan": {
-        "word": "Punktum"
+        "word": "Punktum",
+        "translation": " "
       },
-      "full_translation": NaN
+      "full_translation": " "
     },
     {
       "Emma": {
-        "word": "Subjekt"
+        "word": "Subjekt",
+        "translation": " "
       },
       "satte": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "sig": {
-        "word": "Pronomen"
+        "word": "Pronomen",
+        "translation": " "
       },
       "på": {
-        "word": "Præposition"
+        "word": "Præposition",
+        "translation": " "
       },
       "jorden": {
-        "word": "Objekt"
+        "word": "Objekt",
+        "translation": " "
       },
       "og": {
-        "word": "Konjunktion"
+        "word": "Konjunktion",
+        "translation": " "
       },
       "rakte": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "hånden": {
-        "word": "Objekt"
+        "word": "Objekt",
+        "translation": " "
       },
       "frem.": {
-        "word": "Adverbium"
+        "word": "Adverbium",
+        "translation": " "
       },
       "nan": {
-        "word": "Punktum"
+        "word": "Punktum",
+        "translation": " "
       },
-      "full_translation": NaN
+      "full_translation": " "
     },
     {
       "Katten": {
-        "word": "Subjekt"
+        "word": "Subjekt",
+        "translation": " "
       },
       "snusede": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "og": {
-        "word": "Konjunktion"
+        "word": "Konjunktion",
+        "translation": " "
       },
       "begyndte": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "at": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "gnide": {
-        "word": "Pronomen"
+        "word": "Pronomen",
+        "translation": " "
       },
       "sig": {
-        "word": "Præposition"
+        "word": "Præposition",
+        "translation": " "
       },
       "mod": {
-        "word": "Pronomen"
+        "word": "Pronomen",
+        "translation": " "
       },
       "hendes": {
-        "word": "Objekt"
+        "word": "Objekt",
+        "translation": " "
       },
       "ben.": {
-        "word": "Punktum"
+        "word": "Punktum",
+        "translation": " "
       },
-      "full_translation": NaN
+      "full_translation": " "
     },
     {
       "Hun": {
-        "word": "Pronomen"
+        "word": "Pronomen",
+        "translation": " "
       },
       "smilede": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "og": {
-        "word": "Konjunktion"
+        "word": "Konjunktion",
+        "translation": " "
       },
       "klappede": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "den": {
-        "word": "Pronomen"
+        "word": "Pronomen",
+        "translation": " "
       },
       "forsigtigt.": {
-        "word": "Adverbium"
+        "word": "Adverbium",
+        "translation": " "
       },
       "nan": {
-        "word": "Punktum"
+        "word": "Punktum",
+        "translation": " "
       },
-      "full_translation": NaN
+      "full_translation": " "
     },
     {
       "Emma": {
-        "word": "Subjekt"
+        "word": "Subjekt",
+        "translation": " "
       },
       "gik": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "ind": {
-        "word": "Adverbium"
+        "word": "Adverbium",
+        "translation": " "
       },
       "og": {
-        "word": "Konjunktion"
+        "word": "Konjunktion",
+        "translation": " "
       },
       "hentede": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "lidt": {
-        "word": "Adverbium"
+        "word": "Adverbium",
+        "translation": " "
       },
       "mælk": {
-        "word": "Objekt"
+        "word": "Objekt",
+        "translation": " "
       },
       "en": {
-        "word": "Adjektiv"
+        "word": "Adjektiv",
+        "translation": " "
       },
       "lille": {
-        "word": "Adjektiv"
+        "word": "Adjektiv",
+        "translation": " "
       },
       "skål.": {
-        "word": "Objekt"
+        "word": "Objekt",
+        "translation": " "
       },
       "nan": {
-        "word": "Punktum"
+        "word": "Punktum",
+        "translation": " "
       },
-      "full_translation": NaN
+      "full_translation": " "
     },
     {
       "Katten": {
-        "word": "Subjekt"
+        "word": "Subjekt",
+        "translation": " "
       },
       "drak": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "med": {
-        "word": "Præposition"
+        "word": "Præposition",
+        "translation": " "
       },
       "det": {
-        "word": "Pronomen"
+        "word": "Pronomen",
+        "translation": " "
       },
       "samme.": {
-        "word": "Adjektiv"
+        "word": "Adjektiv",
+        "translation": " "
       },
       "nan": {
-        "word": "Punktum"
+        "word": "Punktum",
+        "translation": " "
       },
-      "full_translation": NaN
+      "full_translation": " "
     },
     {
       "Den": {
-        "word": "Pronomen"
+        "word": "Pronomen",
+        "translation": " "
       },
       "var": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "tydeligvis": {
-        "word": "Adverbium"
+        "word": "Adverbium",
+        "translation": " "
       },
       "meget": {
-        "word": "Adverbium"
+        "word": "Adverbium",
+        "translation": " "
       },
       "tørstig.": {
-        "word": "Adjektiv"
+        "word": "Adjektiv",
+        "translation": " "
       },
       "nan": {
-        "word": "Punktum"
+        "word": "Punktum",
+        "translation": " "
       },
-      "full_translation": NaN
+      "full_translation": " "
     },
     {
       "Efter": {
-        "word": "Præposition"
+        "word": "Præposition",
+        "translation": " "
       },
       "lidt": {
-        "word": "Adjektiv"
+        "word": "Adjektiv",
+        "translation": " "
       },
       "tid": {
-        "word": "Subjekt"
+        "word": "Subjekt",
+        "translation": " "
       },
       "rejste": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "katten": {
-        "word": "Subjekt"
+        "word": "Subjekt",
+        "translation": " "
       },
       "sig": {
-        "word": "Pronomen"
+        "word": "Pronomen",
+        "translation": " "
       },
       "og": {
-        "word": "Konjunktion"
+        "word": "Konjunktion",
+        "translation": " "
       },
       "gik": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "rundt": {
-        "word": "Adverbium"
+        "word": "Adverbium",
+        "translation": " "
       },
       "i": {
-        "word": "Præposition"
+        "word": "Præposition",
+        "translation": " "
       },
       "haven.": {
-        "word": "Objekt"
+        "word": "Objekt",
+        "translation": " "
       },
       "nan": {
-        "word": "Punktum"
+        "word": "Punktum",
+        "translation": " "
       },
-      "full_translation": NaN
+      "full_translation": " "
     },
     {
       "Den": {
-        "word": "Pronomen"
+        "word": "Pronomen",
+        "translation": " "
       },
       "så": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "gladere": {
-        "word": "Adjektiv"
+        "word": "Adjektiv",
+        "translation": " "
       },
       "ud": {
-        "word": "Adverbium"
+        "word": "Adverbium",
+        "translation": " "
       },
       "nu.": {
-        "word": "Adverbium"
+        "word": "Adverbium",
+        "translation": " "
       },
       "nan": {
-        "word": "Punktum"
+        "word": "Punktum",
+        "translation": " "
       },
-      "full_translation": NaN
+      "full_translation": " "
     },
     {
       "Emma": {
-        "word": "Subjekt"
+        "word": "Subjekt",
+        "translation": " "
       },
       "fulgte": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "den": {
-        "word": "Pronomen"
+        "word": "Pronomen",
+        "translation": " "
       },
       "med": {
-        "word": "Præposition"
+        "word": "Præposition",
+        "translation": " "
       },
       "øjnene.": {
-        "word": "Objekt"
+        "word": "Objekt",
+        "translation": " "
       },
       "nan": {
-        "word": "Punktum"
+        "word": "Punktum",
+        "translation": " "
       },
-      "full_translation": NaN
+      "full_translation": " "
     },
     {
       "Hun": {
-        "word": "Pronomen"
+        "word": "Pronomen",
+        "translation": " "
       },
       "håbede": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       ",": {
-        "word": "Koma"
+        "word": "Koma",
+        "translation": " "
       },
       "den": {
-        "word": "Pronomen"
+        "word": "Pronomen",
+        "translation": " "
       },
       "ville": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "blive": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "men": {
-        "word": "Konjunktion"
+        "word": "Konjunktion",
+        "translation": " "
       },
       "hun": {
-        "word": "Pronomen"
+        "word": "Pronomen",
+        "translation": " "
       },
       "vidste": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "ikke": {
-        "word": "Adverbium"
+        "word": "Adverbium",
+        "translation": " "
       },
       "om": {
-        "word": "Konjunktion"
+        "word": "Konjunktion",
+        "translation": " "
       },
       "havde": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "et": {
-        "word": "Adjektiv"
+        "word": "Adjektiv",
+        "translation": " "
       },
       "hjem.": {
-        "word": "Objekt"
+        "word": "Objekt",
+        "translation": " "
       },
       "nan": {
-        "word": "Punktum"
+        "word": "Punktum",
+        "translation": " "
       },
-      "full_translation": NaN
+      "full_translation": " "
     },
     {
       "Hun": {
-        "word": "Pronomen"
+        "word": "Pronomen",
+        "translation": " "
       },
       "satte": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "skiltet": {
-        "word": "Objekt"
+        "word": "Objekt",
+        "translation": " "
       },
       "op": {
-        "word": "Adverbium"
+        "word": "Adverbium",
+        "translation": " "
       },
       "ved": {
-        "word": "Præposition"
+        "word": "Præposition",
+        "translation": " "
       },
       "vejen": {
-        "word": "Objekt"
+        "word": "Objekt",
+        "translation": " "
       },
       "og": {
-        "word": "Konjunktion"
+        "word": "Konjunktion",
+        "translation": " "
       },
       "ventede.": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "nan": {
-        "word": "Punktum"
+        "word": "Punktum",
+        "translation": " "
       },
-      "full_translation": NaN
+      "full_translation": " "
     },
     {
       "Ingen": {
-        "word": "Subjekt"
+        "word": "Subjekt",
+        "translation": " "
       },
       "ringede": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "den": {
-        "word": "Pronomen"
+        "word": "Pronomen",
+        "translation": " "
       },
       "dag.": {
-        "word": "Objekt"
+        "word": "Objekt",
+        "translation": " "
       },
       "nan": {
-        "word": "Punktum"
+        "word": "Punktum",
+        "translation": " "
       },
-      "full_translation": NaN
+      "full_translation": " "
     },
     {
       "Katten": {
-        "word": "Subjekt"
+        "word": "Subjekt",
+        "translation": " "
       },
       "sov": {
-        "word": "Verbum"
+        "word": "Verbum",
+        "translation": " "
       },
       "på": {
-        "word": "Præposition"
+        "word": "Præposition",
+        "translation": " "
       },
       "en": {
-        "word": "Adjektiv"
+        "word": "Adjektiv",
+        "translation": " "
       },
       "pude": {
-        "word": "Objekt"
+        "word": "Objekt",
+        "translation": " "
       },
       "ved": {
-        "word": "Præposition"
+        "word": "Præposition",
+        "translation": " "
       },
       "hendes": {
-        "word": "Pronomen"
+        "word": "Pronomen",
+        "translation": " "
       },
       "dør.": {
-        "word": "Objekt"
+        "word": "Objekt",
+        "translation": " "
       },
       "nan": {
-        "word": "Punktum"
+        "word": "Punktum",
+        "translation": " "
       },
-      "full_translation": NaN
+      "full_translation": " "
     }
   ]
 }
