@@ -1,1 +1,897 @@
-1
+{
+  "sentences": [
+    {
+      "word_1": {
+        "word": "Det",
+        "translation": "Это"
+      },
+      "word_2": {
+        "word": "var",
+        "translation": "было"
+      },
+      "word_3": {
+        "word": "tidlig",
+        "translation": "раннее"
+      },
+      "word_4": {
+        "word": "morgen",
+        "translation": "утро"
+      },
+      "word_5": {
+        "word": ",",
+        "translation": ","
+      },
+      "word_6": {
+        "word": "og",
+        "translation": "и"
+      },
+      "word_7": {
+        "word": "solen",
+        "translation": "солнце"
+      },
+      "word_8": {
+        "word": "begyndte",
+        "translation": "начало"
+      },
+      "word_9": {
+        "word": "at",
+        "translation": "чтобы"
+      },
+      "word_10": {
+        "word": "stå",
+        "translation": "стоять/вставать"
+      },
+      "word_11": {
+        "word": "op",
+        "translation": "вверх/вставать"
+      },
+      "word_12": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Это было раннее утро , и солнце начало вставать."
+    },
+    {
+      "word_1": {
+        "word": "Emma",
+        "translation": "Эмма"
+      },
+      "word_2": {
+        "word": "åbnede",
+        "translation": "открыла"
+      },
+      "word_3": {
+        "word": "vinduet",
+        "translation": "окно"
+      },
+      "word_4": {
+        "word": "og",
+        "translation": "и"
+      },
+      "word_5": {
+        "word": "mærkede",
+        "translation": "почувствовала"
+      },
+      "word_6": {
+        "word": "den",
+        "translation": "этот"
+      },
+      "word_7": {
+        "word": "friske",
+        "translation": "свежий"
+      },
+      "word_8": {
+        "word": "luft",
+        "translation": "воздух"
+      },
+      "word_9": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Эмма открыла окно и почувствовала свежий воздух ."
+    },
+    {
+      "word_1": {
+        "word": "Fuglene",
+        "translation": "Птицы"
+      },
+      "word_2": {
+        "word": "sang",
+        "translation": "пели"
+      },
+      "word_3": {
+        "word": ",",
+        "translation": ","
+      },
+      "word_4": {
+        "word": "og",
+        "translation": "и"
+      },
+      "word_5": {
+        "word": "alt",
+        "translation": "всё"
+      },
+      "word_6": {
+        "word": "var",
+        "translation": "было"
+      },
+      "word_7": {
+        "word": "stille",
+        "translation": "тихо"
+      },
+      "word_8": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Птицы пели , и всё было тихо ."
+    },
+    {
+      "word_1": {
+        "word": "Pludselig",
+        "translation": "Вдруг"
+      },
+      "word_2": {
+        "word": "hørte",
+        "translation": "услышала"
+      },
+      "word_3": {
+        "word": "hun",
+        "translation": "она"
+      },
+      "word_4": {
+        "word": "en",
+        "translation": "один"
+      },
+      "word_5": {
+        "word": "lyd",
+        "translation": "звук"
+      },
+      "word_6": {
+        "word": "i",
+        "translation": "в"
+      },
+      "word_7": {
+        "word": "haven",
+        "translation": "саду"
+      },
+      "word_8": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Вдруг услышала она звук в саду ."
+    },
+    {
+      "word_1": {
+        "word": "Det",
+        "translation": "Это"
+      },
+      "word_2": {
+        "word": "lød",
+        "translation": "звучало"
+      },
+      "word_3": {
+        "word": "som",
+        "translation": "как"
+      },
+      "word_4": {
+        "word": "noget",
+        "translation": "что-то"
+      },
+      "word_5": {
+        "word": ",",
+        "translation": ","
+      },
+      "word_6": {
+        "word": "der",
+        "translation": "которое"
+      },
+      "word_7": {
+        "word": "bevægede",
+        "translation": "двигалось/шевелилось"
+      },
+      "word_8": {
+        "word": "sig",
+        "translation": "себя"
+      },
+      "word_9": {
+        "word": "i",
+        "translation": "в"
+      },
+      "word_10": {
+        "word": "buskene",
+        "translation": "кустах"
+      },
+      "word_11": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Показалось, что кто-то шевелится в кустах."
+    },
+    {
+      "word_1": {
+        "word": "Emma",
+        "translation": "Эмма"
+      },
+      "word_2": {
+        "word": "blev",
+        "translation": "стала"
+      },
+      "word_3": {
+        "word": "nysgerrig",
+        "translation": "любопытной"
+      },
+      "word_4": {
+        "word": "og",
+        "translation": "и"
+      },
+      "word_5": {
+        "word": "gik",
+        "translation": "пошла"
+      },
+      "word_6": {
+        "word": "ud",
+        "translation": "наружу"
+      },
+      "word_7": {
+        "word": "for",
+        "translation": "чтобы"
+      },
+      "word_8": {
+        "word": "at",
+        "translation": "посмотреть"
+      },
+      "word_9": {
+        "word": "se",
+        "translation": "сейчас"
+      },
+      "word_10": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Эмме стало любопытно, и она вышла посмотреть."
+    },
+    {
+      "word_1": {
+        "word": "Hun",
+        "translation": "Она"
+      },
+      "word_2": {
+        "word": "så",
+        "translation": "увидела"
+      },
+      "word_3": {
+        "word": "en",
+        "translation": "одну"
+      },
+      "word_4": {
+        "word": "lille",
+        "translation": "маленькую"
+      },
+      "word_5": {
+        "word": "grå",
+        "translation": "серую"
+      },
+      "word_6": {
+        "word": "kat",
+        "translation": "кошку"
+      },
+      "word_7": {
+        "word": "sidde",
+        "translation": "сидеть"
+      },
+      "word_8": {
+        "word": "i",
+        "translation": "в"
+      },
+      "word_9": {
+        "word": "græsset",
+        "translation": "траве"
+      },
+      "word_10": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Она увидела маленькую серую кошку, сидящую на траве. "
+    },
+    {
+      "word_1": {
+        "word": "Den",
+        "translation": "Она/он"
+      },
+      "word_2": {
+        "word": "så",
+        "translation": "выглядела/выглядел"
+      },
+      "word_3": {
+        "word": "sulten",
+        "translation": "голодной"
+      },
+      "word_4": {
+        "word": "og",
+        "translation": "и"
+      },
+      "word_5": {
+        "word": "træt",
+        "translation": "усталой"
+      },
+      "word_6": {
+        "word": "ud",
+        "translation": "внешне"
+      },
+      "word_7": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Она выглядела голодной и усталой."
+    },
+    {
+      "word_1": {
+        "word": "Emma",
+        "translation": "Эмма"
+      },
+      "word_2": {
+        "word": "gik",
+        "translation": "пошла"
+      },
+      "word_3": {
+        "word": "forsigtigt",
+        "translation": "осторожно"
+      },
+      "word_4": {
+        "word": "hen",
+        "translation": "к"
+      },
+      "word_5": {
+        "word": "til",
+        "translation": "к"
+      },
+      "word_6": {
+        "word": "den",
+        "translation": "ней"
+      },
+      "word_7": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Эмма пошла осторожно к ней ."
+    },
+    {
+      "word_1": {
+        "word": "Katten",
+        "translation": "Кошка"
+      },
+      "word_2": {
+        "word": "mjavede",
+        "translation": "мяукнула"
+      },
+      "word_3": {
+        "word": "og",
+        "translation": "и"
+      },
+      "word_4": {
+        "word": "kom",
+        "translation": "подошла"
+      },
+      "word_5": {
+        "word": "tættere",
+        "translation": "ближе"
+      },
+      "word_6": {
+        "word": "på",
+        "translation": "к"
+      },
+      "word_7": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Кошка мяукнула и подошла ближе ."
+    },
+    {
+      "word_1": {
+        "word": "Emma",
+        "translation": "Эмма"
+      },
+      "word_2": {
+        "word": "satte",
+        "translation": "села"
+      },
+      "word_3": {
+        "word": "sig",
+        "translation": "сама"
+      },
+      "word_4": {
+        "word": "på",
+        "translation": "на"
+      },
+      "word_5": {
+        "word": "jorden",
+        "translation": "землю"
+      },
+      "word_6": {
+        "word": "og",
+        "translation": "и"
+      },
+      "word_7": {
+        "word": "rakte",
+        "translation": "протянула"
+      },
+      "word_8": {
+        "word": "hånden",
+        "translation": "руку"
+      },
+      "word_9": {
+        "word": "frem",
+        "translation": "вперёд"
+      },
+      "word_10": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Эмма села на землю и протянула руку."
+    },
+    {
+      "word_1": {
+        "word": "Katten",
+        "translation": "Кошка"
+      },
+      "word_2": {
+        "word": "snusede",
+        "translation": "понюхала"
+      },
+      "word_3": {
+        "word": "og",
+        "translation": "и"
+      },
+      "word_4": {
+        "word": "begyndte",
+        "translation": "начала"
+      },
+      "word_5": {
+        "word": "at",
+        "translation": "чтобы"
+      },
+      "word_6": {
+        "word": "gnide",
+        "translation": "тереться"
+      },
+      "word_7": {
+        "word": "sig",
+        "translation": "себя"
+      },
+      "word_8": {
+        "word": "mod",
+        "translation": "о"
+      },
+      "word_9": {
+        "word": "hendes",
+        "translation": "её"
+      },
+      "word_10": {
+        "word": "ben",
+        "translation": "ноги"
+      },
+      "word_11": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Кошка понюхала и начала тереться о её ноги."
+    },
+    {
+      "word_1": {
+        "word": "Hun",
+        "translation": "Она"
+      },
+      "word_2": {
+        "word": "smilede",
+        "translation": "улыбнулась"
+      },
+      "word_3": {
+        "word": "og",
+        "translation": "и"
+      },
+      "word_4": {
+        "word": "klappede",
+        "translation": "погладила"
+      },
+      "word_5": {
+        "word": "den",
+        "translation": "её/его"
+      },
+      "word_6": {
+        "word": "forsigtigt",
+        "translation": "осторожно"
+      },
+      "word_7": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Она улыбнулась и погладила её осторожно ."
+    },
+    {
+      "word_1": {
+        "word": "Emma",
+        "translation": "Эмма"
+      },
+      "word_2": {
+        "word": "gik",
+        "translation": "пошла"
+      },
+      "word_3": {
+        "word": "ind",
+        "translation": "внутрь"
+      },
+      "word_4": {
+        "word": "og",
+        "translation": "и"
+      },
+      "word_5": {
+        "word": "hentede",
+        "translation": "принесла"
+      },
+      "word_6": {
+        "word": "lidt",
+        "translation": "немного"
+      },
+      "word_7": {
+        "word": "mælk",
+        "translation": "молока"
+      },
+      "word_8": {
+        "word": "og",
+        "translation": "и"
+      },
+      "word_9": {
+        "word": "en",
+        "translation": "одну"
+      },
+      "word_10": {
+        "word": "lille",
+        "translation": "маленькую"
+      },
+      "word_11": {
+        "word": "skål",
+        "translation": "миску"
+      },
+      "word_12": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Эмма пошла внутрь и принесла немного молока и маленькую миску ."
+    },
+    {
+      "word_1": {
+        "word": "Katten",
+        "translation": "Кошка"
+      },
+      "word_2": {
+        "word": "drak",
+        "translation": "пила"
+      },
+      "word_3": {
+        "word": "med",
+        "translation": "с"
+      },
+      "word_4": {
+        "word": "det",
+        "translation": "тем"
+      },
+      "word_5": {
+        "word": "samme",
+        "translation": "же"
+      },
+      "word_6": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Кошка пила с тем же ."
+    },
+    {
+      "word_1": {
+        "word": "Den",
+        "translation": "Она/он"
+      },
+      "word_2": {
+        "word": "var",
+        "translation": "была/был"
+      },
+      "word_3": {
+        "word": "tydeligvis",
+        "translation": "явно"
+      },
+      "word_4": {
+        "word": "meget",
+        "translation": "очень"
+      },
+      "word_5": {
+        "word": "tørstig",
+        "translation": "жаждущей/жаждущим"
+      },
+      "word_6": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Было видно, что она очень хотела пить."
+    },
+    {
+      "word_1": {
+        "word": "Efter",
+        "translation": "Через"
+      },
+      "word_2": {
+        "word": "lidt",
+        "translation": "немного"
+      },
+      "word_3": {
+        "word": "tid",
+        "translation": "времени"
+      },
+      "word_4": {
+        "word": "rejste",
+        "translation": "кошка"
+      },
+      "word_5": {
+        "word": "katten",
+        "translation": "она"
+      },
+      "word_6": {
+        "word": "sig",
+        "translation": "встала"
+      },
+      "word_7": {
+        "word": "og",
+        "translation": "и"
+      },
+      "word_8": {
+        "word": "gik",
+        "translation": "пошла"
+      },
+      "word_9": {
+        "word": "rundt",
+        "translation": "вокруг"
+      },
+      "word_10": {
+        "word": "i",
+        "translation": "в"
+      },
+      "word_11": {
+        "word": "haven",
+        "translation": "сада"
+      },
+      "word_12": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Через некоторое время кошка поднялась и побежала по саду."
+    },
+    {
+      "word_1": {
+        "word": "Den",
+        "translation": "Она/он"
+      },
+      "word_2": {
+        "word": "så",
+        "translation": "выглядела/выглядел"
+      },
+      "word_3": {
+        "word": "gladere",
+        "translation": "счастливее"
+      },
+      "word_4": {
+        "word": "ud",
+        "translation": "внешне"
+      },
+      "word_5": {
+        "word": "nu",
+        "translation": "теперь"
+      },
+      "word_6": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Она выглядела счастливее."
+    },
+    {
+      "word_1": {
+        "word": "Emma",
+        "translation": "Эмма"
+      },
+      "word_2": {
+        "word": "fulgte",
+        "translation": "следила"
+      },
+      "word_3": {
+        "word": "den",
+        "translation": "за"
+      },
+      "word_4": {
+        "word": "med",
+        "translation": "ней/ним"
+      },
+      "word_5": {
+        "word": "øjnene",
+        "translation": "глазами"
+      },
+      "word_6": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Эмма смотрела на неё."
+    },
+    {
+      "word_1": {
+        "word": "Hun",
+        "translation": "Она"
+      },
+      "word_2": {
+        "word": "håbede",
+        "translation": "надеялась"
+      },
+      "word_3": {
+        "word": ",",
+        "translation": ","
+      },
+      "word_4": {
+        "word": "den",
+        "translation": "она/он"
+      },
+      "word_5": {
+        "word": "ville",
+        "translation": "хотела"
+      },
+      "word_6": {
+        "word": "blive",
+        "translation": "остаться"
+      },
+      "word_7": {
+        "word": ",",
+        "translation": ","
+      },
+      "word_8": {
+        "word": "men",
+        "translation": "но"
+      },
+      "word_9": {
+        "word": "hun",
+        "translation": "она"
+      },
+      "word_10": {
+        "word": "vidste",
+        "translation": "знала"
+      },
+      "word_11": {
+        "word": "ikke",
+        "translation": "не"
+      },
+      "word_12": {
+        "word": ",",
+        "translation": ","
+      },
+      "word_13": {
+        "word": "om",
+        "translation": "ли"
+      },
+      "word_14": {
+        "word": "den",
+        "translation": "она/он"
+      },
+      "word_15": {
+        "word": "havde",
+        "translation": "имела"
+      },
+      "word_16": {
+        "word": "et",
+        "translation": "один"
+      },
+      "word_17": {
+        "word": "hjem",
+        "translation": "дом"
+      },
+      "word_18": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Она надеялась, что кошка останется, но не знала, есть ли у неё дом."
+    },
+    {
+      "word_1": {
+        "word": "Hun",
+        "translation": "Она"
+      },
+      "word_2": {
+        "word": "satte",
+        "translation": "поставила"
+      },
+      "word_3": {
+        "word": "skiltet",
+        "translation": "табличку"
+      },
+      "word_4": {
+        "word": "op",
+        "translation": "вверх/на"
+      },
+      "word_5": {
+        "word": "ved",
+        "translation": "у"
+      },
+      "word_6": {
+        "word": "vejen",
+        "translation": "дороге"
+      },
+      "word_7": {
+        "word": "og",
+        "translation": "и"
+      },
+      "word_8": {
+        "word": "ventede",
+        "translation": "ждала"
+      },
+      "word_9": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Она повесила табличку у дороги и ждала."
+    },
+    {
+      "word_1": {
+        "word": "Ingen",
+        "translation": "Никто"
+      },
+      "word_2": {
+        "word": "ringede",
+        "translation": "звонил"
+      },
+      "word_3": {
+        "word": "den",
+        "translation": "тот"
+      },
+      "word_4": {
+        "word": "dag",
+        "translation": "день"
+      },
+      "word_5": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "В тот день никто не позвонил."
+    },
+    {
+      "word_1": {
+        "word": "Katten",
+        "translation": "Кошка"
+      },
+      "word_2": {
+        "word": "sov",
+        "translation": "спала"
+      },
+      "word_3": {
+        "word": "på",
+        "translation": "на"
+      },
+      "word_4": {
+        "word": "en",
+        "translation": "одной"
+      },
+      "word_5": {
+        "word": "pude",
+        "translation": "подушке"
+      },
+      "word_6": {
+        "word": "ved",
+        "translation": "у"
+      },
+      "word_7": {
+        "word": "hendes",
+        "translation": "её"
+      },
+      "word_8": {
+        "word": "dør",
+        "translation": "двери"
+      },
+      "word_9": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Кошка спала на подушке у её двери."
+    }
+  ]
+}
