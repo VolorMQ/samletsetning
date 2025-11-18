@@ -2,11 +2,11 @@
   "sentences": [
     {
       "Det": {
-        "word": "Subjekt",
+        "word": "Subjekt1",
         "translation": " "
       },
       "var": {
-        "word": "Verbum",
+        "word": "Verbum1",
         "translation": " "
       },
       "tidlig": {
@@ -14,7 +14,7 @@
         "translation": " "
       },
       "morgen": {
-        "word": "Subjekt",
+        "word": "Subjekt2",
         "translation": " "
       },
       ",": {
@@ -26,37 +26,42 @@
         "translation": " "
       },
       "solen": {
-        "word": "Subjekt",
+        "word": "Subjekt3",
         "translation": " "
       },
       "begyndte": {
-        "word": "Verbum",
+        "word": "Verbum2",
         "translation": " "
       },
       "at": {
-        "word": "Verbum",
+        "word": "Verbum3",
         "translation": " "
       },
       "stå": {
-        "word": "Punktum",
+        "word": "Verbum4",
         "translation": " "
       },
-      "op.": {
+      "op": {
+        "word": "Verbum5",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
         "translation": " "
       },
       "full_translation": " "
     },
     {
       "Emma": {
-        "word": "Subjekt",
+        "word": "Subjekt1",
         "translation": " "
       },
       "åbnede": {
-        "word": "Verbum",
+        "word": "Verbum1",
         "translation": " "
       },
       "vinduet": {
-        "word": "Objekt",
+        "word": "Objekt1",
         "translation": " "
       },
       "og": {
@@ -64,19 +69,23 @@
         "translation": " "
       },
       "mærkede": {
-        "word": "Verbum",
+        "word": "Verbum2",
         "translation": " "
       },
       "den": {
-        "word": "Pronomen",
+        "word": "Pronomen1",
         "translation": " "
       },
       "friske": {
-        "word": "Adjektiv",
+        "word": "Adjektiv1",
         "translation": " "
       },
-      "luft.": {
-        "word": "Objekt",
+      "luft": {
+        "word": "Adjektiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Objekt2",
         "translation": " "
       },
       "nan": {
@@ -87,11 +96,11 @@
     },
     {
       "Fuglene": {
-        "word": "Subjekt",
+        "word": "Subjekt1",
         "translation": " "
       },
       "sang": {
-        "word": "Verbum",
+        "word": "Verbum1",
         "translation": " "
       },
       ",": {
@@ -103,18 +112,18 @@
         "translation": " "
       },
       "alt": {
-        "word": "Subjekt",
+        "word": "Subjekt2",
         "translation": " "
       },
       "var": {
-        "word": "Verbum",
+        "word": "Verbum2",
         "translation": " "
       },
-      "stille.": {
-        "word": "Adjektiv",
+      "stille": {
+        "word": "Adjektiv1",
         "translation": " "
       },
-      "nan": {
+      ".": {
         "word": "Punktum",
         "translation": " "
       },
@@ -122,34 +131,34 @@
     },
     {
       "Pludselig": {
-        "word": "Adverbium",
+        "word": "Adverbium1",
         "translation": " "
       },
       "hørte": {
-        "word": "Verbum",
+        "word": "Verbum1",
         "translation": " "
       },
       "hun": {
-        "word": "Pronomen",
+        "word": "Pronomen1",
         "translation": " "
       },
       "en": {
-        "word": "Adjektiv",
+        "word": "Adjektiv1",
         "translation": " "
       },
       "lyd": {
-        "word": "Objekt",
+        "word": "Objekt1",
         "translation": " "
       },
       "i": {
-        "word": "Præposition",
+        "word": "Præposition1",
         "translation": " "
       },
-      "haven.": {
-        "word": "Objekt",
+      "haven": {
+        "word": "Objekt2",
         "translation": " "
       },
-      "nan": {
+      ".": {
         "word": "Punktum",
         "translation": " "
       },
@@ -157,19 +166,19 @@
     },
     {
       "Det": {
-        "word": "Subjekt",
+        "word": "Subjekt1",
         "translation": " "
       },
       "lød": {
-        "word": "Verbum",
+        "word": "Verbum1",
         "translation": " "
       },
       "som": {
-        "word": "Konjunktion",
+        "word": "Konjunktion1",
         "translation": " "
       },
       "noget": {
-        "word": "Subjekt",
+        "word": "Subjekt2",
         "translation": " "
       },
       ",": {
@@ -177,26 +186,26 @@
         "translation": " "
       },
       "der": {
-        "word": "Pronomen",
+        "word": "Pronomen1",
         "translation": " "
       },
       "bevægede": {
-        "word": "Verbum",
+        "word": "Verbum2",
         "translation": " "
       },
       "sig": {
-        "word": "Pronomen",
+        "word": "Pronomen2",
         "translation": " "
       },
       "i": {
-        "word": "Præposition",
+        "word": "Præposition1",
         "translation": " "
       },
-      "buskene.": {
-        "word": "Objekt",
+      "buskene": {
+        "word": "Objekt1",
         "translation": " "
       },
-      "nan": {
+      ".": {
         "word": "Punktum",
         "translation": " "
       },
@@ -204,38 +213,42 @@
     },
     {
       "Emma": {
-        "word": "Subjekt",
+        "word": "Subjekt1",
         "translation": " "
       },
       "blev": {
-        "word": "Verbum",
+        "word": "Verbum1",
         "translation": " "
       },
       "nysgerrig": {
-        "word": "Adjektiv",
+        "word": "Adjektiv1",
         "translation": " "
       },
       "og": {
-        "word": "Konjunktion",
+        "word": "Konjunktion1",
         "translation": " "
       },
       "gik": {
-        "word": "Verbum",
+        "word": "Verbum2",
         "translation": " "
       },
       "ud": {
-        "word": "Adverbium",
+        "word": "Adverbium1",
         "translation": " "
       },
       "for": {
-        "word": "Præposition",
+        "word": "Præposition1",
         "translation": " "
       },
       "at": {
-        "word": "Verbum",
+        "word": "Verbum3",
         "translation": " "
       },
-      "se.": {
+      "se": {
+        "word": "Verbum4",
+        "translation": " "
+      },
+      ".": {
         "word": "Punktum",
         "translation": " "
       },
@@ -243,42 +256,42 @@
     },
     {
       "Hun": {
-        "word": "Pronomen",
+        "word": "Pronomen1",
         "translation": " "
       },
       "så": {
-        "word": "Verbum",
+        "word": "Verbum1",
         "translation": " "
       },
       "en": {
-        "word": "Adjektiv",
+        "word": "Adjektiv1",
         "translation": " "
       },
       "lille": {
-        "word": "Adjektiv",
+        "word": "Adjektiv2",
         "translation": " "
       },
       "grå": {
-        "word": "Adjektiv",
+        "word": "Adjektiv3",
         "translation": " "
       },
       "kat": {
-        "word": "Objekt",
+        "word": "Objekt1",
         "translation": " "
       },
       "sidde": {
-        "word": "Verbum",
+        "word": "Verbum2",
         "translation": " "
       },
       "i": {
-        "word": "Præposition",
+        "word": "Præposition1",
         "translation": " "
       },
-      "græsset.": {
-        "word": "Objekt",
+      "græsset": {
+        "word": "Objekt2",
         "translation": " "
       },
-      "nan": {
+      ".": {
         "word": "Punktum",
         "translation": " "
       },
@@ -286,30 +299,30 @@
     },
     {
       "Den": {
-        "word": "Pronomen",
+        "word": "Pronomen1",
         "translation": " "
       },
       "så": {
-        "word": "Verbum",
+        "word": "Verbum1",
         "translation": " "
       },
       "sulten": {
-        "word": "Adjektiv",
+        "word": "Adjektiv1",
         "translation": " "
       },
       "og": {
-        "word": "Konjunktion",
+        "word": "Konjunktion1",
         "translation": " "
       },
       "træt": {
-        "word": "Adjektiv",
+        "word": "Adjektiv2",
         "translation": " "
       },
-      "ud.": {
-        "word": "Adverbium",
+      "ud": {
+        "word": "Adverbium1",
         "translation": " "
       },
-      "nan": {
+      ".": {
         "word": "Punktum",
         "translation": " "
       },
@@ -317,30 +330,30 @@
     },
     {
       "Emma": {
-        "word": "Subjekt",
+        "word": "Subjekt1",
         "translation": " "
       },
       "gik": {
-        "word": "Verbum",
+        "word": "Verbum1",
         "translation": " "
       },
       "forsigtigt": {
-        "word": "Adverbium",
+        "word": "Adverbium1",
         "translation": " "
       },
       "hen": {
-        "word": "Adverbium",
+        "word": "Adverbium2",
         "translation": " "
       },
       "til": {
-        "word": "Præposition",
+        "word": "Præposition1",
         "translation": " "
       },
-      "den.": {
-        "word": "Pronomen",
+      "den": {
+        "word": "Pronomen1",
         "translation": " "
       },
-      "nan": {
+      ".": {
         "word": "Punktum",
         "translation": " "
       },
@@ -348,30 +361,30 @@
     },
     {
       "Katten": {
-        "word": "Subjekt",
+        "word": "Subjekt1",
         "translation": " "
       },
       "mjavede": {
-        "word": "Verbum",
+        "word": "Verbum1",
         "translation": " "
       },
       "og": {
-        "word": "Konjunktion",
+        "word": "Konjunktion1",
         "translation": " "
       },
       "kom": {
-        "word": "Verbum",
+        "word": "Verbum2",
         "translation": " "
       },
       "tættere": {
-        "word": "Adverbium",
+        "word": "Adverbium1",
         "translation": " "
       },
-      "på.": {
-        "word": "Præposition",
+      "på": {
+        "word": "Præposition1",
         "translation": " "
       },
-      "nan": {
+      ".": {
         "word": "Punktum",
         "translation": " "
       },
@@ -379,42 +392,42 @@
     },
     {
       "Emma": {
-        "word": "Subjekt",
+        "word": "Subjekt1",
         "translation": " "
       },
       "satte": {
-        "word": "Verbum",
+        "word": "Verbum1",
         "translation": " "
       },
       "sig": {
-        "word": "Pronomen",
+        "word": "Pronomen1",
         "translation": " "
       },
       "på": {
-        "word": "Præposition",
+        "word": "Præposition1",
         "translation": " "
       },
       "jorden": {
-        "word": "Objekt",
+        "word": "Objekt1",
         "translation": " "
       },
       "og": {
-        "word": "Konjunktion",
+        "word": "Konjunktion1",
         "translation": " "
       },
       "rakte": {
-        "word": "Verbum",
+        "word": "Verbum2",
         "translation": " "
       },
       "hånden": {
-        "word": "Objekt",
+        "word": "Objekt2",
         "translation": " "
       },
-      "frem.": {
-        "word": "Adverbium",
+      "frem": {
+        "word": "Adverbium1",
         "translation": " "
       },
-      "nan": {
+      ".": {
         "word": "Punktum",
         "translation": " "
       },
@@ -422,73 +435,76 @@
     },
     {
       "Katten": {
-        "word": "Subjekt",
+        "word": "Subjekt1",
         "translation": " "
       },
       "snusede": {
-        "word": "Verbum",
+        "word": "Verbum1",
         "translation": " "
       },
       "og": {
-        "word": "Konjunktion",
+        "word": "Konjunktion1",
         "translation": " "
       },
       "begyndte": {
-        "word": "Verbum",
+        "word": "Verbum2",
         "translation": " "
       },
       "at": {
-        "word": "Verbum",
+        "word": "Verbum3",
         "translation": " "
       },
       "gnide": {
-        "word": "Pronomen",
+        "word": "Pronomen1",
         "translation": " "
       },
       "sig": {
-        "word": "Præposition",
+        "word": "Præposition1",
         "translation": " "
       },
       "mod": {
-        "word": "Pronomen",
+        "word": "Pronomen2",
         "translation": " "
       },
       "hendes": {
-        "word": "Objekt",
+        "word": "Objekt1",
         "translation": " "
       },
-      "ben.": {
+      "ben": {
         "word": "Punktum",
+        "translation": " "
+      },
+      ".": {
         "translation": " "
       },
       "full_translation": " "
     },
     {
       "Hun": {
-        "word": "Pronomen",
+        "word": "Pronomen1",
         "translation": " "
       },
       "smilede": {
-        "word": "Verbum",
+        "word": "Verbum1",
         "translation": " "
       },
       "og": {
-        "word": "Konjunktion",
+        "word": "Konjunktion1",
         "translation": " "
       },
       "klappede": {
-        "word": "Verbum",
+        "word": "Verbum2",
         "translation": " "
       },
       "den": {
-        "word": "Pronomen",
+        "word": "Pronomen2",
         "translation": " "
       },
-      "forsigtigt.": {
-        "word": "Adverbium",
+      "forsigtigt": {
+        "word": "Adverbium1",
         "translation": " "
       },
-      "nan": {
+      ".": {
         "word": "Punktum",
         "translation": " "
       },
@@ -496,46 +512,46 @@
     },
     {
       "Emma": {
-        "word": "Subjekt",
+        "word": "Subjekt1",
         "translation": " "
       },
       "gik": {
-        "word": "Verbum",
+        "word": "Verbum1",
         "translation": " "
       },
       "ind": {
-        "word": "Adverbium",
+        "word": "Adverbium1",
         "translation": " "
       },
       "og": {
-        "word": "Konjunktion",
+        "word": "Konjunktion2",
         "translation": " "
       },
       "hentede": {
-        "word": "Verbum",
+        "word": "Verbum2",
         "translation": " "
       },
       "lidt": {
-        "word": "Adverbium",
+        "word": "Adverbium2",
         "translation": " "
       },
       "mælk": {
-        "word": "Objekt",
+        "word": "Objekt1",
         "translation": " "
       },
       "en": {
-        "word": "Adjektiv",
+        "word": "Adjektiv1",
         "translation": " "
       },
       "lille": {
-        "word": "Adjektiv",
+        "word": "Adjektiv2",
         "translation": " "
       },
-      "skål.": {
-        "word": "Objekt",
+      "skål": {
+        "word": "Objekt2",
         "translation": " "
       },
-      "nan": {
+      ".": {
         "word": "Punktum",
         "translation": " "
       },
@@ -543,26 +559,26 @@
     },
     {
       "Katten": {
-        "word": "Subjekt",
+        "word": "Subjekt1",
         "translation": " "
       },
       "drak": {
-        "word": "Verbum",
+        "word": "Verbum1",
         "translation": " "
       },
       "med": {
-        "word": "Præposition",
+        "word": "Præposition1",
         "translation": " "
       },
       "det": {
-        "word": "Pronomen",
+        "word": "Pronomen1",
         "translation": " "
       },
-      "samme.": {
-        "word": "Adjektiv",
+      "samme": {
+        "word": "Adjektiv1",
         "translation": " "
       },
-      "nan": {
+      ".": {
         "word": "Punktum",
         "translation": " "
       },
@@ -570,26 +586,26 @@
     },
     {
       "Den": {
-        "word": "Pronomen",
+        "word": "Pronomen1",
         "translation": " "
       },
       "var": {
-        "word": "Verbum",
+        "word": "Verbum1",
         "translation": " "
       },
       "tydeligvis": {
-        "word": "Adverbium",
+        "word": "Adverbium1",
         "translation": " "
       },
       "meget": {
-        "word": "Adverbium",
+        "word": "Adverbium2",
         "translation": " "
       },
-      "tørstig.": {
-        "word": "Adjektiv",
+      "tørstig": {
+        "word": "Adjektiv1",
         "translation": " "
       },
-      "nan": {
+      ".": {
         "word": "Punktum",
         "translation": " "
       },
@@ -597,50 +613,50 @@
     },
     {
       "Efter": {
-        "word": "Præposition",
+        "word": "Præposition1",
         "translation": " "
       },
       "lidt": {
-        "word": "Adjektiv",
+        "word": "Adjektiv1",
         "translation": " "
       },
       "tid": {
-        "word": "Subjekt",
+        "word": "Subjekt1",
         "translation": " "
       },
       "rejste": {
-        "word": "Verbum",
+        "word": "Verbum1",
         "translation": " "
       },
       "katten": {
-        "word": "Subjekt",
+        "word": "Subjekt2",
         "translation": " "
       },
       "sig": {
-        "word": "Pronomen",
+        "word": "Pronomen1",
         "translation": " "
       },
       "og": {
-        "word": "Konjunktion",
+        "word": "Konjunktion1",
         "translation": " "
       },
       "gik": {
-        "word": "Verbum",
+        "word": "Verbum2",
         "translation": " "
       },
       "rundt": {
-        "word": "Adverbium",
+        "word": "Adverbium1",
         "translation": " "
       },
       "i": {
-        "word": "Præposition",
+        "word": "Præposition2",
         "translation": " "
       },
-      "haven.": {
-        "word": "Objekt",
+      "haven": {
+        "word": "Objekt1",
         "translation": " "
       },
-      "nan": {
+      ".": {
         "word": "Punktum",
         "translation": " "
       },
@@ -648,26 +664,26 @@
     },
     {
       "Den": {
-        "word": "Pronomen",
+        "word": "Pronomen1",
         "translation": " "
       },
       "så": {
-        "word": "Verbum",
+        "word": "Verbum1",
         "translation": " "
       },
       "gladere": {
-        "word": "Adjektiv",
+        "word": "Adjektiv1",
         "translation": " "
       },
       "ud": {
-        "word": "Adverbium",
+        "word": "Adverbium1",
         "translation": " "
       },
-      "nu.": {
-        "word": "Adverbium",
+      "nu": {
+        "word": "Adverbium2",
         "translation": " "
       },
-      "nan": {
+      ".": {
         "word": "Punktum",
         "translation": " "
       },
@@ -675,26 +691,26 @@
     },
     {
       "Emma": {
-        "word": "Subjekt",
+        "word": "Subjekt1",
         "translation": " "
       },
       "fulgte": {
-        "word": "Verbum",
+        "word": "Verbum1",
         "translation": " "
       },
       "den": {
-        "word": "Pronomen",
+        "word": "Pronomen1",
         "translation": " "
       },
       "med": {
-        "word": "Præposition",
+        "word": "Præposition1",
         "translation": " "
       },
-      "øjnene.": {
-        "word": "Objekt",
+      "øjnene": {
+        "word": "Objekt1",
         "translation": " "
       },
-      "nan": {
+      ".": {
         "word": "Punktum",
         "translation": " "
       },
@@ -702,11 +718,11 @@
     },
     {
       "Hun": {
-        "word": "Pronomen",
+        "word": "Pronomen1",
         "translation": " "
       },
       "håbede": {
-        "word": "Verbum",
+        "word": "Verbum1",
         "translation": " "
       },
       ",": {
@@ -714,50 +730,50 @@
         "translation": " "
       },
       "den": {
-        "word": "Pronomen",
+        "word": "Pronomen4",
         "translation": " "
       },
       "ville": {
-        "word": "Verbum",
+        "word": "Verbum2",
         "translation": " "
       },
       "blive": {
-        "word": "Verbum",
+        "word": "Verbum3",
         "translation": " "
       },
       "men": {
-        "word": "Konjunktion",
+        "word": "Konjunktion1",
         "translation": " "
       },
       "hun": {
-        "word": "Pronomen",
+        "word": "Pronomen3",
         "translation": " "
       },
       "vidste": {
-        "word": "Verbum",
+        "word": "Verbum4",
         "translation": " "
       },
       "ikke": {
-        "word": "Adverbium",
+        "word": "Adverbium1",
         "translation": " "
       },
       "om": {
-        "word": "Konjunktion",
+        "word": "Konjunktion2",
         "translation": " "
       },
       "havde": {
-        "word": "Verbum",
+        "word": "Verbum5",
         "translation": " "
       },
       "et": {
-        "word": "Adjektiv",
+        "word": "Adjektiv1",
         "translation": " "
       },
-      "hjem.": {
-        "word": "Objekt",
+      "hjem": {
+        "word": "Objekt1",
         "translation": " "
       },
-      "nan": {
+      ".": {
         "word": "Punktum",
         "translation": " "
       },
@@ -765,38 +781,38 @@
     },
     {
       "Hun": {
-        "word": "Pronomen",
+        "word": "Pronomen1",
         "translation": " "
       },
       "satte": {
-        "word": "Verbum",
+        "word": "Verbum1",
         "translation": " "
       },
       "skiltet": {
-        "word": "Objekt",
+        "word": "Objekt1",
         "translation": " "
       },
       "op": {
-        "word": "Adverbium",
+        "word": "Adverbium1",
         "translation": " "
       },
       "ved": {
-        "word": "Præposition",
+        "word": "Præposition1",
         "translation": " "
       },
       "vejen": {
-        "word": "Objekt",
+        "word": "Objekt2",
         "translation": " "
       },
       "og": {
-        "word": "Konjunktion",
+        "word": "Konjunktion1",
         "translation": " "
       },
-      "ventede.": {
-        "word": "Verbum",
+      "ventede": {
+        "word": "Verbum2",
         "translation": " "
       },
-      "nan": {
+      ".": {
         "word": "Punktum",
         "translation": " "
       },
@@ -804,22 +820,22 @@
     },
     {
       "Ingen": {
-        "word": "Subjekt",
+        "word": "Subjekt1",
         "translation": " "
       },
       "ringede": {
-        "word": "Verbum",
+        "word": "Verbum1",
         "translation": " "
       },
       "den": {
-        "word": "Pronomen",
+        "word": "Pronomen1",
         "translation": " "
       },
-      "dag.": {
-        "word": "Objekt",
+      "dag": {
+        "word": "Objekt1",
         "translation": " "
       },
-      "nan": {
+      ".": {
         "word": "Punktum",
         "translation": " "
       },
@@ -827,38 +843,38 @@
     },
     {
       "Katten": {
-        "word": "Subjekt",
+        "word": "Subjekt1",
         "translation": " "
       },
       "sov": {
-        "word": "Verbum",
+        "word": "Verbum1",
         "translation": " "
       },
       "på": {
-        "word": "Præposition",
+        "word": "Præposition1",
         "translation": " "
       },
       "en": {
-        "word": "Adjektiv",
+        "word": "Adjektiv1",
         "translation": " "
       },
       "pude": {
-        "word": "Objekt",
+        "word": "Objekt1",
         "translation": " "
       },
       "ved": {
-        "word": "Præposition",
+        "word": "Præposition2",
         "translation": " "
       },
       "hendes": {
-        "word": "Pronomen",
+        "word": "Pronomen1",
         "translation": " "
       },
-      "dør.": {
-        "word": "Objekt",
+      "dør": {
+        "word": "Objekt2",
         "translation": " "
       },
-      "nan": {
+      ".": {
         "word": "Punktum",
         "translation": " "
       },
