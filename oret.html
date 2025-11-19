@@ -37,17 +37,19 @@ button { margin: 2px; }
 </table>
 
 <script>
+// ====== Настройки скорости ======
 const speedSlider = document.getElementById("speed");
 const speedValue = document.getElementById("speedValue");
 speedSlider.addEventListener("input", ()=>{ speedValue.textContent = speedSlider.value+"x"; });
 
-// ----------- Загрузка JSON ----------
+// ====== Загрузка JSON ======
 async function loadJSON() {
   const response = await fetch('words.json');
   const data = await response.json();
   buildTable(data);
 }
 
+// ====== Построение таблицы ======
 function buildTable(data){
   const tbody = document.querySelector("#wordsTable tbody");
   data.forEach((item,i)=>{
@@ -70,7 +72,7 @@ function buildTable(data){
   window.wordData = data;
 }
 
-// ----------- TTS и подсветка ----------
+// ====== TTS и подсветка ======
 function highlight(id, on){
   const el = document.getElementById(id);
   if(el) el.classList.toggle("highlight", on);
@@ -103,22 +105,22 @@ async function playRow(i){
   highlight(`w2-${i}`, false);
 }
 
-// ----------- Воспроизвести все строки ----------
+// ====== Воспроизвести все строки ======
 async function playAll(){
   stopFlag = false;
   for(let i=0;i<window.wordData.length;i++){
     if(stopFlag) break;
     await playRow(i);
-    await new Promise(r=>setTimeout(r, 200)); // небольшая пауза между строками
+    await new Promise(r=>setTimeout(r, 200));
   }
 }
 
 function stopAll(){
   stopFlag = true;
-  speechSynthesis.cancel(); // останавливает текущее TTS
+  speechSynthesis.cancel();
 }
 
-// ----------- RECORDING ----------
+// ====== RECORDING ======
 let mediaRecorders = {};
 let audioBlobs = {};
 
@@ -147,7 +149,7 @@ function playRecording(i){
   audio.play();
 }
 
-// ----------- Инициализация ----------
+// ====== Инициализация ======
 loadJSON();
 </script>
 
