@@ -7,12 +7,12 @@
 <style>
 body { font-family: Arial, sans-serif; background: #f2f2f2; padding: 30px; }
 h2 { color: #333; }
-#story {
-  margin-bottom: 20px;
+#story p {
+  text-indent: 20px; /* отступ первой строки */
+  margin: 0 0 1em 0; /* отступ между абзацами */
   line-height: 1.6;
-  font-size: 18px;
-  padding-left: 20px; /* левый отступ */
 }
+
 .placeholder, .insertedWord {
   display: inline-block;
   min-width: 60px;
@@ -85,7 +85,8 @@ fetch('insord.json')
   .then(res => res.json())
   .then(data => {
     texts = data.map(item => ({
-      text: item.text.replace(/\/br/g, '<br><br>')
+      // каждый /br → отдельный <p>
+      text: item.text.split('/br').map(p => `<p>${p.trim()}</p>`).join('')
     }));
     loadRandomText();
   })
@@ -93,7 +94,7 @@ fetch('insord.json')
     const fallback = "I morges sprang jeg hurtigt ud af sengen, og prøvede jeg at finde mine sko, men de lå gemt under sofaen. /br Da jeg endelig fandt dem, løb jeg ud af døren og nåede lige bussen i sidste øjeblik.";
 
     texts = [{
-      text: fallback.split('/br').map(p => p.trim()).join('<br><br>')
+      text: fallback.split('/br').map(p => `<p>${p.trim()}</p>`).join('')
     }];
 
     loadRandomText();
@@ -160,9 +161,7 @@ function renderStory() {
 
   selectedWords.forEach(word => {
     const escapedWord = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    // ищем только первое вхождение
     const regex = new RegExp(`\\b${escapedWord}\\b`);
-    // помещаем ожидаемое слово в data-expected (в нижнем регистре)
     const placeholderHTML = `<span class="placeholder" data-expected="${word.toLowerCase()}" ondrop="dropWord(event)" ondragover="allowDrop(event)" onclick="tapPlaceholder(event)">___</span>`;
     newText = newText.replace(regex, placeholderHTML);
   });
