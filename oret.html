@@ -18,6 +18,11 @@ button { margin: 2px; }
 <label>Speed: <span id="speedValue">1.0x</span></label>
 <input type="range" id="speed" min="0.5" max="1.5" step="0.1" value="1">
 
+<div style="margin:10px 0;">
+  <button onclick="playAll()">▶️ Воспроизвести все</button>
+  <button onclick="stopAll()">⏹️ Остановить все</button>
+</div>
+
 <table id="wordsTable">
 <thead>
 <tr>
@@ -27,25 +32,22 @@ button { margin: 2px; }
 </tr>
 </thead>
 <tbody>
-<!-- Сюда JS вставит строки из JSON -->
+<!-- JS вставит строки -->
 </tbody>
 </table>
 
 <script>
-// ----------- Настройки скорости ----------
 const speedSlider = document.getElementById("speed");
 const speedValue = document.getElementById("speedValue");
 speedSlider.addEventListener("input", ()=>{ speedValue.textContent = speedSlider.value+"x"; });
 
 // ----------- Загрузка JSON ----------
 async function loadJSON() {
-  // Для теста можно подставить путь к локальному JSON
-  const response = await fetch('oret.json');
+  const response = await fetch('words.json');
   const data = await response.json();
   buildTable(data);
 }
 
-// ----------- Построение таблицы ----------
 function buildTable(data){
   const tbody = document.querySelector("#wordsTable tbody");
   data.forEach((item,i)=>{
@@ -65,8 +67,7 @@ function buildTable(data){
     `;
     tbody.appendChild(tr);
   });
-
-  window.wordData = data; // сохраняем глобально для функций
+  window.wordData = data;
 }
 
 // ----------- TTS и подсветка ----------
@@ -74,6 +75,8 @@ function highlight(id, on){
   const el = document.getElementById(id);
   if(el) el.classList.toggle("highlight", on);
 }
+
+let stopFlag = false;
 
 async function speak(text,speed){
   return new Promise(resolve=>{
@@ -98,6 +101,21 @@ async function playRow(i){
   highlight(`w2-${i}`, true);
   await speak(row.word2, speed);
   highlight(`w2-${i}`, false);
+}
+
+// ----------- Воспроизвести все строки ----------
+async function playAll(){
+  stopFlag = false;
+  for(let i=0;i<window.wordData.length;i++){
+    if(stopFlag) break;
+    await playRow(i);
+    await new Promise(r=>setTimeout(r, 200)); // небольшая пауза между строками
+  }
+}
+
+function stopAll(){
+  stopFlag = true;
+  speechSynthesis.cancel(); // останавливает текущее TTS
 }
 
 // ----------- RECORDING ----------
