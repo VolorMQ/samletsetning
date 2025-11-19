@@ -14,97 +14,121 @@
         "translation": "в"
       },
       "Substantiv1": {
-        "word": "København.",
-        "translation": "Копенгагене."
+        "word": "København",
+        "translation": "Копенгагене"
+      },
+      "Punktum": {
+        "word": ".",
+        "translation": "."
       },
       "full_translation": "Я живу в Копенгагене."
     },
     {
-      "Punktum": {
+      "Pronomen1": {
         "word": "Jeg",
         "translation": "Я"
       },
-      "Pronomen1": {
+      "Verbum1": {
         "word": "har",
         "translation": "имею"
       },
-      "Verbum1": {
+      "Artikel1": {
         "word": "en",
         "translation": "одну"
       },
-      "Artikel1": {
-        "word": "hund.",
-        "translation": "собаку."
+      "Substantiv1": {
+        "word": "hund",
+        "translation": "собаку"
       },
-      "full_translation": "У меня есть собака."
+      "Punktum": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Я имею одну собаку."
     },
     {
       "Substantiv1": {
-        "word": "lille",
-        "translation": "маленький"
+        "word": "Max",
+        "translation": "Макс"
       },
-      "Punktum": {
+      "Verbum1": {
         "word": "er",
         "translation": "есть"
       },
-      "Verbum1": {
+      "Adjektiv1": {
+        "word": "lille",
+        "translation": "маленький"
+      },
+      "Konjunktion1": {
         "word": "og",
         "translation": "и"
       },
-      "Adjektiv1": {
-        "word": "sød.",
-        "translation": "милый."
+      "Adjektiv2": {
+        "word": "sød",
+        "translation": "милый"
       },
-      "full_translation": "Макс маленький и милый."
+      "Punktum": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Макс есть маленький и милый."
     },
     {
-      "Konjunktion1": {
+      "Adjektiv1": {
         "word": "Hver",
         "translation": "Каждый"
       },
-      "Adjektiv2": {
+      "Substantiv1": {
         "word": "dag",
         "translation": "день"
       },
-      "Punktum": {
+      "Verbum1": {
         "word": "går",
         "translation": "идём"
       },
-      "Adjektiv1": {
+      "Pronomen1": {
         "word": "vi",
         "translation": "мы"
       },
-      "Substantiv1": {
+      "Præposition1": {
         "word": "i",
         "translation": "в"
       },
-      "Verbum1": {
-        "word": "parken.",
-        "translation": "парк."
+      "Substantiv2": {
+        "word": "parken",
+        "translation": "парк"
       },
-      "full_translation": "Каждый день мы ходим в парк."
+      "Punktum": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Каждый день идём мы в парк."
     },
     {
       "Pronomen1": {
         "word": "Vi",
         "translation": "Мы"
       },
-      "Præposition1": {
+      "Verbum1": {
         "word": "leger",
         "translation": "играем"
       },
-      "Substantiv2": {
+      "Konjunktion1": {
         "word": "og",
         "translation": "и"
       },
+      "Verbum2": {
+        "word": "løber",
+        "translation": "бегаем"
+      },
       "Punktum": {
-        "word": "løber.",
-        "translation": "бегаем."
+        "word": ".",
+        "translation": "."
       },
       "full_translation": "Мы играем и бегаем."
     },
     {
-      "Pronomen1": {
+      "Substantiv1": {
         "word": "Max",
         "translation": "Макс"
       },
@@ -112,411 +136,495 @@
         "word": "løber",
         "translation": "бегает"
       },
-      "Konjunktion1": {
+      "Præposition1": {
         "word": "efter",
         "translation": "после"
       },
-      "Verbum2": {
+      "Artikel1": {
         "word": "en",
         "translation": "один"
       },
-      "Punktum": {
-        "word": "bold.",
-        "translation": "мяч."
+      "Substantiv2": {
+        "word": "bold",
+        "translation": "мяч"
       },
-      "full_translation": "Макс бегает за мячом."
+      "Punktum": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Макс бегает после один мяч."
     },
     {
-      "Substantiv1": {
+      "Præposition1": {
         "word": "Efter",
         "translation": "После"
       },
-      "Verbum1": {
+      "Substantiv1": {
         "word": "parken",
         "translation": "парк"
       },
-      "Præposition1": {
+      "Verbum1": {
         "word": "går",
         "translation": "иду"
       },
-      "Artikel1": {
+      "Pronomen1": {
         "word": "jeg",
         "translation": "я"
       },
-      "Substantiv2": {
+      "Præposition2": {
         "word": "til",
-        "translation": "к/в"
+        "translation": "к"
+      },
+      "Substantiv2": {
+        "word": "butikken",
+        "translation": "магазин"
       },
       "Punktum": {
-        "word": "butikken.",
-        "translation": "магазин."
+        "word": ".",
+        "translation": "."
       },
-      "full_translation": "После парка я иду в магазин."
+      "full_translation": "После парк иду я к магазин."
     },
     {
-      "Præposition1": {
+      "Pronomen1": {
         "word": "Jeg",
         "translation": "Я"
       },
-      "Substantiv1": {
+      "Verbum1": {
         "word": "køber",
         "translation": "покупаю"
       },
-      "Verbum1": {
+      "Substantiv1": {
         "word": "brød",
         "translation": "хлеб"
       },
-      "Pronomen1": {
+      "Konjunktion1": {
         "word": "og",
         "translation": "и"
       },
-      "Præposition2": {
-        "word": "mælk.",
-        "translation": "молоко."
+      "Substantiv2": {
+        "word": "mælk",
+        "translation": "молоко"
+      },
+      "Punktum": {
+        "word": ".",
+        "translation": "."
       },
       "full_translation": "Я покупаю хлеб и молоко."
     },
     {
-      "Substantiv2": {
+      "Substantiv1": {
         "word": "Butikken",
         "translation": "Магазин"
       },
-      "Punktum": {
+      "Verbum1": {
         "word": "er",
         "translation": "есть"
       },
-      "Pronomen1": {
+      "Adjektiv1": {
         "word": "tæt",
         "translation": "близко"
       },
-      "Verbum1": {
+      "Præposition1": {
         "word": "på",
         "translation": "к"
       },
-      "Substantiv1": {
+      "Pronomen1": {
         "word": "mit",
         "translation": "мой"
       },
-      "Konjunktion1": {
-        "word": "hus.",
-        "translation": "дом."
+      "Substantiv2": {
+        "word": "hus",
+        "translation": "дом"
       },
-      "full_translation": "Магазин рядом с моим домом."
+      "Punktum": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Магазин есть близко к мой дом."
     },
     {
-      "Substantiv2": {
+      "Pronomen1": {
         "word": "Jeg",
         "translation": "Я"
       },
-      "Punktum": {
+      "Verbum1": {
         "word": "møder",
         "translation": "встречаю"
       },
-      "Substantiv1": {
+      "Pronomen2": {
         "word": "min",
         "translation": "мой"
       },
-      "Verbum1": {
+      "Substantiv1": {
         "word": "ven",
         "translation": "друг"
       },
-      "Adjektiv1": {
-        "word": "Peter.",
-        "translation": "Питер."
+      "Substantiv2": {
+        "word": "Peter",
+        "translation": "Питер"
       },
-      "full_translation": "Я встречаю моего друга Питера."
+      "Punktum": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Я встречаю мой друг Питер."
     },
     {
-      "Præposition1": {
+      "Substantiv1": {
         "word": "Mie",
         "translation": "Ми"
       },
-      "Pronomen1": {
-        "word": "sort.",
-        "translation": "чёрная."
+      "Verbum1": {
+        "word": "er",
+        "translation": "есть"
       },
-      "Substantiv2": {
+      "Adjektiv1": {
         "word": "stor",
         "translation": "большая"
       },
-      "Punktum": {
+      "Konjunktion1": {
         "word": "og",
         "translation": "и"
       },
-      "full_translation": "Ми большая и чёрная."
+      "Adjektiv2": {
+        "word": "sort",
+        "translation": "чёрная"
+      },
+      "Punktum": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Ми есть большая и чёрная."
     },
     {
-      "Verbum1": {
+      "Pronomen1": {
         "word": "Vi",
         "translation": "Мы"
       },
-      "Pronomen2": {
+      "Verbum1": {
         "word": "går",
         "translation": "идём"
       },
-      "Substantiv1": {
-        "word": "mig.",
-        "translation": "мне."
+      "Adverbium1": {
+        "word": "sammen",
+        "translation": "вместе"
       },
-      "Substantiv2": {
+      "Substantiv1": {
         "word": "hjem",
         "translation": "домой"
       },
-      "Punktum": {
+      "Præposition1": {
         "word": "til",
         "translation": "к"
       },
-      "full_translation": "Мы идём вместе ко мне домой."
+      "Pronomen2": {
+        "word": "mig",
+        "translation": "мне"
+      },
+      "Punktum": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Мы идём вместе домой к мне."
     },
     {
-      "Verbum1": {
+      "Substantiv1": {
         "word": "Max",
         "translation": "Макс"
       },
-      "Adjektiv1": {
+      "Konjunktion1": {
         "word": "og",
         "translation": "и"
       },
-      "Konjunktion1": {
+      "Substantiv2": {
         "word": "Mie",
         "translation": "Ми"
       },
-      "Adjektiv2": {
+      "Verbum1": {
         "word": "leger",
         "translation": "играют"
       },
-      "Punktum": {
+      "Præposition1": {
         "word": "i",
         "translation": "в"
       },
-      "Pronomen1": {
-        "word": "haven.",
-        "translation": "саду."
+      "Substantiv3": {
+        "word": "haven",
+        "translation": "саду"
+      },
+      "Punktum": {
+        "word": ".",
+        "translation": "."
       },
       "full_translation": "Макс и Ми играют в саду."
     },
     {
-      "Verbum1": {
-        "word": "dansk.",
-        "translation": "датский."
+      "Pronomen1": {
+        "word": "Jeg",
+        "translation": "Я"
       },
-      "Adverbium1": {
+      "Verbum1": {
         "word": "taler",
         "translation": "говорю"
       },
-      "Substantiv1": {
-        "word": "taler",
-        "translation": "говорит"
-      },
-      "Præposition1": {
-        "word": "dansk,",
-        "translation": "датский,"
-      },
-      "Pronomen2": {
-        "word": "og",
-        "translation": "и"
-      },
-      "Punktum": {
-        "word": "Peter",
-        "translation": "Питер"
-      },
-      "Konjunktion1": {
-        "word": "også",
-        "translation": "тоже"
-      },
-      "Substantiv2": {
+      "Adverbium1": {
         "word": "lidt",
         "translation": "немного"
       },
-      "full_translation": "Я немного говорю по-датски, и Питер тоже немного говорит по-датски."
+      "Substantiv1": {
+        "word": "dansk",
+        "translation": "датский"
+      },
+      "Komma1": {
+        "word": ",",
+        "translation": ","
+      },
+      "Konjunktion1": {
+        "word": "og",
+        "translation": "и"
+      },
+      "Substantiv2": {
+        "word": "dansk",
+        "translation": "датский"
+      },
+      "Verbum2": {
+        "word": "taler",
+        "translation": "говорит"
+      },
+      "Adverbium2": {
+        "word": "også",
+        "translation": "тоже"
+      },
+      "Adverbium3": {
+        "word": "lidt",
+        "translation": "немного"
+      },
+      "Punktum": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Я говорю немного датский, и Питер говорит тоже немного датский."
     },
     {
-      "Præposition1": {
+      "Pronomen1": {
         "word": "Vi",
         "translation": "Мы"
       },
-      "Substantiv3": {
+      "Verbum1": {
         "word": "lærer",
         "translation": "учим"
       },
-      "Punktum": {
+      "Adjektiv1": {
         "word": "nye",
         "translation": "новые"
       },
-      "Pronomen1": {
+      "Substantiv1": {
         "word": "ord",
         "translation": "слова"
       },
-      "Verbum1": {
+      "Adjektiv2": {
         "word": "hver",
         "translation": "каждый"
       },
-      "Adverbium1": {
-        "word": "dag.",
-        "translation": "день."
+      "Substantiv2": {
+        "word": "dag",
+        "translation": "день"
+      },
+      "Punktum": {
+        "word": ".",
+        "translation": "."
       },
       "full_translation": "Мы учим новые слова каждый день."
     },
     {
-      "Substantiv1": {
+      "Præposition1": {
         "word": "Om",
         "translation": "О"
       },
-      "Komma1": {
+      "Substantiv1": {
         "word": "eftermiddagen",
         "translation": "послеобеде"
       },
-      "Konjunktion1": {
+      "Verbum1": {
         "word": "laver",
         "translation": "делаем"
       },
-      "Substantiv2": {
+      "Pronomen1": {
         "word": "vi",
         "translation": "мы"
       },
-      "Verbum2": {
-        "word": "mad.",
-        "translation": "еду."
+      "Substantiv2": {
+        "word": "mad",
+        "translation": "еду"
       },
-      "full_translation": "После обеда мы готовим еду."
+      "Punktum": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "О послеобеде делаем мы еду."
     },
     {
-      "Adverbium2": {
+      "Pronomen1": {
         "word": "Vi",
         "translation": "Мы"
       },
-      "Adverbium3": {
+      "Verbum1": {
         "word": "drikker",
         "translation": "пьем"
       },
-      "Substantiv2": {
+      "Substantiv1": {
         "word": "juice",
         "translation": "сок"
       },
-      "Punktum": {
+      "Konjunktion1": {
         "word": "og",
         "translation": "и"
       },
-      "Pronomen1": {
+      "Verbum2": {
         "word": "snakker",
         "translation": "разговариваем"
       },
-      "Verbum1": {
+      "Præposition1": {
         "word": "om",
         "translation": "о"
       },
-      "Adjektiv1": {
-        "word": "dagen.",
-        "translation": "день."
+      "Substantiv2": {
+        "word": "dagen",
+        "translation": "день"
       },
-      "full_translation": "Мы пьем сок и разговариваем о дне."
+      "Punktum": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Мы пьем сок и разговариваем о день."
     },
     {
       "Substantiv1": {
         "word": "Max",
         "translation": "Макс"
       },
-      "Adjektiv2": {
+      "Verbum1": {
         "word": "sover",
         "translation": "спит"
       },
-      "Substantiv2": {
+      "Præposition1": {
         "word": "på",
         "translation": "на"
       },
-      "Punktum": {
-        "word": "gulvet.",
-        "translation": "пол."
+      "Substantiv2": {
+        "word": "gulvet",
+        "translation": "пол"
       },
-      "full_translation": "Макс спит на полу."
+      "Punktum": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Макс спит на пол."
     },
     {
-      "Præposition1": {
+      "Substantiv1": {
         "word": "Mie",
         "translation": "Ми"
       },
-      "Substantiv1": {
+      "Verbum1": {
         "word": "ligger",
         "translation": "лежит"
       },
-      "Verbum1": {
+      "Præposition1": {
         "word": "i",
         "translation": "в"
       },
-      "Pronomen1": {
-        "word": "solen.",
-        "translation": "солнце."
+      "Substantiv2": {
+        "word": "solen",
+        "translation": "солнце"
       },
-      "full_translation": "Ми лежит на солнце."
+      "Punktum": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Ми лежит в солнце."
     },
     {
-      "Substantiv2": {
+      "Præposition1": {
         "word": "Efter",
         "translation": "После"
       },
-      "Punktum": {
+      "Substantiv1": {
         "word": "maden",
         "translation": "еда"
       },
-      "Pronomen1": {
+      "Verbum1": {
         "word": "går",
         "translation": "идём"
       },
-      "Verbum1": {
+      "Pronomen1": {
         "word": "vi",
         "translation": "мы"
       },
-      "Substantiv1": {
+      "Præposition2": {
         "word": "til",
         "translation": "к"
       },
-      "Konjunktion1": {
-        "word": "stranden.",
-        "translation": "пляж."
+      "Substantiv2": {
+        "word": "stranden",
+        "translation": "пляж"
       },
-      "full_translation": "После еды мы идём на пляж."
+      "Punktum": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "После еда идём мы к пляж."
     },
     {
-      "Verbum2": {
+      "Pronomen1": {
         "word": "Vi",
         "translation": "Мы"
       },
-      "Præposition1": {
+      "Verbum1": {
         "word": "kaster",
         "translation": "бросаем"
       },
-      "Substantiv2": {
+      "Substantiv1": {
         "word": "sten",
         "translation": "камни"
       },
-      "Punktum": {
+      "Præposition1": {
         "word": "i",
         "translation": "в"
       },
-      "Substantiv1": {
-        "word": "vandet.",
-        "translation": "вода."
+      "Substantiv2": {
+        "word": "vandet",
+        "translation": "вода"
       },
-      "full_translation": "Мы бросаем камни в воду."
+      "Punktum": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Мы бросаем камни в вода."
     },
     {
-      "Verbum1": {
+      "Substantiv1": {
         "word": "Max",
         "translation": "Макс"
       },
-      "Præposition1": {
+      "Verbum1": {
         "word": "løber",
         "translation": "бегает"
       },
-      "Substantiv2": {
+      "Præposition1": {
         "word": "i",
         "translation": "в"
       },
-      "Punktum": {
-        "word": "vandet.",
-        "translation": "вода."
+      "Substantiv2": {
+        "word": "vandet",
+        "translation": "вода"
       },
-      "full_translation": "Макс бегает по воде."
+      "Punktum": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Макс бегает в вода."
     },
     {
       "Substantiv1": {
@@ -527,19 +635,23 @@
         "word": "går",
         "translation": "идёт"
       },
-      "Præposition1": {
+      "Adverbium1": {
         "word": "ikke",
         "translation": "не"
       },
-      "Substantiv2": {
+      "Præposition1": {
         "word": "i",
         "translation": "в"
       },
-      "Punktum": {
-        "word": "vandet.",
-        "translation": "вода."
+      "Substantiv2": {
+        "word": "vandet",
+        "translation": "вода"
       },
-      "full_translation": "Ми не идёт в воду."
+      "Punktum": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Ми идёт не в вода."
     },
     {
       "Præposition1": {
@@ -558,188 +670,244 @@
         "word": "vi",
         "translation": "мы"
       },
-      "Præposition2": {
-        "word": "hjem.",
-        "translation": "домой."
+      "Substantiv2": {
+        "word": "hjem",
+        "translation": "домой"
       },
-      "full_translation": "Вечером мы идём домой."
+      "Punktum": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "О вечер идём мы домой."
     },
     {
-      "Substantiv2": {
+      "Pronomen1": {
         "word": "Vi",
         "translation": "Мы"
       },
-      "Punktum": {
+      "Verbum1": {
         "word": "er",
         "translation": "есть"
       },
-      "Pronomen1": {
-        "word": "trætte,",
-        "translation": "усталые,"
+      "Adjektiv1": {
+        "word": "trætte",
+        "translation": "усталые"
       },
-      "Verbum1": {
+      "Komma1": {
+        "word": ",",
+        "translation": ","
+      },
+      "Konjunktion1": {
         "word": "men",
         "translation": "но"
       },
-      "Substantiv1": {
-        "word": "glade.",
-        "translation": "счастливые."
+      "Adjektiv2": {
+        "word": "glade",
+        "translation": "счастливые"
       },
-      "full_translation": "Мы устали, но счастливы."
+      "Punktum": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Мы есть усталые, но счастливые."
     },
     {
-      "Præposition1": {
+      "Pronomen1": {
         "word": "Jeg",
         "translation": "Я"
       },
-      "Substantiv2": {
+      "Verbum1": {
         "word": "læser",
         "translation": "читаю"
       },
-      "Punktum": {
+      "Artikel1": {
         "word": "en",
         "translation": "одну"
       },
       "Substantiv1": {
-        "word": "bog.",
-        "translation": "книга."
+        "word": "bog",
+        "translation": "книга"
       },
-      "full_translation": "Я читаю книгу."
+      "Punktum": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Я читаю одну книга."
     },
     {
-      "Verbum1": {
+      "Substantiv1": {
         "word": "Mie",
         "translation": "Ми"
       },
-      "Præposition1": {
+      "Verbum1": {
         "word": "sover",
         "translation": "спит"
       },
-      "Substantiv2": {
+      "Præposition1": {
         "word": "på",
         "translation": "на"
       },
+      "Substantiv2": {
+        "word": "sofaen",
+        "translation": "диване"
+      },
       "Punktum": {
-        "word": "sofaen.",
-        "translation": "диване."
+        "word": ".",
+        "translation": "."
       },
       "full_translation": "Ми спит на диване."
     },
     {
-      "Substantiv1": {
-        "word": "ud",
-        "translation": "из"
+      "Konjunktion1": {
+        "word": "Før",
+        "translation": "Перед"
+      },
+      "Pronomen1": {
+        "word": "vi",
+        "translation": "мы"
       },
       "Verbum1": {
-        "word": "af",
-        "translation": "окно."
-      },
-      "Adverbium1": {
         "word": "går",
         "translation": "идём"
       },
       "Præposition1": {
-        "word": "vi",
-        "translation": "мы"
-      },
-      "Substantiv2": {
-        "word": "seng,",
-        "translation": "кровать,"
-      },
-      "Punktum": {
-        "word": "ser",
-        "translation": "смотрим"
-      },
-      "Pronomen1": {
-        "word": "vinduet.",
-        "translation": " "
-      },
-      "full_translation": "Перед сном мы смотрим в окно."
-    },
-    {
-      "Substantiv2": {
-        "word": "Himlen",
-        "translation": "Небо"
-      },
-      "Punktum": {
-        "word": "er",
-        "translation": "есть"
-      },
-      "Pronomen1": {
-        "word": "rød",
-        "translation": "красное"
-      },
-      "Verbum1": {
-        "word": "og",
-        "translation": "и"
-      },
-      "Adjektiv1": {
-        "word": "orange.",
-        "translation": "оранжевое."
-      },
-      "full_translation": "Небо красное и оранжевое."
-    },
-    {
-      "Komma1": {
-        "word": "Jeg",
-        "translation": "Я"
-      },
-      "Konjunktion1": {
-        "word": "ligger",
-        "translation": "лежу"
-      },
-      "Adjektiv2": {
         "word": "i",
         "translation": "в"
       },
+      "Substantiv1": {
+        "word": "seng",
+        "translation": "кровать"
+      },
+      "Komma1": {
+        "word": ",",
+        "translation": ","
+      },
+      "Verbum2": {
+        "word": "ser",
+        "translation": "смотрим"
+      },
+      "Pronomen2": {
+        "word": "vi",
+        "translation": "мы"
+      },
+      "Præposition2": {
+        "word": "ud",
+        "translation": "из"
+      },
+      "Præposition3": {
+        "word": "af",
+        "translation": "окно"
+      },
+      "Substantiv2": {
+        "word": "vinduet",
+        "translation": "."
+      },
       "Punktum": {
+        "word": ".",
+        "translation": " "
+      },
+      "full_translation": "Перед мы идём в кровать, смотрим мы из окно."
+    },
+    {
+      "Substantiv1": {
+        "word": "Himlen",
+        "translation": "Небо"
+      },
+      "Verbum1": {
+        "word": "er",
+        "translation": "есть"
+      },
+      "Adjektiv1": {
+        "word": "rød",
+        "translation": "красное"
+      },
+      "Konjunktion1": {
+        "word": "og",
+        "translation": "и"
+      },
+      "Adjektiv2": {
+        "word": "orange",
+        "translation": "оранжевое"
+      },
+      "Punktum": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Небо есть красное и оранжевое."
+    },
+    {
+      "Pronomen1": {
+        "word": "Jeg",
+        "translation": "Я"
+      },
+      "Verbum1": {
+        "word": "ligger",
+        "translation": "лежу"
+      },
+      "Præposition1": {
+        "word": "i",
+        "translation": "в"
+      },
+      "Substantiv1": {
         "word": "sengen",
         "translation": "кровати"
       },
-      "Pronomen1": {
+      "Konjunktion1": {
         "word": "og",
         "translation": "и"
       },
-      "Verbum1": {
+      "Verbum2": {
         "word": "tænker",
         "translation": "думаю"
       },
-      "Artikel1": {
+      "Præposition2": {
         "word": "på",
         "translation": "о"
       },
-      "Substantiv1": {
-        "word": "dagen.",
-        "translation": "день."
+      "Substantiv2": {
+        "word": "dagen",
+        "translation": "день"
       },
-      "full_translation": "Я лежу в кровати и думаю о дне."
+      "Punktum": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Я лежу в кровати и думаю о день."
     },
     {
-      "Punktum": {
-        "word": "min",
-        "translation": "мой"
+      "Pronomen1": {
+        "word": "Jeg",
+        "translation": "Я"
       },
-      "Substantiv1": {
+      "Verbum1": {
         "word": "elsker",
         "translation": "люблю"
       },
-      "Verbum1": {
+      "Pronomen2": {
         "word": "min",
         "translation": "мой"
       },
-      "Præposition1": {
+      "Substantiv1": {
         "word": "hund",
         "translation": "собака"
       },
-      "Substantiv2": {
+      "Konjunktion1": {
         "word": "og",
         "translation": "и"
       },
-      "Konjunktion1": {
-        "word": "ven.",
-        "translation": "друг."
+      "Pronomen3": {
+        "word": "min",
+        "translation": "мой"
       },
-      "full_translation": "Я люблю свою собаку и друга."
+      "Substantiv2": {
+        "word": "ven",
+        "translation": "друг"
+      },
+      "Punktum": {
+        "word": ".",
+        "translation": "."
+      },
+      "full_translation": "Я люблю мой собака и мой друг."
     }
   ]
 }
