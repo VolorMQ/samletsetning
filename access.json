@@ -1,0 +1,33 @@
+{
+  "users": [
+    {
+      "username": "Volor",
+      "password": "",
+      "accessLevel": 0
+    },
+    {
+      "username": "User000",
+      "password": "",
+      "accessLevel": 1
+    },
+    {
+      "username": "User001",
+      "password": "",
+      "accessLevel": 1
+    }
+  ],
+
+  "links": {
+    "public": [
+      {"href":"./dansk-ordstilling_0.html","text":"Læsning 0. Anna"},
+      {"href":"./dansk-ordstilling_0inv.html","text":"Læsning 0 INV. Anna"},
+      {"href":"./insetOrd0.html","text":"Udfyld de manglende ord 0. Anna"}
+    ],
+    "protected": [
+      {"href":"./dansk-ordstilling_1.html","text":"Læsning 1. Emma"},
+      {"href":"./dansk-ordstilling_1inv.html","text":"Læsning 1 INV. Emma"},
+      {"href":"./insetOrd1.html","text":"Udfyld de manglende ord 1. Emma"},
+      {"href":"./oret.html","text":"Høre og tale"}
+    ]
+  }
+}

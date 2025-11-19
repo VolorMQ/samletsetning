@@ -10,82 +10,12 @@
     background: #f0f0f5;
     text-align: center;
   }
-  h1 {
+  h5 { 
     margin-bottom: 40px;
     font-family: 'Segoe UI', Tahoma, sans-serif;
     font-size: 2.5rem;
     text-align: center;
-    background: linear-gradient(90deg, #a1c4fd, #c2e9fb); /* нежный голубой градиент */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.15);
-  }
-  h2 {
-    margin-bottom: 40px;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    font-size: 2.5rem;
-    text-align: center;
-    background: linear-gradient(90deg, #b2fefa, #0ed2f7); /* мятный */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.15);
-  }
-  h3 {
-    margin-bottom: 40px;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    font-size: 2.5rem;
-    text-align: center;
-    background: linear-gradient(90deg, #c3bef0, #e0c3fc); /* лавандовый */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.15);
-  }
-  h4 {
-    margin-bottom: 40px;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    font-size: 2.5rem;
-    text-align: center;
-    background: linear-gradient(90deg, #ffd1a9, #ffbdbd); /* персиковый */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.15);
-  }
-  h5 {
-    margin-bottom: 40px;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    font-size: 2.5rem;
-    text-align: center;
-    background: linear-gradient(90deg, #c1f0c1, #d4f7dc); /* светло зеленый */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.15);
-  }
-  h6 {
-    margin-bottom: 40px;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    font-size: 2.5rem;
-    text-align: center;
-    background: linear-gradient(90deg, #ffd6e0, #ffb3c6); /* светло розовый */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.15);
-  }
-  h7 {
-    margin-bottom: 40px;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    font-size: 2.5rem;
-    text-align: center;
-    background: linear-gradient(90deg, #fff7b2, #ffe680); /* светло желтый */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.15);
-  }
-  h8 {
-    margin-bottom: 40px;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    font-size: 2.5rem;
-    text-align: center;
-    background: linear-gradient(90deg, #ffb89c, #ff9f87); /* легкий коралловый */
+    background: linear-gradient(90deg, #c1f0c1, #d4f7dc);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.15);
@@ -109,29 +39,125 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
   .link-card:hover {
-	background-color: #f0f8ff; /* тот же цвет, что и у input */
+    background-color: #f0f8ff;
     transform: translateY(-5px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  }
+  #passwordOverlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  #passwordOverlay input {
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 6px;
+    border: none;
+    margin-top: 10px;
+  }
+  #passwordOverlay button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 6px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+  }
+  #passwordOverlay button:hover {
+    background-color: #45a049;
   }
 </style>
 </head>
 <body>
 
-<h5>Læsning</h5>
-
-<div class="link-grid">
-  <a class="link-card" href="./dansk-ordstilling_0.html">Læsning 0. Anna<br /></a>
-  <a class="link-card" href="./dansk-ordstilling_0inv.html">Læsning 0 INV. Anna<br /></a>
-  <a class="link-card" href="./insetOrd0.html">Udfyld de manglende ord 0. Anna<br /></a>
-  <a class="link-card" href="./dansk-ordstilling_1.html">Læsning 1. Emma<br /></a>
-  <a class="link-card" href="./dansk-ordstilling_1inv.html">Læsning 1 INV. Emma<br /></a>
-  <a class="link-card" href="./insetOrd1.html">Udfyld de manglende ord 1. Emma<br /></a>
-  <a class="link-card" href="./oret.html">Høre og tale<br /></a>
+<div id="passwordOverlay">
+  <h2>Indtast adgangskode for ekstra indhold</h2>
+  <input type="text" id="usernameInput" placeholder="Brugernavn">
+  <input type="password" id="passwordInput" placeholder="Adgangskode">
+  <button onclick="checkPassword()">Enter</button>
 </div>
 
+<h5>Læsning</h5>
 
+<div class="link-grid" id="linkGrid">
+  <!-- Public ссылки будут вставлены автоматически -->
+</div>
 
+<script>
+let accessData = null;
 
+// Загружаем JSON с пользователями и ссылками
+fetch("access.json")
+  .then(res => res.json())
+  .then(json => {
+    accessData = json;
+
+    // Показываем public ссылки сразу
+    const grid = document.getElementById("linkGrid");
+    json.links.public.forEach(link => {
+      const a = document.createElement("a");
+      a.className = "link-card";
+      a.href = link.href;
+      a.textContent = link.text;
+      grid.appendChild(a);
+    });
+  })
+  .catch(err => {
+    alert("Ошибка загрузки access.json: " + err);
+  });
+
+async function checkPassword() {
+  const username = document.getElementById("usernameInput").value.trim();
+  const password = document.getElementById("passwordInput").value;
+
+  if(!accessData) {
+    alert("JSON с доступом ещё не загружен");
+    return;
+  }
+
+  const user = accessData.users.find(
+    u => u.username === username && u.password === password
+  );
+
+  if(!user) {
+    alert("Forkert brugernavn eller adgangskode!");
+    return;
+  }
+
+  // скрываем окно
+  document.getElementById("passwordOverlay").style.display = "none";
+
+  // Добавляем защищённые ссылки
+  const grid = document.getElementById("linkGrid");
+  accessData.links.protected.forEach(link => {
+    // Админ видит всё, остальные — если уровень >= minLevel
+    if(user.accessLevel === 0 || user.accessLevel >= link.minLevel) {
+      const a = document.createElement("a");
+      a.className = "link-card";
+      a.href = link.href;
+      a.textContent = link.text;
+      grid.appendChild(a);
+    }
+  });
+}
+
+// Enter тоже работает
+document.getElementById("passwordInput").addEventListener("keyup", function(event) {
+  if(event.key === "Enter") checkPassword();
+});
+document.getElementById("usernameInput").addEventListener("keyup", function(event) {
+  if(event.key === "Enter") checkPassword();
+});
+</script>
 
 </body>
 </html>
