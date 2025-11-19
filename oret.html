@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<title>Danish Words Player & Recorder</title>
+<style>
+body { font-family: Arial, sans-serif; padding: 20px; }
+table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+td, th { padding: 10px; border-bottom: 1px solid #ddd; text-align: center; }
+.highlight { background: #ffe08a; transition: 0.2s; }
+button { margin: 2px; }
+</style>
+</head>
+<body>
+
+<h2>Danish Words Player & Recorder</h2>
+
+<label>Speed: <span id="speedValue">1.0x</span></label>
+<input type="range" id="speed" min="0.5" max="1.5" step="0.1" value="1">
+
+<table id="wordsTable">
+<thead>
+<tr>
+<th>Слово 1</th><th>Транскрипция</th><th>Значение 1</th>
+<th>Слово 2</th><th>Транскрипция</th><th>Значение 2</th>
+<th>Действия</th>
+</tr>
+</thead>
+<tbody>
+<!-- Сюда JS вставит строки из JSON -->
+</tbody>
+</table>
+
+<script>
+// ----------- Настройки скорости ----------
+const speedSlider = document.getElementById("speed");
+const speedValue = document.getElementById("speedValue");
+speedSlider.addEventListener("input", ()=>{ speedValue.textContent = speedSlider.value+"x"; });
+
+// ----------- Загрузка JSON ----------
+async function loadJSON() {
+  // Для теста можно подставить путь к локальному JSON
+  const response = await fetch('oret.json');
+  const data = await response.json();
+  buildTable(data);
+}
+
+// ----------- Построение таблицы ----------
+function buildTable(data){
+  const tbody = document.querySelector("#wordsTable tbody");
+  data.forEach((item,i)=>{
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td id="w1-${i}"><b>${item.word1}</b></td>
+      <td>${item.transcription1}</td>
+      <td>${item.meaning1}</td>
+      <td id="w2-${i}"><b>${item.word2}</b></td>
+      <td>${item.transcription2}</td>
+      <td>${item.meaning2}</td>
+      <td>
+        <button onclick="playRow(${i})">🔊 Прослушать</button>
+        <button onclick="toggleRecording(${i})">🎤 Старт/Стоп</button>
+        <button onclick="playRecording(${i})">▶️ Воспроизвести</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  window.wordData = data; // сохраняем глобально для функций
+}
+
+// ----------- TTS и подсветка ----------
+function highlight(id, on){
+  const el = document.getElementById(id);
+  if(el) el.classList.toggle("highlight", on);
+}
+
+async function speak(text,speed){
+  return new Promise(resolve=>{
+    const msg = new SpeechSynthesisUtterance(text);
+    msg.lang = "da-DK";
+    msg.rate = speed;
+    msg.onend = resolve;
+    speechSynthesis.speak(msg);
+  });
+}
+
+async function playRow(i){
+  const row = window.wordData[i];
+  const speed = parseFloat(speedSlider.value);
+
+  highlight(`w1-${i}`, true);
+  await speak(row.word1, speed);
+  highlight(`w1-${i}`, false);
+
+  await new Promise(r=>setTimeout(r, 350));
+
+  highlight(`w2-${i}`, true);
+  await speak(row.word2, speed);
+  highlight(`w2-${i}`, false);
+}
+
+// ----------- RECORDING ----------
+let mediaRecorders = {};
+let audioBlobs = {};
+
+async function toggleRecording(i){
+  if(mediaRecorders[i] && mediaRecorders[i].state !== "inactive"){
+    mediaRecorders[i].stop();
+  } else {
+    const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+    const recorder = new MediaRecorder(stream);
+    audioBlobs[i] = [];
+    recorder.ondataavailable = e => audioBlobs[i].push(e.data);
+    recorder.start();
+    mediaRecorders[i] = recorder;
+
+    recorder.onstop = () => {
+      stream.getTracks().forEach(t=>t.stop());
+    };
+  }
+}
+
+function playRecording(i){
+  if(!audioBlobs[i] || audioBlobs[i].length===0) return;
+  const blob = new Blob(audioBlobs[i], {type:'audio/webm'});
+  const url = URL.createObjectURL(blob);
+  const audio = new Audio(url);
+  audio.play();
+}
+
+// ----------- Инициализация ----------
+loadJSON();
+</script>
+
+</body>
+</html>

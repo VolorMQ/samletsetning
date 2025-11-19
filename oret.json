@@ -1,0 +1,354 @@
+[
+  {
+    "word1": "mad",
+    "transcription1": "[ˈmæːð]",
+    "meaning1": "еда",
+    "word2": "med",
+    "transcription2": "[ˈmeð]",
+    "meaning2": "с, вместе с"
+  },
+  {
+    "word1": "lege",
+    "transcription1": "[ˈleːə]",
+    "meaning1": "играть",
+    "word2": "læger",
+    "transcription2": "[ˈlɛːɐ]",
+    "meaning2": "врачи"
+  },
+  {
+    "word1": "hus",
+    "transcription1": "[ˈhuːs]",
+    "meaning1": "дом",
+    "word2": "huse",
+    "transcription2": "[ˈhuːsə]",
+    "meaning2": "дома (мн.)"
+  },
+  {
+    "word1": "ban",
+    "transcription1": "[ˈbɑn]",
+    "meaning1": "запрещать",
+    "word2": "bane",
+    "transcription2": "[ˈbɑːnə]",
+    "meaning2": "путь, трасса"
+  },
+  {
+    "word1": "lys",
+    "transcription1": "[ˈlyːs]",
+    "meaning1": "свет",
+    "word2": "lis",
+    "transcription2": "[ˈliːs]",
+    "meaning2": "обрамление"
+  },
+  {
+    "word1": "gul",
+    "transcription1": "[ˈɡuːl]",
+    "meaning1": "жёлтый",
+    "word2": "gull",
+    "transcription2": "[ˈɡul]",
+    "meaning2": "золото"
+  },
+  {
+    "word1": "bad",
+    "transcription1": "[ˈbɑːð]",
+    "meaning1": "ванна",
+    "word2": "bød",
+    "transcription2": "[ˈbøːð]",
+    "meaning2": "предлагал"
+  },
+  {
+    "word1": "sten",
+    "transcription1": "[ˈsten]",
+    "meaning1": "камень",
+    "word2": "stæn",
+    "transcription2": "[ˈstæn]",
+    "meaning2": "брызг"
+  },
+  {
+    "word1": "mor",
+    "transcription1": "[ˈmoɐ̯]",
+    "meaning1": "мама",
+    "word2": "mør",
+    "transcription2": "[ˈmɶːɐ̯]",
+    "meaning2": "тёмный"
+  },
+  {
+    "word1": "kat",
+    "transcription1": "[ˈkʰæt]",
+    "meaning1": "кошка",
+    "word2": "kæd",
+    "transcription2": "[ˈkʰɛð]",
+    "meaning2": "цепь"
+  },
+  {
+    "word1": "hat",
+    "transcription1": "[ˈhɑːt]",
+    "meaning1": "шляпа",
+    "word2": "hæd",
+    "transcription2": "[ˈhɛːð]",
+    "meaning2": "судьба"
+  },
+  {
+    "word1": "bil",
+    "transcription1": "[ˈbiːl]",
+    "meaning1": "машина",
+    "word2": "pil",
+    "transcription2": "[ˈpiːl]",
+    "meaning2": "стрела"
+  },
+  {
+    "word1": "bog",
+    "transcription1": "[ˈbɔw]",
+    "meaning1": "книга",
+    "word2": "bøg",
+    "transcription2": "[ˈbœw]",
+    "meaning2": "бук"
+  },
+  {
+    "word1": "løb",
+    "transcription1": "[ˈløːb]",
+    "meaning1": "бег",
+    "word2": "løv",
+    "transcription2": "[ˈlɔːv]",
+    "meaning2": "лист"
+  },
+  {
+    "word1": "fod",
+    "transcription1": "[ˈfoːð]",
+    "meaning1": "нога",
+    "word2": "for",
+    "transcription2": "[ˈfoɐ̯]",
+    "meaning2": "для"
+  },
+  {
+    "word1": "kul",
+    "transcription1": "[ˈkʰuːl]",
+    "meaning1": "уголь",
+    "word2": "køl",
+    "transcription2": "[ˈkʰøːl]",
+    "meaning2": "холодильник"
+  },
+  {
+    "word1": "sæd",
+    "transcription1": "[ˈsɛð]",
+    "meaning1": "семя",
+    "word2": "sad",
+    "transcription2": "[ˈsɑːð]",
+    "meaning2": "сидел"
+  },
+  {
+    "word1": "sag",
+    "transcription1": "[ˈsɑː]",
+    "meaning1": "дело",
+    "word2": "sag",
+    "transcription2": "[ˈsæː]",
+    "meaning2": "пила"
+  },
+  {
+    "word1": "ven",
+    "transcription1": "[ˈvɛn]",
+    "meaning1": "друг",
+    "word2": "væn",
+    "transcription2": "[ˈvɛːn]",
+    "meaning2": "привычка"
+  },
+  {
+    "word1": "sol",
+    "transcription1": "[ˈsoːl]",
+    "meaning1": "солнце",
+    "word2": "sål",
+    "transcription2": "[ˈsɔːl]",
+    "meaning2": "подошва"
+  },
+  {
+    "word1": "ro",
+    "transcription1": "[ˈʁoː]",
+    "meaning1": "спокойствие",
+    "word2": "rå",
+    "transcription2": "[ˈʁɔː]",
+    "meaning2": "сырой"
+  },
+  {
+    "word1": "sø",
+    "transcription1": "[ˈsøː]",
+    "meaning1": "озеро",
+    "word2": "sød",
+    "transcription2": "[ˈsøːð]",
+    "meaning2": "сладкий"
+  },
+  {
+    "word1": "tag",
+    "transcription1": "[ˈtɑː]",
+    "meaning1": "крыша",
+    "word2": "tak",
+    "transcription2": "[ˈtɑk]",
+    "meaning2": "спасибо"
+  },
+  {
+    "word1": "bille",
+    "transcription1": "[ˈbiːlə]",
+    "meaning1": "жук",
+    "word2": "bil",
+    "transcription2": "[ˈbiːl]",
+    "meaning2": "машина"
+  },
+  {
+    "word1": "tid",
+    "transcription1": "[ˈtiːð]",
+    "meaning1": "время",
+    "word2": "tidt",
+    "transcription2": "[ˈtiːt]",
+    "meaning2": "часто"
+  },
+  {
+    "word1": "lås",
+    "transcription1": "[ˈlɔːs]",
+    "meaning1": "замок",
+    "word2": "løs",
+    "transcription2": "[ˈløːs]",
+    "meaning2": "свободный"
+  },
+  {
+    "word1": "lam",
+    "transcription1": "[ˈlɑːm]",
+    "meaning1": "ягнёнок",
+    "word2": "lem",
+    "transcription2": "[ˈlɛːm]",
+    "meaning2": "конечность"
+  },
+  {
+    "word1": "væg",
+    "transcription1": "[ˈvɛːɡ]",
+    "meaning1": "стена",
+    "word2": "vej",
+    "transcription2": "[ˈvɑj]",
+    "meaning2": "путь"
+  },
+  {
+    "word1": "dåb",
+    "transcription1": "[ˈdɔːb]",
+    "meaning1": "крещение",
+    "word2": "dåb",
+    "transcription2": "[ˈdɑːb]",
+    "meaning2": "удар (редко)"
+  },
+  {
+    "word1": "læs",
+    "transcription1": "[ˈlɛːs]",
+    "meaning1": "груз",
+    "word2": "læs",
+    "transcription2": "[ˈlɛs]",
+    "meaning2": "читать"
+  },
+  {
+    "word1": "kort",
+    "transcription1": "[ˈkʰɔːt]",
+    "meaning1": "карта",
+    "word2": "kort",
+    "transcription2": "[ˈkʰoɐ̯t]",
+    "meaning2": "короткий"
+  },
+  {
+    "word1": "sang",
+    "transcription1": "[ˈsɑŋ]",
+    "meaning1": "песня",
+    "word2": "sand",
+    "transcription2": "[ˈsɑn]",
+    "meaning2": "песок"
+  },
+  {
+    "word1": "mand",
+    "transcription1": "[ˈmɑn]",
+    "meaning1": "мужчина",
+    "word2": "månd",
+    "transcription2": "[ˈmoːn]",
+    "meaning2": "месяц"
+  },
+  {
+    "word1": "dag",
+    "transcription1": "[ˈdɑː]",
+    "meaning1": "день",
+    "word2": "tag",
+    "transcription2": "[ˈtɑː]",
+    "meaning2": "крышa"
+  },
+  {
+    "word1": "rå",
+    "transcription1": "[ˈʁɔː]",
+    "meaning1": "сырой",
+    "word2": "ro",
+    "transcription2": "[ˈʁoː]",
+    "meaning2": "спокойствие"
+  },
+  {
+    "word1": "løg",
+    "transcription1": "[ˈlœw]",
+    "meaning1": "лук",
+    "word2": "løg",
+    "transcription2": "[ˈlɶw]",
+    "meaning2": false
+  },
+  {
+    "word1": "med",
+    "transcription1": "[ˈmeð]",
+    "meaning1": "с",
+    "word2": "mæd",
+    "transcription2": "[ˈmæːð]",
+    "meaning2": "еда"
+  },
+  {
+    "word1": "bog",
+    "transcription1": "[ˈbɔw]",
+    "meaning1": "книга",
+    "word2": "bøg",
+    "transcription2": "[ˈbœw]",
+    "meaning2": "бук"
+  },
+  {
+    "word1": "lys",
+    "transcription1": "[ˈlyːs]",
+    "meaning1": "свет",
+    "word2": "lis",
+    "transcription2": "[ˈliːs]",
+    "meaning2": "обрамление"
+  },
+  {
+    "word1": "kan",
+    "transcription1": "[ˈkʰan]",
+    "meaning1": "мочь",
+    "word2": "kån",
+    "transcription2": "[ˈkʰɔːn]",
+    "meaning2": "ветка"
+  },
+  {
+    "word1": "nej",
+    "transcription1": "[ˈnɑj]",
+    "meaning1": "нет",
+    "word2": "nej",
+    "transcription2": "[ˈnɛj]",
+    "meaning2": "нет (вариант)"
+  },
+  {
+    "word1": "fin",
+    "transcription1": "[ˈfiːn]",
+    "meaning1": "хороший",
+    "word2": "find",
+    "transcription2": "[ˈfiːn]",
+    "meaning2": "находить"
+  },
+  {
+    "word1": "ven",
+    "transcription1": "[ˈvɛn]",
+    "meaning1": "друг",
+    "word2": "væn",
+    "transcription2": "[ˈvɛːn]",
+    "meaning2": "привычка"
+  },
+  {
+    "word1": "kød",
+    "transcription1": "[ˈkʰøːð]",
+    "meaning1": "мясо",
+    "word2": "kød",
+    "transcription2": "[ˈkʰœːð]",
+    "meaning2": "тело (разг.)"
+  }
+]
