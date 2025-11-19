@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<title>Fill-in-the-blank interactive</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<style>
+body { font-family: Arial, sans-serif; background: #f2f2f2; padding: 30px; }
+h2 { color: #333; }
+#story p {
+  text-indent: 20px; /* отступ первой строки */
+  margin: 0 0 1em 0; /* отступ между абзацами */
+  line-height: 1.6;
+}
+
+.placeholder, .insertedWord {
+  display: inline-block;
+  min-width: 60px;
+  padding: 5px;
+  margin: 0 3px;
+  border-bottom: 2px solid #555;
+  vertical-align: middle;
+  text-align: center;
+}
+.placeholder { background: #fff; cursor: grab; }
+.insertedWord { background: #2196F3; color: #fff; cursor: grab; border-radius: 4px; }
+#choices {
+  margin-top: 20px;
+  min-height: 50px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background: #e9e9e9;
+  border-radius: 5px;
+  text-align: center;
+}
+.word {
+  display: inline-block;
+  padding: 8px 12px;
+  margin: 5px;
+  background: #4CAF50;
+  color: #fff;
+  border-radius: 5px;
+  cursor: grab;
+  user-select: none;
+}
+.word.dragging, .insertedWord.dragging { opacity: 0.5; }
+#controls { margin-bottom: 15px; }
+#check, #refresh, #generateWords { margin-top: 10px; padding: 10px 20px; font-size: 16px; cursor: pointer; margin-right: 10px;}
+#result { margin-top: 15px; font-weight: bold; font-size: 18px; text-align:center;}
+label { margin-right: 10px; }
+@media (max-width: 600px) {
+  body { padding: 12px; }
+  .word, .insertedWord { font-size: 16px; padding: 6px 10px; }
+}
+</style>
+</head>
+<body>
+
+<h2>Udfyld de manglende ord:</h2>
+
+<div id="controls">
+  <label>Antal ord til at indsætte: <input type="number" id="numWords" min="1" max="10" value="3"></label>
+  <label><input type="checkbox" id="mobileMode"> Mobiltilstand</label>
+  <button id="generateWords">Generer ord</button>
+  <button id="refresh">Opdater tekst</button>
+  <button id="check">Check</button>
+</div>
+
+<div id="story"></div>
+<div id="choices"></div>
+<div id="result"></div>
+
+<script>
+let texts = [];
+let currentText = null;
+let availableWords = [];
+let selectedWords = [];
+let dragged = null;
+let fromChoice = false;
+let mobileMode = false;
+let selectedWordForTap = null;
+
+// Загрузка JSON с рассказами
+fetch('insord0.json')
+  .then(res => res.json())
+  .then(data => {
+    texts = data.map(item => ({
+      // каждый /br → отдельный <p>
+      text: item.text.split('/br').map(p => `<p>${p.trim()}</p>`).join('')
+    }));
+    loadRandomText();
+  })
+  .catch(() => {
+    const fallback = "I morges sprang jeg hurtigt ud af sengen, og prøvede jeg at finde mine sko, men de lå gemt under sofaen. /br Da jeg endelig fandt dem, løb jeg ud af døren og nåede lige bussen i sidste øjeblik.";
+
+    texts = [{
+      text: fallback.split('/br').map(p => `<p>${p.trim()}</p>`).join('')
+    }];
+
+    loadRandomText();
+  });
+
+// Случайный выбор текста
+function loadRandomText() {
+  const randomIndex = Math.floor(Math.random() * texts.length);
+  currentText = JSON.parse(JSON.stringify(texts[randomIndex])); // глубокая копия
+  generateWords();
+}
+
+// Перемешивание массива
+function shuffleArray(arr) {
+  return arr.slice().sort(() => Math.random() - 0.5);
+}
+
+// ---- helper: получить все слова (Unicode-aware) ----
+function extractWords(text){
+  try {
+    // работает в современных браузерах: берём буквы и комбинации диакритики
+    return text.match(/[\p{L}\p{M}]+/gu) || [];
+  } catch(e){
+    // fallback — старые браузеры: добавим æøå вручную
+    return text.match(/\b[\wæøåÆØÅ]+\b/g) || [];
+  }
+}
+
+// ---- helper: токенизация текста (слова и всё остальное) ----
+function tokenize(text){
+  try {
+    return text.match(/[\p{L}\p{M}]+|[^\p{L}\p{M}]+/gu) || [text];
+  } catch(e){
+    // fallback: разбиваем на слова/не-слова (сохраняя разделители)
+    return text.split(/(\W+)/);
+  }
+}
+
+// ---- Генерация случайных слов для вставки (замена старой функции) ----
+function generateWords() {
+  const num = parseInt(document.getElementById('numWords').value);
+
+  // Надёжно извлекаем слова (Unicode-aware)
+  let allWords = extractWords(currentText.text);
+  if (!allWords) allWords = [];
+
+  // Убираем дубликаты, чтобы слова были уникальны
+  const uniqueWords = [...new Set(allWords)];
+
+  // Выбираем случайные уникальные слова (ровно num или меньше)
+  selectedWords = shuffleArray(uniqueWords).slice(0, Math.min(num, uniqueWords.length));
+
+  // Копия для отображения в списке
+  availableWords = selectedWords.slice();
+
+  renderStory();
+  renderWords();
+  document.getElementById('result').textContent = '';
+}
+
+// ---- Создание текста с placeholders, заменяем только ОДНО (первое) вхождение каждого слова ----
+function renderStory() {
+  let newText = currentText.text;
+
+  selectedWords.forEach(word => {
+    const escapedWord = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`\\b${escapedWord}\\b`);
+    const placeholderHTML = `<span class="placeholder" data-expected="${word.toLowerCase()}" ondrop="dropWord(event)" ondragover="allowDrop(event)" onclick="tapPlaceholder(event)">___</span>`;
+    newText = newText.replace(regex, placeholderHTML);
+  });
+
+  document.getElementById('story').innerHTML = newText;
+}
+
+// Отображение доступных слов
+function renderWords() {
+  const choicesDiv = document.getElementById('choices');
+  // при мобилке слова не draggable
+  choicesDiv.innerHTML = availableWords.map((w,i) =>
+    `<div class="word" ${mobileMode ? '' : 'draggable="true"'} id="word${i}" ondragstart="dragWord(event)" onclick="tapWord(event)">${w}</div>`
+  ).join('');
+}
+
+// Drag & Drop
+function allowDrop(ev){ ev.preventDefault(); }
+
+function dragWord(ev){
+  if(mobileMode) return; // в мобилке drag отключаем
+  dragged = ev.target;
+  fromChoice = true;
+  ev.dataTransfer.setData("text", ev.target.textContent);
+  ev.target.classList.add('dragging');
+}
+
+function dropWord(ev){
+  if (mobileMode) return; // в мобилке drop отключаем
+  ev.preventDefault();
+  const placeholder = ev.target;
+  if (!dragged) return;
+
+  const expected = placeholder.dataset && placeholder.dataset.expected ? placeholder.dataset.expected : null;
+  const wordText = dragged.textContent.trim();
+
+  // создаём вставленный span и копируем expected
+  const span = document.createElement('span');
+  span.className = 'insertedWord';
+  span.draggable = true;
+  span.textContent = wordText;
+  if (expected) span.dataset.expected = expected;
+
+  span.ondragstart = dragInsertedWord;
+  span.onclick = tapInsertedWord;
+  placeholder.parentNode.replaceChild(span, placeholder);
+
+  if (fromChoice) {
+    const index = availableWords.indexOf(dragged.textContent);
+    if (index > -1) availableWords.splice(index, 1);
+    renderWords();
+  }
+
+  if (dragged) dragged.classList.remove('dragging');
+  dragged = null;
+}
+
+
+function dragInsertedWord(ev){
+  if (mobileMode) return;
+  const wordEl = ev.target;
+  dragged = wordEl;
+  fromChoice = false;
+  ev.dataTransfer.setData("text", wordEl.textContent);
+  ev.target.classList.add('dragging');
+
+  // вернуть слово в банк
+  const wordText = wordEl.textContent.trim();
+  availableWords.push(wordText);
+  renderWords();
+
+  // создаём placeholder и переносим expected туда
+  const placeholder = document.createElement('span');
+  placeholder.className = 'placeholder';
+  placeholder.textContent = '___';
+  if (wordEl.dataset && wordEl.dataset.expected) {
+    placeholder.dataset.expected = wordEl.dataset.expected;
+  }
+  placeholder.ondrop = dropWord;
+  placeholder.ondragover = allowDrop;
+  placeholder.onclick = tapPlaceholder;
+
+  wordEl.parentNode.replaceChild(placeholder, wordEl);
+  dragged = null;
+}
+
+// === MOBILE: tap handlers ===
+function tapWord(ev){
+  if(!mobileMode) return;
+  const el = ev.currentTarget;
+  const word = el.textContent.trim();
+  if(selectedWordForTap === word){
+    selectedWordForTap = null;
+    el.style.background = ''; // сброс подсветки
+  } else {
+    selectedWordForTap = word;
+    // подсветим выбранное
+    document.querySelectorAll('#choices .word').forEach(w => w.style.background = '#4CAF50');
+    el.style.background = '#1976D2';
+  }
+}
+
+function tapPlaceholder(ev){
+  if (!mobileMode) return;
+  if (!selectedWordForTap) return;
+  const placeholder = ev.target;
+  const expected = placeholder.dataset && placeholder.dataset.expected ? placeholder.dataset.expected : null;
+  const wordText = selectedWordForTap;
+
+  const span = document.createElement('span');
+  span.className = 'insertedWord';
+  span.textContent = wordText;
+  // mobile: не делаем draggable, но сохраняем expected
+  if (expected) span.dataset.expected = expected;
+  span.draggable = false;
+  span.onclick = tapInsertedWord;
+
+  placeholder.parentNode.replaceChild(span, placeholder);
+
+  // убрать слово из availableWords
+  const idx = availableWords.indexOf(selectedWordForTap);
+  if (idx > -1) availableWords.splice(idx, 1);
+  selectedWordForTap = null;
+  renderWords();
+}
+
+function tapInsertedWord(ev){
+  if (!mobileMode) return;
+  const wordEl = ev.target;
+  const wordText = wordEl.textContent.trim();
+  const expected = wordEl.dataset && wordEl.dataset.expected ? wordEl.dataset.expected : null;
+
+  // вернуть слово в банк
+  availableWords.push(wordText);
+  renderWords();
+
+  // восстановить placeholder с expected (если был)
+  const placeholder = document.createElement('span');
+  placeholder.className = 'placeholder';
+  placeholder.textContent = '___';
+  if (expected) placeholder.dataset.expected = expected;
+  placeholder.ondrop = dropWord;
+  placeholder.ondragover = allowDrop;
+  placeholder.onclick = tapPlaceholder;
+
+  wordEl.parentNode.replaceChild(placeholder, wordEl);
+}
+
+// Проверка (оставлена как в твоём рабочем коде — сравнение по позиции)
+document.getElementById('check').addEventListener('click', () => {
+  const inserted = Array.from(document.querySelectorAll('.insertedWord'));
+  let allCorrect = true;
+
+  inserted.forEach(el => {
+    const actual = el.textContent.trim().toLowerCase();
+    const expected = el.dataset && el.dataset.expected ? el.dataset.expected.toLowerCase() : null;
+
+    if (expected && actual === expected) {
+      el.style.background = '#d4edda';
+      el.style.borderBottom = '2px solid green';
+    } else {
+      el.style.background = '#f8d7da';
+      el.style.borderBottom = '2px solid red';
+      allCorrect = false;
+    }
+  });
+
+  document.getElementById('result').textContent = allCorrect ? 'Alle svar er korrekte! 🎉' : 'Nogle svar er forkerte. Prøv igen.';
+});
+
+// Кнопки
+document.getElementById('refresh').addEventListener('click', loadRandomText);
+document.getElementById('generateWords').addEventListener('click', generateWords);
+document.getElementById('mobileMode').addEventListener('change', (e) => {
+  mobileMode = e.target.checked;
+  selectedWordForTap = null;
+  // при переключении режима: делаем renderWords чтобы обновить draggable атрибуты и убрать подсветки
+  renderWords();
+});
+</script>
+
+</body>
+</html>

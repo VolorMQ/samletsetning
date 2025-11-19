@@ -1,0 +1,897 @@
+{
+  "sentences": [
+    {
+      "Jeg": {
+        "word": "Pronomen1",
+        "translation": " "
+      },
+      "bor": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "i": {
+        "word": "Præposition1",
+        "translation": " "
+      },
+      "København": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Jeg": {
+        "word": "Pronomen1",
+        "translation": " "
+      },
+      "har": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "en": {
+        "word": "Artikel1",
+        "translation": " "
+      },
+      "hund": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Max": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "er": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "lille": {
+        "word": "Adjektiv1",
+        "translation": " "
+      },
+      "og": {
+        "word": "Konjunktion1",
+        "translation": " "
+      },
+      "sød": {
+        "word": "Adjektiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Hver": {
+        "word": "Adjektiv1",
+        "translation": " "
+      },
+      "dag": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "går": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "vi": {
+        "word": "Pronomen1",
+        "translation": " "
+      },
+      "i": {
+        "word": "Præposition1",
+        "translation": " "
+      },
+      "parken": {
+        "word": "Substantiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Vi": {
+        "word": "Pronomen1",
+        "translation": " "
+      },
+      "leger": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "og": {
+        "word": "Konjunktion1",
+        "translation": " "
+      },
+      "løber": {
+        "word": "Verbum2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Max": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "løber": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "efter": {
+        "word": "Præposition1",
+        "translation": " "
+      },
+      "en": {
+        "word": "Artikel1",
+        "translation": " "
+      },
+      "bold": {
+        "word": "Substantiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Efter": {
+        "word": "Præposition1",
+        "translation": " "
+      },
+      "parken": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "går": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "jeg": {
+        "word": "Pronomen1",
+        "translation": " "
+      },
+      "til": {
+        "word": "Præposition2",
+        "translation": " "
+      },
+      "butikken": {
+        "word": "Substantiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Jeg": {
+        "word": "Pronomen1",
+        "translation": " "
+      },
+      "køber": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "brød": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "og": {
+        "word": "Konjunktion1",
+        "translation": " "
+      },
+      "mælk": {
+        "word": "Substantiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Butikken": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "er": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "tæt": {
+        "word": "Adjektiv1",
+        "translation": " "
+      },
+      "på": {
+        "word": "Præposition1",
+        "translation": " "
+      },
+      "mit": {
+        "word": "Pronomen1",
+        "translation": " "
+      },
+      "hus": {
+        "word": "Substantiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Jeg": {
+        "word": "Pronomen1",
+        "translation": " "
+      },
+      "møder": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "min": {
+        "word": "Pronomen2",
+        "translation": " "
+      },
+      "ven": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "Peter": {
+        "word": "Substantiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Mie": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "er": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "stor": {
+        "word": "Adjektiv1",
+        "translation": " "
+      },
+      "og": {
+        "word": "Konjunktion1",
+        "translation": " "
+      },
+      "sort": {
+        "word": "Adjektiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Vi": {
+        "word": "Pronomen1",
+        "translation": " "
+      },
+      "går": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "sammen": {
+        "word": "Adverbium1",
+        "translation": " "
+      },
+      "hjem": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "til": {
+        "word": "Præposition1",
+        "translation": " "
+      },
+      "mig": {
+        "word": "Pronomen2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Max": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "og": {
+        "word": "Konjunktion1",
+        "translation": " "
+      },
+      "Mie": {
+        "word": "Substantiv2",
+        "translation": " "
+      },
+      "leger": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "i": {
+        "word": "Præposition1",
+        "translation": " "
+      },
+      "haven": {
+        "word": "Substantiv3",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Jeg": {
+        "word": "Pronomen1",
+        "translation": " "
+      },
+      "taler": {
+        "word": "Verbum2",
+        "translation": " "
+      },
+      "lidt": {
+        "word": "Adverbium3",
+        "translation": " "
+      },
+      "dansk": {
+        "word": "Substantiv2",
+        "translation": " "
+      },
+      ",": {
+        "word": "Komma1",
+        "translation": " "
+      },
+      "og": {
+        "word": "Konjunktion1",
+        "translation": " "
+      },
+      "Peter": {
+        "word": "Substantiv2",
+        "translation": " "
+      },
+      "også": {
+        "word": "Adverbium2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Vi": {
+        "word": "Pronomen1",
+        "translation": " "
+      },
+      "lærer": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "nye": {
+        "word": "Adjektiv1",
+        "translation": " "
+      },
+      "ord": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "hver": {
+        "word": "Adjektiv2",
+        "translation": " "
+      },
+      "dag": {
+        "word": "Substantiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Om": {
+        "word": "Præposition1",
+        "translation": " "
+      },
+      "eftermiddagen": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "laver": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "vi": {
+        "word": "Pronomen1",
+        "translation": " "
+      },
+      "mad": {
+        "word": "Substantiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Vi": {
+        "word": "Pronomen1",
+        "translation": " "
+      },
+      "drikker": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "juice": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "og": {
+        "word": "Konjunktion1",
+        "translation": " "
+      },
+      "snakker": {
+        "word": "Verbum2",
+        "translation": " "
+      },
+      "om": {
+        "word": "Præposition1",
+        "translation": " "
+      },
+      "dagen": {
+        "word": "Substantiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Max": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "sover": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "på": {
+        "word": "Præposition1",
+        "translation": " "
+      },
+      "gulvet": {
+        "word": "Substantiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Mie": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "ligger": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "i": {
+        "word": "Præposition1",
+        "translation": " "
+      },
+      "solen": {
+        "word": "Substantiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Efter": {
+        "word": "Præposition1",
+        "translation": " "
+      },
+      "maden": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "går": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "vi": {
+        "word": "Pronomen1",
+        "translation": " "
+      },
+      "til": {
+        "word": "Præposition2",
+        "translation": " "
+      },
+      "stranden": {
+        "word": "Substantiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Vi": {
+        "word": "Pronomen1",
+        "translation": " "
+      },
+      "kaster": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "sten": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "i": {
+        "word": "Præposition1",
+        "translation": " "
+      },
+      "vandet": {
+        "word": "Substantiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Max": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "løber": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "i": {
+        "word": "Præposition1",
+        "translation": " "
+      },
+      "vandet": {
+        "word": "Substantiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Mie": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "går": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "ikke": {
+        "word": "Adverbium1",
+        "translation": " "
+      },
+      "i": {
+        "word": "Præposition1",
+        "translation": " "
+      },
+      "vandet": {
+        "word": "Substantiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Om": {
+        "word": "Præposition1",
+        "translation": " "
+      },
+      "aftenen": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "går": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "vi": {
+        "word": "Pronomen1",
+        "translation": " "
+      },
+      "hjem": {
+        "word": "Substantiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Vi": {
+        "word": "Pronomen1",
+        "translation": " "
+      },
+      "er": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "trætte": {
+        "word": "Adjektiv1",
+        "translation": " "
+      },
+      ",": {
+        "word": "Komma1",
+        "translation": " "
+      },
+      "men": {
+        "word": "Konjunktion1",
+        "translation": " "
+      },
+      "glade": {
+        "word": "Adjektiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Jeg": {
+        "word": "Pronomen1",
+        "translation": " "
+      },
+      "læser": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "en": {
+        "word": "Artikel1",
+        "translation": " "
+      },
+      "bog": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Mie": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "sover": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "på": {
+        "word": "Præposition1",
+        "translation": " "
+      },
+      "sofaen": {
+        "word": "Substantiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Før": {
+        "word": "Konjunktion1",
+        "translation": " "
+      },
+      "vi": {
+        "word": "Pronomen2",
+        "translation": " "
+      },
+      "går": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "i": {
+        "word": "Præposition1",
+        "translation": " "
+      },
+      "seng": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      ",": {
+        "word": "Komma1",
+        "translation": " "
+      },
+      "ser": {
+        "word": "Verbum2",
+        "translation": " "
+      },
+      "ud": {
+        "word": "Præposition2",
+        "translation": " "
+      },
+      "af": {
+        "word": "Præposition3",
+        "translation": " "
+      },
+      "vinduet": {
+        "word": "Substantiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Himlen": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "er": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "rød": {
+        "word": "Adjektiv1",
+        "translation": " "
+      },
+      "og": {
+        "word": "Konjunktion1",
+        "translation": " "
+      },
+      "orange": {
+        "word": "Adjektiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Jeg": {
+        "word": "Pronomen1",
+        "translation": " "
+      },
+      "ligger": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "i": {
+        "word": "Præposition1",
+        "translation": " "
+      },
+      "sengen": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "og": {
+        "word": "Konjunktion1",
+        "translation": " "
+      },
+      "tænker": {
+        "word": "Verbum2",
+        "translation": " "
+      },
+      "på": {
+        "word": "Præposition2",
+        "translation": " "
+      },
+      "dagen": {
+        "word": "Substantiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    },
+    {
+      "Jeg": {
+        "word": "Pronomen1",
+        "translation": " "
+      },
+      "elsker": {
+        "word": "Verbum1",
+        "translation": " "
+      },
+      "min": {
+        "word": "Pronomen3",
+        "translation": " "
+      },
+      "hund": {
+        "word": "Substantiv1",
+        "translation": " "
+      },
+      "og": {
+        "word": "Konjunktion1",
+        "translation": " "
+      },
+      "ven": {
+        "word": "Substantiv2",
+        "translation": " "
+      },
+      ".": {
+        "word": "Punktum",
+        "translation": " "
+      },
+      "full_translation": " "
+    }
+  ]
+}
