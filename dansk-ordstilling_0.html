@@ -298,20 +298,25 @@ function updateFullTranslation(){
 
 // --- LOG SYSTEM ---
 function logStat(correctCount, wrongCount){
-  const now=new Date();
-  const ts=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0')+
-           ' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
-  const entry=`${ts} — ${loggedUser} — ${correctCount} rigtige / ${wrongCount} forkerte`;
-  let logs=JSON.parse(localStorage.getItem('userLogs')||'[]');
+  const now = new Date();
+  const ts = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+
+             String(now.getDate()).padStart(2,'0')+' '+
+             String(now.getHours()).padStart(2,'0')+':'+
+             String(now.getMinutes()).padStart(2,'0');
+  
+  const username = userObj.username || "Guest"; // только имя пользователя
+  const entry = `${ts} — ${username} — ${correctCount} rigtige / ${wrongCount} forkerte`;
+
+  let logs = JSON.parse(localStorage.getItem('userLogs')||'[]');
   logs.push(entry);
   localStorage.setItem('userLogs', JSON.stringify(logs));
   updateStatsWindow();
 }
 
 function updateStatsWindow(){
-  const content=document.getElementById('statsContent');
-  const logs=JSON.parse(localStorage.getItem('userLogs')||'[]');
-  content.innerHTML=logs.slice(-20).reverse().map(l=>`<div>${l}</div>`).join('');
+  const content = document.getElementById('statsContent');
+  const logs = JSON.parse(localStorage.getItem('userLogs')||'[]');
+  content.innerHTML = logs.slice(-20).reverse().map(l=>`<div>${l}</div>`).join('');
 }
 
 // --- HINT AND RESET ---
