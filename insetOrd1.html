@@ -7,51 +7,41 @@
 <style>
 body { font-family: Arial, sans-serif; background: #f2f2f2; padding: 30px; }
 h2 { color: #333; }
-#story p {
-  text-indent: 20px; /* отступ первой строки */
-  margin: 0 0 1em 0; /* отступ между абзацами */
-  line-height: 1.6;
-}
-
-.placeholder, .insertedWord {
-  display: inline-block;
-  min-width: 60px;
-  padding: 5px;
-  margin: 0 3px;
-  border-bottom: 2px solid #555;
-  vertical-align: middle;
-  text-align: center;
-}
+#story p { text-indent: 20px; margin: 0 0 1em 0; line-height: 1.6; }
+.placeholder, .insertedWord { display: inline-block; min-width: 60px; padding: 5px; margin: 0 3px; border-bottom: 2px solid #555; vertical-align: middle; text-align: center; }
 .placeholder { background: #fff; cursor: grab; }
 .insertedWord { background: #2196F3; color: #fff; cursor: grab; border-radius: 4px; }
-#choices {
-  margin-top: 20px;
-  min-height: 50px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  background: #e9e9e9;
-  border-radius: 5px;
-  text-align: center;
-}
-.word {
-  display: inline-block;
-  padding: 8px 12px;
-  margin: 5px;
-  background: #4CAF50;
-  color: #fff;
-  border-radius: 5px;
-  cursor: grab;
-  user-select: none;
-}
+#choices { margin-top: 20px; min-height: 50px; padding: 10px; border: 1px solid #ccc; background: #e9e9e9; border-radius: 5px; text-align: center; }
+.word { display: inline-block; padding: 8px 12px; margin: 5px; background: #4CAF50; color: #fff; border-radius: 5px; cursor: grab; user-select: none; }
 .word.dragging, .insertedWord.dragging { opacity: 0.5; }
 #controls { margin-bottom: 15px; }
 #check, #refresh, #generateWords { margin-top: 10px; padding: 10px 20px; font-size: 16px; cursor: pointer; margin-right: 10px;}
 #result { margin-top: 15px; font-weight: bold; font-size: 18px; text-align:center;}
 label { margin-right: 10px; }
-@media (max-width: 600px) {
-  body { padding: 12px; }
-  .word, .insertedWord { font-size: 16px; padding: 6px 10px; }
+#userPanel {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(255,255,255,0.8);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
+
+#statsWindow {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(255,255,255,0.8);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+@media (max-width: 600px) { body { padding: 12px; } .word, .insertedWord { font-size: 16px; padding: 6px 10px; } }
 </style>
 </head>
 <body>
@@ -70,7 +60,74 @@ label { margin-right: 10px; }
 <div id="choices"></div>
 <div id="result"></div>
 
+<!-- Пользователь и статистика -->
+<div id="userPanel">
+  Brugernavn: <input type="text" id="usernameInput" style="width:100px;"> <button id="logoutBtn">Log ud</button>
+</div>
+<div id="statsWindow"><div id="statsContent"></div></div>
+
 <script>
+// === USER SYSTEM ===
+let storedUser = localStorage.getItem("loggedUser");
+
+// Если в localStorage лежит JSON-объект с username, достаем только имя
+let loggedUser;
+try {
+  const parsed = storedUser ? JSON.parse(storedUser) : null;
+  loggedUser = parsed && parsed.username ? parsed.username : storedUser || "Guest";
+} catch {
+  // если это просто строка, используем её
+  loggedUser = storedUser || "Guest";
+}
+
+const usernameInput = document.getElementById("usernameInput");
+usernameInput.value = loggedUser;
+
+usernameInput.addEventListener("change", e => {
+  loggedUser = e.target.value || "Guest";
+  // сохраняем только имя пользователя
+  localStorage.setItem("loggedUser", JSON.stringify({ username: loggedUser }));
+  updateStatsWindow();
+});
+
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  localStorage.removeItem("loggedUser");
+  loggedUser = "Guest";
+  usernameInput.value = "Guest";
+  updateStatsWindow();
+  alert("Log ud udført. Brugernavn sat til Guest.");
+});
+
+// --- LOG SYSTEM ---
+function logStat(correctCount, wrongCount){
+  const now = new Date();
+  const ts = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+
+             String(now.getDate()).padStart(2,'0')+' '+String(now.getHours()).padStart(2,'0')+':'+
+             String(now.getMinutes()).padStart(2,'0');
+
+  // безопасно определяем страницу
+  let pageName = document.title;
+  if(!pageName || pageName.trim() === '') {
+    const h2 = document.querySelector('h2');
+    pageName = h2 ? h2.textContent : 'Ukendt side';
+  }
+
+  const entry = `${ts} — ${loggedUser} — ${pageName} — ${correctCount} rigtige / ${wrongCount} forkerte`;
+
+  let logs = JSON.parse(localStorage.getItem('userLogs') || '[]');
+  logs.push(entry);
+  localStorage.setItem('userLogs', JSON.stringify(logs));
+  updateStatsWindow();
+}
+
+function updateStatsWindow(){
+  const content = document.getElementById('statsContent');
+  const logs = JSON.parse(localStorage.getItem('userLogs') || '[]');
+  content.innerHTML = logs.slice(-20).reverse().map(l => `<div>${l}</div>`).join('');
+}
+
+
+// === EXERCISE LOGIC ===
 let texts = [];
 let currentText = null;
 let availableWords = [];
@@ -85,251 +142,207 @@ fetch('insord.json')
   .then(res => res.json())
   .then(data => {
     texts = data.map(item => ({
-      // каждый /br → отдельный <p>
-      text: item.text.split('/br').map(p => `<p>${p.trim()}</p>`).join('')
+      text: item.text.split('/br').map(p => `<p>${p.trim()}</p>`).join(''), // для отображения
+      rawWords: item.text.replace(/\/br/g, ' ').trim().match(/[\p{L}\p{M}]+/gu) || [] // чистые слова без символов
     }));
     loadRandomText();
   })
   .catch(() => {
-    const fallback = "I morges sprang jeg hurtigt ud af sengen, og prøvede jeg at finde mine sko, men de lå gemt under sofaen. /br Da jeg endelig fandt dem, løb jeg ud af døren og nåede lige bussen i sidste øjeblik.";
-
+    const fallback = "I morges sprang jeg hurtigt ud af sengen..."; // коротко
     texts = [{
-      text: fallback.split('/br').map(p => `<p>${p.trim()}</p>`).join('')
+      text: fallback.split('/br').map(p => `<p>${p.trim()}</p>`).join(''),
+      rawWords: fallback.replace(/\/br/g, ' ').trim().match(/[\p{L}\p{M}]+/gu) || []
     }];
-
     loadRandomText();
   });
 
-// Случайный выбор текста
+// --- Random text selection ---
 function loadRandomText() {
   const randomIndex = Math.floor(Math.random() * texts.length);
-  currentText = JSON.parse(JSON.stringify(texts[randomIndex])); // глубокая копия
+  currentText = JSON.parse(JSON.stringify(texts[randomIndex]));
   generateWords();
 }
 
-// Перемешивание массива
-function shuffleArray(arr) {
-  return arr.slice().sort(() => Math.random() - 0.5);
-}
+// --- Shuffle helper ---
+function shuffleArray(arr) { return arr.slice().sort(() => Math.random() - 0.5); }
 
-// ---- helper: получить все слова (Unicode-aware) ----
+// --- Extract words ---
 function extractWords(text){
-  try {
-    // работает в современных браузерах: берём буквы и комбинации диакритики
-    return text.match(/[\p{L}\p{M}]+/gu) || [];
-  } catch(e){
-    // fallback — старые браузеры: добавим æøå вручную
-    return text.match(/\b[\wæøåÆØÅ]+\b/g) || [];
-  }
+  try { return text.match(/[\p{L}\p{M}]+/gu) || []; } 
+  catch(e){ return text.match(/\b[\wæøåÆØÅ]+\b/g) || []; }
 }
 
-// ---- helper: токенизация текста (слова и всё остальное) ----
+// --- Tokenize ---
 function tokenize(text){
-  try {
-    return text.match(/[\p{L}\p{M}]+|[^\p{L}\p{M}]+/gu) || [text];
-  } catch(e){
-    // fallback: разбиваем на слова/не-слова (сохраняя разделители)
-    return text.split(/(\W+)/);
-  }
+  try { return text.match(/[\p{L}\p{M}]+|[^\p{L}\p{M}]+/gu) || [text]; } 
+  catch(e){ return text.split(/(\W+)/); }
 }
 
-// ---- Генерация случайных слов для вставки (замена старой функции) ----
+// --- Generate words for blanks ---
 function generateWords() {
   const num = parseInt(document.getElementById('numWords').value);
-
-  // Надёжно извлекаем слова (Unicode-aware)
-  let allWords = extractWords(currentText.text);
-  if (!allWords) allWords = [];
-
-  // Убираем дубликаты, чтобы слова были уникальны
+  let allWords = currentText.rawWords || [];
   const uniqueWords = [...new Set(allWords)];
-
-  // Выбираем случайные уникальные слова (ровно num или меньше)
-  selectedWords = shuffleArray(uniqueWords).slice(0, Math.min(num, uniqueWords.length));
-
-  // Копия для отображения в списке
+  // переводим все выбранные слова в нижний регистр
+  selectedWords = shuffleArray(uniqueWords)
+                    .slice(0, Math.min(num, uniqueWords.length))
+                    .map(w => w.toLowerCase());
   availableWords = selectedWords.slice();
-
   renderStory();
   renderWords();
   document.getElementById('result').textContent = '';
 }
 
-// ---- Создание текста с placeholders, заменяем только ОДНО (первое) вхождение каждого слова ----
+// --- Render story with placeholders ---
 function renderStory() {
   let newText = currentText.text;
 
   selectedWords.forEach(word => {
     const escapedWord = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const regex = new RegExp(`\\b${escapedWord}\\b`);
     const placeholderHTML = `<span class="placeholder" data-expected="${word.toLowerCase()}" ondrop="dropWord(event)" ondragover="allowDrop(event)" onclick="tapPlaceholder(event)">___</span>`;
-    newText = newText.replace(regex, placeholderHTML);
+
+    let replaced = false;
+    const regex = new RegExp(`\\b${escapedWord}\\b`, 'i'); // заменяем только первую встречу
+
+    newText = newText.replace(regex, match => {
+      if (!replaced) {
+        replaced = true;
+        return placeholderHTML;
+      }
+      return match;
+    });
   });
 
   document.getElementById('story').innerHTML = newText;
 }
 
-// Отображение доступных слов
+// --- Render word choices ---
 function renderWords() {
   const choicesDiv = document.getElementById('choices');
-  // при мобилке слова не draggable
   choicesDiv.innerHTML = availableWords.map((w,i) =>
-    `<div class="word" ${mobileMode ? '' : 'draggable="true"'} id="word${i}" ondragstart="dragWord(event)" onclick="tapWord(event)">${w}</div>`
+    `<div class="word" ${mobileMode?'':'draggable="true"'} id="word${i}" ondragstart="dragWord(event)" onclick="tapWord(event)">${w}</div>`
   ).join('');
 }
 
-// Drag & Drop
+// --- Drag & Drop ---
 function allowDrop(ev){ ev.preventDefault(); }
 
 function dragWord(ev){
-  if(mobileMode) return; // в мобилке drag отключаем
-  dragged = ev.target;
-  fromChoice = true;
+  if(mobileMode) return;
+  dragged = ev.target; fromChoice=true;
   ev.dataTransfer.setData("text", ev.target.textContent);
   ev.target.classList.add('dragging');
 }
 
 function dropWord(ev){
-  if (mobileMode) return; // в мобилке drop отключаем
+  if(mobileMode) return;
   ev.preventDefault();
   const placeholder = ev.target;
-  if (!dragged) return;
+  if(!dragged) return;
 
   const expected = placeholder.dataset && placeholder.dataset.expected ? placeholder.dataset.expected : null;
   const wordText = dragged.textContent.trim();
 
-  // создаём вставленный span и копируем expected
   const span = document.createElement('span');
   span.className = 'insertedWord';
   span.draggable = true;
   span.textContent = wordText;
-  if (expected) span.dataset.expected = expected;
-
+  if(expected) span.dataset.expected = expected;
   span.ondragstart = dragInsertedWord;
   span.onclick = tapInsertedWord;
   placeholder.parentNode.replaceChild(span, placeholder);
 
-  if (fromChoice) {
+  if(fromChoice){
     const index = availableWords.indexOf(dragged.textContent);
-    if (index > -1) availableWords.splice(index, 1);
+    if(index>-1) availableWords.splice(index,1);
     renderWords();
   }
-
-  if (dragged) dragged.classList.remove('dragging');
-  dragged = null;
+  if(dragged) dragged.classList.remove('dragging');
+  dragged=null;
 }
 
-
 function dragInsertedWord(ev){
-  if (mobileMode) return;
+  if(mobileMode) return;
   const wordEl = ev.target;
-  dragged = wordEl;
-  fromChoice = false;
+  dragged = wordEl; fromChoice=false;
   ev.dataTransfer.setData("text", wordEl.textContent);
   ev.target.classList.add('dragging');
 
-  // вернуть слово в банк
   const wordText = wordEl.textContent.trim();
   availableWords.push(wordText);
   renderWords();
 
-  // создаём placeholder и переносим expected туда
   const placeholder = document.createElement('span');
   placeholder.className = 'placeholder';
   placeholder.textContent = '___';
-  if (wordEl.dataset && wordEl.dataset.expected) {
-    placeholder.dataset.expected = wordEl.dataset.expected;
-  }
+  if(wordEl.dataset && wordEl.dataset.expected) placeholder.dataset.expected = wordEl.dataset.expected;
   placeholder.ondrop = dropWord;
   placeholder.ondragover = allowDrop;
   placeholder.onclick = tapPlaceholder;
-
   wordEl.parentNode.replaceChild(placeholder, wordEl);
-  dragged = null;
+  dragged=null;
 }
 
-// === MOBILE: tap handlers ===
+// --- Mobile tap ---
 function tapWord(ev){
   if(!mobileMode) return;
   const el = ev.currentTarget;
   const word = el.textContent.trim();
-  if(selectedWordForTap === word){
-    selectedWordForTap = null;
-    el.style.background = ''; // сброс подсветки
-  } else {
-    selectedWordForTap = word;
-    // подсветим выбранное
-    document.querySelectorAll('#choices .word').forEach(w => w.style.background = '#4CAF50');
-    el.style.background = '#1976D2';
-  }
+  if(selectedWordForTap===word){ selectedWordForTap=null; el.style.background=''; }
+  else{ selectedWordForTap=word; document.querySelectorAll('#choices .word').forEach(w=>w.style.background='#4CAF50'); el.style.background='#1976D2'; }
 }
 
 function tapPlaceholder(ev){
-  if (!mobileMode) return;
-  if (!selectedWordForTap) return;
+  if(!mobileMode||!selectedWordForTap) return;
   const placeholder = ev.target;
   const expected = placeholder.dataset && placeholder.dataset.expected ? placeholder.dataset.expected : null;
   const wordText = selectedWordForTap;
 
   const span = document.createElement('span');
-  span.className = 'insertedWord';
-  span.textContent = wordText;
-  // mobile: не делаем draggable, но сохраняем expected
-  if (expected) span.dataset.expected = expected;
-  span.draggable = false;
-  span.onclick = tapInsertedWord;
-
+  span.className='insertedWord'; span.textContent=wordText;
+  if(expected) span.dataset.expected=expected;
+  span.draggable=false; span.onclick=tapInsertedWord;
   placeholder.parentNode.replaceChild(span, placeholder);
 
-  // убрать слово из availableWords
   const idx = availableWords.indexOf(selectedWordForTap);
-  if (idx > -1) availableWords.splice(idx, 1);
-  selectedWordForTap = null;
+  if(idx>-1) availableWords.splice(idx,1);
+  selectedWordForTap=null;
   renderWords();
 }
 
 function tapInsertedWord(ev){
-  if (!mobileMode) return;
+  if(!mobileMode) return;
   const wordEl = ev.target;
   const wordText = wordEl.textContent.trim();
   const expected = wordEl.dataset && wordEl.dataset.expected ? wordEl.dataset.expected : null;
 
-  // вернуть слово в банк
   availableWords.push(wordText);
   renderWords();
 
-  // восстановить placeholder с expected (если был)
   const placeholder = document.createElement('span');
-  placeholder.className = 'placeholder';
-  placeholder.textContent = '___';
-  if (expected) placeholder.dataset.expected = expected;
-  placeholder.ondrop = dropWord;
-  placeholder.ondragover = allowDrop;
-  placeholder.onclick = tapPlaceholder;
-
-  wordEl.parentNode.replaceChild(placeholder, wordEl);
+  placeholder.className='placeholder';
+  placeholder.textContent='___';
+  if(expected) placeholder.dataset.expected=expected;
+  placeholder.ondrop=dropWord;
+  placeholder.ondragover=allowDrop;
+  placeholder.onclick=tapPlaceholder;
+  wordEl.parentNode.replaceChild(placeholder,wordEl);
 }
 
-// Проверка (оставлена как в твоём рабочем коде — сравнение по позиции)
+// --- Check ---
 document.getElementById('check').addEventListener('click', () => {
   const inserted = Array.from(document.querySelectorAll('.insertedWord'));
-  let allCorrect = true;
+  let allCorrect = true; let correctCount=0; let wrongCount=0;
 
-  inserted.forEach(el => {
+  inserted.forEach(el=>{
     const actual = el.textContent.trim().toLowerCase();
     const expected = el.dataset && el.dataset.expected ? el.dataset.expected.toLowerCase() : null;
-
-    if (expected && actual === expected) {
-      el.style.background = '#d4edda';
-      el.style.borderBottom = '2px solid green';
-    } else {
-      el.style.background = '#f8d7da';
-      el.style.borderBottom = '2px solid red';
-      allCorrect = false;
-    }
+    if(expected && actual===expected){ el.style.background='#d4edda'; el.style.borderBottom='2px solid green'; correctCount++; }
+    else{ el.style.background='#f8d7da'; el.style.borderBottom='2px solid red'; allCorrect=false; wrongCount++; }
   });
 
-  document.getElementById('result').textContent = allCorrect ? 'Alle svar er korrekte! 🎉' : 'Nogle svar er forkerte. Prøv igen.';
+  document.getElementById('result').textContent = allCorrect?'Alle svar er korrekte! 🎉':'Nogle svar er forkerte. Prøv igen.';
+  logStat(correctCount,wrongCount);
 });
 
 // Кнопки

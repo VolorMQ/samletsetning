@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>Læsning 1 INV</title>
+<title>Læsning 1 inv</title>
 <style>
 :root{
   --bg:#fafafa; --ink:#1f2937; --line:#e5e7eb;
@@ -16,47 +16,13 @@ html,body{
   font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
   line-height:1.5;
 }
-//.page{
-//  max-width:980px;
-//  margin:32px auto;
-//  padding:0 16px;
-//}
 h1{font-size:22px;margin:0 0 16px;}
 h2{margin-top:24px;}
-/* контейнер отвечает за горизонтальный скролл только таблицы */
-.table-wrapper {
-  width: 100%;               /* занимает всю ширину доступной области */
-  overflow-x: auto;          /* горизонтальный скролл тут */
-  -webkit-overflow-scrolling: touch; /* плавный скролл на мобильных */
-  margin: 0;                 /* без внешних отступов */
-  box-sizing: border-box;
-}
-
-/* внутренний блок, чтобы таблица могла иметь max-content ширину */
-.table-inner {
-  min-width: 100%;
-}
-
-/* таблица может быть шире экрана — тогда появится скролл в .table-wrapper */
-.table-wrapper > .table-inner > table.schema {
-  width: max-content;   /* ширина по содержимому — позволяет горизонтальную прокрутку */
-  min-width: 100%;      /* если содержимое уже меньше экрана, таблица займёт минимум контейнер */
-  border-collapse: collapse;
-}
-
-/* переопределяем глобальный table{width:100%} — ставим более специфичное правило */
-table.schema, table.schema th, table.schema td {
-  border: 1px solid #cbd5e1; /* светло-серая граница */
-}
-table.schema th,
-table.schema td {
-  text-align: left;
-  padding: 10px;
-}
-/* Чтобы таблица выглядела аккуратно с границами */
-table.schema {
-  border-collapse: collapse; /* чтобы границы сливались */
-}
+.table-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0; box-sizing: border-box;}
+.table-inner { min-width: 100%; }
+table.schema { width: max-content; min-width: 100%; border-collapse: collapse; }
+table.schema, table.schema th, table.schema td { border:1px solid #cbd5e1; }
+table.schema th, table.schema td { text-align:left; padding:10px; }
 th{font-size:12px;text-transform:uppercase;background:#f8fafc;}
 .subj{color:var(--blue);}
 .v1{color:var(--red);}
@@ -72,36 +38,55 @@ button{padding:8px 16px;background:var(--blue);color:#fff;border:none;border-rad
 button:disabled{opacity:0.5;cursor:default;}
 #translation{margin-top:12px;font-weight:600;color:#10b981;}
 #mobile-toggle{margin-bottom:12px;}
+td[data-placeholder]:empty::before { content: attr(data-placeholder); color:#9ca3af; font-style:italic; }
 
-td[data-placeholder]:empty::before {
-  content: attr(data-placeholder);
-  color: #9ca3af;
-  font-style: italic;
+#userBarBottom{
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(255,255,255,0.9);
+  padding: 6px 12px;
+  border-radius:6px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.2);
+  font-weight:bold;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
+#usernameInput{width:100px; padding:4px 6px; border-radius:4px; border:1px solid #ccc;}
+#logoutBtn{cursor:pointer; color:#d33; font-weight:bold;}
+#statsBox{
+  position: fixed; bottom:10px; right:10px; width:300px; max-height:150px;
+  background: rgba(255,255,255,0.9); border:1px solid #ccc; overflow-y:auto; font-size:12px;
+  padding:6px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.2); z-index:1000;
+}
+#statsBox h4{margin:0 0 4px 0; font-size:13px;}
 </style>
 </head>
 <body>
+
+<!-- Поле пользователя внизу слева -->
+<div id="userBarBottom">
+  <span>Brugernavn:</span>
+  <input type="text" id="usernameInput" value="">
+  <span id="logoutBtn">Log ud</span>
+</div>
+
 <div class="page">
 <div id="sentence-counter" style="
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  background: rgba(255,255,255,0.8);
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-weight: bold;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  z-index: 1000;
+  position: fixed; top: 10px; right: 10px;
+  background: rgba(255,255,255,0.8); padding: 6px 12px; border-radius:6px; font-weight:bold;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15); z-index:1000;
 ">
   Sætninger : 0
 </div>
-<h1>Læsning 1 INV</h1>
+<h1>Læsning 1 inv</h1>
 <label id="mobile-toggle">
 <input id="mobileVersion" type="checkbox"/> MobilVersion (tap instead of drag)
 </label>
 <h2 class="mt-8">Læsning Emma</h2>
-<!-- Таблица вынесена наружу -->
-<!-- контейнер для горизонтального скролла таблицы -->
+
 <div class="table-wrapper" aria-hidden="false">
   <div class="table-inner">
     <table aria-label="Ordstilling – skema" class="schema">
@@ -119,6 +104,10 @@ td[data-placeholder]:empty::before {
 <div id="translation"></div>
 </div>
 
+<div id="statsBox">
+  <h4>Statistik</h4>
+  <div id="statsContent"></div>
+</div>
 
 <script>
 let sentences = [];
@@ -127,135 +116,109 @@ let wordsPool = [];
 let mobileMode = false;
 let selectedWordIndex = null;
 
-// Подгрузка JSON с предложениями
+// --- Пользователь и лог ---
+let userObj = JSON.parse(localStorage.getItem("loggedUser")) || {username:"", password:"", accessLevel:0};
+const usernameInput = document.getElementById("usernameInput");
+usernameInput.value = userObj.username;
+
+// Для старой логики статистики — создаем вспомогательную переменную
+let loggedUser = userObj.username;
+
+// Изменение имени пользователя
+usernameInput.addEventListener("change", e=>{
+  userObj.username = e.target.value || "Guest";
+  loggedUser = userObj.username; // обновляем для статистики
+  localStorage.setItem("loggedUser", JSON.stringify(userObj));
+  updateStatsWindow();
+});
+
+// Кнопка выхода
+document.getElementById("logoutBtn").addEventListener("click", ()=>{
+  userObj = {username:"Guest", password:"", accessLevel:0};
+  loggedUser = userObj.username; // обновляем для статистики
+  localStorage.setItem("loggedUser", JSON.stringify(userObj));
+  usernameInput.value = userObj.username;
+  updateStatsWindow();
+  alert("Log ud udført. Brugernavn sat til Guest.");
+});
+
+// --- Загрузка JSON ---
 fetch('sentences_1inv.json')
   .then(res => res.json())
   .then(data => {
     sentences = data.sentences;
-	updateSentenceCounter(); // обновляем сразу после загрузки
+    updateSentenceCounter(); 
     initSentences();
   })
   .catch(err => console.error("Fejl ved indlæsning af JSON:", err));
 
 function shuffle(arr){ return arr.sort(()=>Math.random()-0.5); }
 
-// Гарантируем, что wrapper и table существуют и находятся вне .page
-(function ensureTableWrapper() {
-  if (!document.querySelector('.table-wrapper')) {
-    // вставляем wrapper сразу после первого .page (или в body, как тебе удобно)
-    const firstPage = document.querySelector('.page');
-    const wrapper = document.createElement('div');
-    wrapper.className = 'table-wrapper';
-    const inner = document.createElement('div');
-    inner.className = 'table-inner';
-    inner.innerHTML = '<table aria-label="Ordstilling – skema" class="schema"><thead id="table-head"></thead><tbody id="sentence-rows"></tbody></table>';
-    wrapper.appendChild(inner);
-    if (firstPage && firstPage.parentNode) {
-      firstPage.parentNode.insertBefore(wrapper, firstPage.nextSibling);
-    } else {
-      document.body.insertBefore(wrapper, document.body.firstChild);
-    }
-  }
-})();
-
-function updateSentenceCounter() {
-  const counter = document.getElementById('sentence-counter');
-  counter.textContent = `Sætninger : ${sentences.length}`;
+function updateSentenceCounter(){
+  document.getElementById('sentence-counter').textContent = `Sætninger : ${sentences.length}`;
 }
 
 function initSentences(){
   selectedSentences = shuffle([...sentences]).slice(0,1);
-
   const tbody = document.getElementById('sentence-rows');
   const thead = document.getElementById('table-head');
   tbody.innerHTML = "";
   thead.innerHTML = "";
 
-  // Динамическая шапка
   const headerRow = document.createElement('tr');
   const firstSentence = selectedSentences[0];
   for(const key in firstSentence){
-    if(key === "full_translation") continue;
-    const th = document.createElement('th');
-    th.textContent = key;
-    headerRow.appendChild(th);
+    if(key==="full_translation") continue;
+    const th = document.createElement('th'); th.textContent = key; headerRow.appendChild(th);
   }
   thead.appendChild(headerRow);
 
-  // Тело таблицы
   selectedSentences.forEach((s,i)=>{
     const tr = document.createElement('tr');
-    tr.dataset.index = i;
-
+    tr.dataset.index=i;
     for(const key in s){
-      if(key === "full_translation") continue;
-      const td = document.createElement('td');
-      td.dataset.type = key;
-
-      if(key==='subjekt'){ 
-        td.textContent = s.subjekt.word; 
-        td.dataset.wordIndex = -1;
-      } else {
-        if(s[key] && s[key].translation){
-          td.dataset.placeholder = s[key].translation;
-        }
+      if(key==="full_translation") continue;
+      const td=document.createElement('td'); td.dataset.type=key;
+      if(key==='subjekt'){ td.textContent=s.subjekt.word; td.dataset.wordIndex=-1; }
+      else{
+        if(s[key]&&s[key].translation) td.dataset.placeholder=s[key].translation;
         td.addEventListener('dragover', ev=>{ if(!mobileMode) ev.preventDefault(); });
         td.addEventListener('drop', ev=>{ if(!mobileMode) dropWord(ev,td); });
         td.addEventListener('click', ()=>{ if(mobileMode) tapInsert(td); });
       }
       tr.appendChild(td);
     }
-
     tbody.appendChild(tr);
   });
 
-  // Подготовка пула слов
-  wordsPool = [];
+  wordsPool=[];
   for(const key in firstSentence){
-    if(key === "full_translation" || key==="subjekt") continue;
-    let typeWords = selectedSentences.map((s,index)=>({...s[key], sentenceIndex:index}));
-    typeWords = shuffle(typeWords);
-    typeWords.forEach(w=>{
-      wordsPool.push({word:w.word,type:key,translation:w.translation,sentenceIndex:w.sentenceIndex,inPool:true});
-    });
+    if(key==="full_translation"||key==="subjekt") continue;
+    let typeWords=selectedSentences.map((s,index)=>({...s[key], sentenceIndex:index}));
+    typeWords=shuffle(typeWords);
+    typeWords.forEach(w=>wordsPool.push({word:w.word,type:key,translation:w.translation,sentenceIndex:w.sentenceIndex,inPool:true}));
   }
-
-  // Жёлтый blank
   wordsPool.push({word:'', type:'blank', translation:'', sentenceIndex:null, inPool:true});
-  wordsPool = shuffle(wordsPool);
-
+  wordsPool=shuffle(wordsPool);
   renderWordPool();
   updateTranslation();
 }
 
+// --- Word pool render ---
 function renderWordPool(){
-  const pool = document.getElementById('word-pool');
-  pool.innerHTML = "";
+  const pool=document.getElementById('word-pool');
+  pool.innerHTML="";
   wordsPool.forEach((w,i)=>{
     if(!w.inPool) return;
-    const div = document.createElement('div');
-    if(w.type === 'blank'){
-      div.classList.add('word','pool-blank');
-      div.textContent = '(blank)';
-    } else {
-      div.classList.add('word');
-      div.textContent = w.word;
-    }
-    div.dataset.type = w.type;
-    div.dataset.index = i;
-
+    const div=document.createElement('div');
+    if(w.type==='blank'){ div.classList.add('word','pool-blank'); div.textContent='(blank)'; }
+    else { div.classList.add('word'); div.textContent=w.word; }
+    div.dataset.type=w.type; div.dataset.index=i;
     if(mobileMode){
-      div.style.cursor = 'pointer';
-      div.draggable = false;
-      div.onclick = ()=>{ selectedWordIndex = i; highlightSelection(div); };
-    } else {
-      div.style.cursor = 'grab';
-      div.draggable = true;
-      div.onclick = null;
-      div.addEventListener('dragstart', ev=>{
-        ev.dataTransfer.setData('text/plain', i);
-        clearHighlights();
-      });
+      div.style.cursor='pointer'; div.draggable=false; div.onclick=()=>{ selectedWordIndex=i; highlightSelection(div); };
+    }else{
+      div.style.cursor='grab'; div.draggable=true; div.onclick=null;
+      div.addEventListener('dragstart', ev=>{ ev.dataTransfer.setData('text/plain',i); clearHighlights(); });
     }
     pool.appendChild(div);
   });
@@ -263,58 +226,36 @@ function renderWordPool(){
 
 function highlightSelection(div){
   document.querySelectorAll('#word-pool .word').forEach(el=>el.style.outline='');
-  div.style.outline = '2px solid red';
+  div.style.outline='2px solid red';
 }
 
 function tapInsert(td){
   if(selectedWordIndex===null) return;
-  const idx = selectedWordIndex;
-  const wordObj = wordsPool[idx];
-  const oldWordIndex = td.dataset.wordIndex;
-
-  if(wordObj.type === 'blank'){
-    td.textContent = '';
-    td.dataset.wordIndex = idx;
-  } else {
-    td.textContent = wordObj.word;
-    td.dataset.wordIndex = idx;
-    wordsPool[idx].inPool = false;
-  }
-
+  const idx=selectedWordIndex;
+  const wordObj=wordsPool[idx];
+  const oldWordIndex=td.dataset.wordIndex;
+  if(wordObj.type==='blank'){ td.textContent=''; td.dataset.wordIndex=idx; }
+  else{ td.textContent=wordObj.word; td.dataset.wordIndex=idx; wordsPool[idx].inPool=false; }
   if(oldWordIndex!==undefined && oldWordIndex!=-1){
-    const oldIdx = Number(oldWordIndex);
-    if(!isNaN(oldIdx) && wordsPool[oldIdx] && wordsPool[oldIdx].type !== 'blank'){
-      wordsPool[oldIdx].inPool = true;
-    }
+    const oldIdx=Number(oldWordIndex);
+    if(!isNaN(oldIdx) && wordsPool[oldIdx] && wordsPool[oldIdx].type!=='blank') wordsPool[oldIdx].inPool=true;
   }
-
-  selectedWordIndex = null;
+  selectedWordIndex=null;
   renderWordPool();
   updateTranslation();
 }
 
 function dropWord(ev, td){
   ev.preventDefault();
-  const idx = ev.dataTransfer.getData('text/plain');
-  const wordObj = wordsPool[idx];
-  const oldWordIndex = td.dataset.wordIndex;
-
-  if(wordObj.type === 'blank'){
-    td.textContent = '';
-    td.dataset.wordIndex = idx;
-  } else {
-    td.textContent = wordObj.word;
-    td.dataset.wordIndex = idx;
-    wordsPool[idx].inPool = false;
-  }
-
+  const idx=ev.dataTransfer.getData('text/plain');
+  const wordObj=wordsPool[idx];
+  const oldWordIndex=td.dataset.wordIndex;
+  if(wordObj.type==='blank'){ td.textContent=''; td.dataset.wordIndex=idx; }
+  else{ td.textContent=wordObj.word; td.dataset.wordIndex=idx; wordsPool[idx].inPool=false; }
   if(oldWordIndex!==undefined && oldWordIndex!=-1){
-    const oldIdx = Number(oldWordIndex);
-    if(!isNaN(oldIdx) && wordsPool[oldIdx] && wordsPool[oldIdx].type !== 'blank'){
-      wordsPool[oldIdx].inPool = true;
-    }
+    const oldIdx=Number(oldWordIndex);
+    if(!isNaN(oldIdx) && wordsPool[oldIdx] && wordsPool[oldIdx].type!=='blank') wordsPool[oldIdx].inPool=true;
   }
-
   renderWordPool();
   updateTranslation();
 }
@@ -324,130 +265,118 @@ function clearHighlights(){
 }
 
 document.getElementById('mobileVersion').addEventListener('change', e=>{
-  mobileMode = e.target.checked;
-  selectedWordIndex = null;
-  renderWordPool();
+  mobileMode=e.target.checked; selectedWordIndex=null; renderWordPool();
 });
 
+// --- CHECK BUTTON ---
 document.getElementById('check-button').addEventListener('click', ()=>{
-  let allCorrect = true;
-
+  let correctCount=0, wrongCount=0;
   document.querySelectorAll('#sentence-rows tr').forEach((tr,rowIdx)=>{
     tr.querySelectorAll('td').forEach(td=>{
-      const type = td.dataset.type;
-      if(type === 'subjekt') return; // подлежащее всегда заполнено
-
-      const correctWord = selectedSentences[rowIdx][type];
-      const expected = correctWord && correctWord.word ? correctWord.word : '';
-      const idx = td.dataset.wordIndex;
-      let isCorrect = false;
-
-      if(expected === "" && (!td.textContent || !td.textContent.trim())){
-        // Если поле должно быть пустым и пустое — правильно
-        isCorrect = true;
-      } else if(idx !== undefined && idx != -1){
-        const wordObj = wordsPool[idx];
-        isCorrect = (wordObj.word === expected);
-      } else if(td.textContent && td.textContent.trim() === expected){
-        isCorrect = true;
-      }
-
-      if(!isCorrect) allCorrect = false;
-      td.style.backgroundColor = isCorrect ? '#d1fae5' : '#f87171';
+      const type=td.dataset.type; if(type==='subjekt') return;
+      const correctWord=selectedSentences[rowIdx][type]; const expected=correctWord && correctWord.word?correctWord.word:'';
+      const idx=td.dataset.wordIndex; let isCorrect=false;
+      if(expected==='' && (!td.textContent||!td.textContent.trim())) isCorrect=true;
+      else if(idx!==undefined && idx!=-1){
+        const wordObj=wordsPool[idx];
+        isCorrect=(wordObj.word===expected);
+      } else if(td.textContent && td.textContent.trim()===expected) isCorrect=true;
+      if(isCorrect) correctCount++; else wrongCount++;
+      td.style.backgroundColor=isCorrect?'#d1fae5':'#f87171';
     });
   });
-
-  const translationBox = document.getElementById('fullTranslation');
-  if(allCorrect){
-    translationBox.textContent = selectedSentences.map(s=>s.full_translation).join(' ');
-  } else {
-    translationBox.textContent = '';
-  }
+  updateFullTranslation();
+  logStat(correctCount, wrongCount);
 });
 
+function updateFullTranslation(){
+  const translationBox=document.getElementById('fullTranslation');
+  const allCorrect=document.querySelectorAll('#sentence-rows td').length;
+  if(allCorrect) translationBox.textContent=selectedSentences.map(s=>s.full_translation).join(' ');
+  else translationBox.textContent='';
+}
+
+// --- LOG SYSTEM ---
+function logStat(correctCount, wrongCount){
+  const now = new Date();
+  const ts = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+
+             String(now.getDate()).padStart(2,'0')+' '+
+             String(now.getHours()).padStart(2,'0')+':'+
+             String(now.getMinutes()).padStart(2,'0');
+
+  const username = loggedUser || "Guest"; // только имя пользователя
+  const pageName = document.title || "Ukendt side"; // название страницы
+  const entry = `${ts} — ${username} — ${pageName} — ${correctCount} rigtige / ${wrongCount} forkerte`;
+
+  let logs = JSON.parse(localStorage.getItem('userLogs') || '[]');
+  logs.push(entry);
+  localStorage.setItem('userLogs', JSON.stringify(logs));
+  updateStatsWindow();
+}
+
+function updateStatsWindow(){
+  const content = document.getElementById('statsContent');
+  const logs = JSON.parse(localStorage.getItem('userLogs') || '[]');
+  // показываем последние 20 записей
+  content.innerHTML = logs.slice(-20).reverse().map(l => `<div>${l}</div>`).join('');
+}
+
+// --- HINT AND RESET ---
 document.getElementById('hint-button').addEventListener('click', ()=>{
   document.querySelectorAll('#sentence-rows tr').forEach((tr,rowIdx)=>{
-    const cells = Array.from(tr.querySelectorAll('td')).filter(td=>td.dataset.type!=='subjekt');
+    const cells=Array.from(tr.querySelectorAll('td')).filter(td=>td.dataset.type!=='subjekt');
     if(cells.length===0) return;
-    const randomCell = cells[Math.floor(Math.random()*cells.length)];
-    const type = randomCell.dataset.type;
-    const correctWord = selectedSentences[rowIdx][type];
-
-    const idx = randomCell.dataset.wordIndex;
-    let needInsert = false;
-    if(!randomCell.textContent) {
-      needInsert = true;
-    } else if(idx!==undefined && idx!=-1) {
-      const wordObj = wordsPool[idx];
-      if(wordObj.word!==correctWord.word || wordObj.sentenceIndex!==rowIdx) {
-        needInsert = true;
-        if(wordsPool[idx] && wordsPool[idx].type !== 'blank') wordsPool[idx].inPool = true;
+    const randomCell=cells[Math.floor(Math.random()*cells.length)];
+    const type=randomCell.dataset.type;
+    const correctWord=selectedSentences[rowIdx][type];
+    const idx=randomCell.dataset.wordIndex;
+    let needInsert=false;
+    if(!randomCell.textContent) needInsert=true;
+    else if(idx!==undefined && idx!=-1){
+      const wordObj=wordsPool[idx];
+      if(wordObj.word!==correctWord.word || wordObj.sentenceIndex!==rowIdx){
+        needInsert=true; if(wordsPool[idx]&&wordsPool[idx].type!=='blank') wordsPool[idx].inPool=true;
       }
     }
-
     if(needInsert){
-      randomCell.textContent = correctWord.word;
-      randomCell.dataset.wordIndex = -1;
+      randomCell.textContent=correctWord.word; randomCell.dataset.wordIndex=-1;
       for(let i=0;i<wordsPool.length;i++){
-        const w = wordsPool[i];
-        if(w.word===correctWord.word && w.type===type && w.sentenceIndex===rowIdx){
-          w.inPool = false;
-        }
+        const w=wordsPool[i];
+        if(w.word===correctWord.word && w.type===type && w.sentenceIndex===rowIdx) w.inPool=false;
       }
     }
   });
-
   renderWordPool();
   updateTranslation();
-  document.getElementById('hint-button').disabled = true;
+  document.getElementById('hint-button').disabled=true;
 });
 
 document.getElementById('reset-button').addEventListener('click', ()=>{
   initSentences();
-  document.getElementById('hint-button').disabled = false;
-  // Очищаем поле полного перевода
-  document.getElementById('fullTranslation').textContent = '';
+  document.getElementById('hint-button').disabled=false;
+  document.getElementById('fullTranslation').textContent='';
 });
 
 function updateTranslation(){
-  const translationDiv = document.getElementById('translation');
-  translationDiv.innerHTML = '';
+  const translationDiv=document.getElementById('translation'); translationDiv.innerHTML='';
   document.querySelectorAll('#sentence-rows tr').forEach((tr,rowIdx)=>{
     tr.querySelectorAll('td').forEach(td=>{
-      const idx = td.dataset.wordIndex;
+      const idx=td.dataset.wordIndex;
       if(idx!==undefined){
-        let text = '';
+        let text='';
         if(idx==-1){
-          const type = td.dataset.type;
-          text = td.textContent + ' → ' + selectedSentences[rowIdx][type].translation;
+          const type=td.dataset.type; text=td.textContent+' → '+selectedSentences[rowIdx][type].translation;
         } else {
-          const wordObj = wordsPool[idx];
-          if(wordObj.type !== 'blank'){
-            text = wordObj.word + ' → ' + wordObj.translation;
-          }
+          const wordObj=wordsPool[idx];
+          if(wordObj.type!=='blank') text=wordObj.word+' → '+wordObj.translation;
         }
-        if(text){
-          const p = document.createElement('div');
-          p.textContent = text;
-          translationDiv.appendChild(p);
-        }
+        if(text){ const p=document.createElement('div'); p.textContent=text; translationDiv.appendChild(p); }
       }
     });
   });
 }
-
-
-function tjek() {
-  const correct = checkAllCorrect ? checkAllCorrect() : true;
-  const translationBox = document.getElementById('fullTranslation');
-  if (correct) {
-    const currentIndex = typeof currentSentenceIndex !== 'undefined' ? currentSentenceIndex : 0;
-    const fullTranslation = sentencesData[currentIndex]?.full_translation || '';
-    translationBox.textContent = fullTranslation;
-  } else {
-    translationBox.textContent = '';
-  }
-}
 </script>
-<div id="fullTranslation" style="margin-top:20px;font-weight:bold;font-size:18px;color:#006400;"></div></body>
+
+<div id="fullTranslation" style="margin-top:20px;font-weight:bold;font-size:18px;color:#006400;"></div>
+</body>
 </html>
