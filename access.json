@@ -6,6 +6,16 @@
       "accessLevel": 0
     },
     {
+      "username": "Marina",
+      "password": "mari123",
+      "accessLevel": 0
+    },
+    {
+      "username": "IrynaC",
+      "password": "julia2000",
+      "accessLevel": 0
+    },
+    {
       "username": "Guest",
       "password": "",
       "accessLevel": 0
@@ -31,3 +41,4 @@
     ]
   }
 }
+
