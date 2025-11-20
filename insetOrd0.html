@@ -94,13 +94,9 @@ function logStat(correctCount, wrongCount){
              String(now.getHours()).padStart(2,'0')+':'+
              String(now.getMinutes()).padStart(2,'0');
 
-  let pageName = document.title;
-  if(!pageName || pageName.trim() === ''){
-    const h1 = document.querySelector('h1');
-    pageName = h1 ? h1.textContent : 'Ukendt side';
-  }
-
-  const entry = ts + ' — ' + loggedUser + ' — ' + pageName + ' — ' + correctCount + ' rigtige / ' + wrongCount + ' forkerte';
+  const username = loggedUser || "Guest"; // только имя пользователя
+  const pageName = document.title || "Ukendt side"; // название страницы
+  const entry = `${ts} — ${username} — ${pageName} — ${correctCount} rigtige / ${wrongCount} forkerte`;
 
   let logs = JSON.parse(localStorage.getItem('userLogs') || '[]');
   logs.push(entry);
