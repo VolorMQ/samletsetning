@@ -141,12 +141,19 @@ let selectedWordForTap = null;
 fetch('insord0.json')
   .then(res => res.json())
   .then(data => {
-    texts = data.map(item => ({ text: item.text.split('/br').map(p => `<p>${p.trim()}</p>`).join('') }));
+    // формируем тексты для отображения
+    texts = data.map(item => ({
+      text: item.text.split('/br').map(p => `<p>${p.trim()}</p>`).join(''),
+      rawWords: item.text.replace(/\/br/g, ' ').trim().split(/\s+/) // массив слов без /br
+    }));
     loadRandomText();
   })
   .catch(() => {
     const fallback = "I morges sprang jeg hurtigt ud af sengen, og prøvede jeg at finde mine sko, men de lå gemt under sofaen. /br Da jeg endelig fandt dem, løb jeg ud af døren og nåede lige bussen i sidste øjeblik.";
-    texts = [{ text: fallback.split('/br').map(p => `<p>${p.trim()}</p>`).join('') }];
+    texts = [{
+      text: fallback.split('/br').map(p => `<p>${p.trim()}</p>`).join(''),
+      rawWords: fallback.replace(/\/br/g, ' ').trim().split(/\s+/)
+    }];
     loadRandomText();
   });
 
@@ -175,7 +182,7 @@ function tokenize(text){
 // --- Generate words for blanks ---
 function generateWords() {
   const num = parseInt(document.getElementById('numWords').value);
-  let allWords = extractWords(currentText.text);
+  let allWords = currentText.rawWords || [];
   if(!allWords) allWords = [];
   const uniqueWords = [...new Set(allWords)];
   selectedWords = shuffleArray(uniqueWords).slice(0, Math.min(num, uniqueWords.length));
