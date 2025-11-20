@@ -141,18 +141,17 @@ let selectedWordForTap = null;
 fetch('insord0.json')
   .then(res => res.json())
   .then(data => {
-    // формируем тексты для отображения
     texts = data.map(item => ({
-      text: item.text.split('/br').map(p => `<p>${p.trim()}</p>`).join(''),
-      rawWords: item.text.replace(/\/br/g, ' ').trim().split(/\s+/) // массив слов без /br
+      text: item.text.split('/br').map(p => `<p>${p.trim()}</p>`).join(''), // для отображения
+      rawWords: item.text.replace(/\/br/g, ' ').trim().match(/[\p{L}\p{M}]+/gu) || [] // чистые слова без символов
     }));
     loadRandomText();
   })
   .catch(() => {
-    const fallback = "I morges sprang jeg hurtigt ud af sengen, og prøvede jeg at finde mine sko, men de lå gemt under sofaen. /br Da jeg endelig fandt dem, løb jeg ud af døren og nåede lige bussen i sidste øjeblik.";
+    const fallback = "I morges sprang jeg hurtigt ud af sengen..."; // коротко
     texts = [{
       text: fallback.split('/br').map(p => `<p>${p.trim()}</p>`).join(''),
-      rawWords: fallback.replace(/\/br/g, ' ').trim().split(/\s+/)
+      rawWords: fallback.replace(/\/br/g, ' ').trim().match(/[\p{L}\p{M}]+/gu) || []
     }];
     loadRandomText();
   });
@@ -200,15 +199,15 @@ function renderStory() {
     const escapedWord = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const placeholderHTML = `<span class="placeholder" data-expected="${word.toLowerCase()}" ondrop="dropWord(event)" ondragover="allowDrop(event)" onclick="tapPlaceholder(event)">___</span>`;
 
-    let count = 0; // ставим placeholder только один раз на слово
-    const regex = new RegExp(`\\b${escapedWord}\\b`, 'gi');
+    let replaced = false;
+    const regex = new RegExp(`\\b${escapedWord}\\b`, 'i'); // заменяем только первую встречу
 
     newText = newText.replace(regex, match => {
-      if (count < 1) {
-        count++;
+      if (!replaced) {
+        replaced = true;
         return placeholderHTML;
       }
-      return match; // остальные вхождения оставляем без изменений
+      return match;
     });
   });
 
