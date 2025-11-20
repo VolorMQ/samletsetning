@@ -10,7 +10,27 @@
     background: #f0f0f5;
     text-align: center;
   }
-  h5 { 
+
+  /* USER BAR */
+  #userBar {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    display: none;
+    font-size: 16px;
+  }
+  #logoutBtn {
+    margin-left: 15px;
+    cursor: pointer;
+    color: #d33;
+    font-weight: bold;
+  }
+
+  h5 {
     margin-bottom: 40px;
     font-family: 'Segoe UI', Tahoma, sans-serif;
     font-size: 2.5rem;
@@ -20,6 +40,7 @@
     -webkit-text-fill-color: transparent;
     text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.15);
   }
+
   .link-grid {
     display: flex;
     flex-wrap: wrap;
@@ -43,6 +64,7 @@
     transform: translateY(-5px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.25);
   }
+
   #passwordOverlay {
     position: fixed;
     top: 0; left: 0;
@@ -61,6 +83,7 @@
     border-radius: 6px;
     border: none;
     margin-top: 10px;
+    width: 250px;
   }
   #passwordOverlay button {
     margin-top: 10px;
@@ -79,17 +102,21 @@
 </head>
 <body>
 
+<!-- USER BAR -->
+<div id="userBar">
+  <span id="userInfo"></span>
+  <span id="logoutBtn" onclick="logout()">Logout</span>
+</div>
+
 <div id="passwordOverlay">
-  <h2>Indtast adgangskode for ekstra indhold</h2>
+  <h2>Indtast brugernavn og adgangskode</h2>
   <input type="text" id="usernameInput" value="Guest">
   <input type="password" id="passwordInput" placeholder="Adgangskode (tom for Guest)">
   <button onclick="checkPassword()">Enter</button>
 </div>
 
 <h5>Læsning</h5>
-
-<div class="link-grid" id="linkGrid">
-</div>
+<div class="link-grid" id="linkGrid"></div>
 
 <script>
 let accessData = null;
@@ -99,18 +126,25 @@ fetch("access.json")
   .then(json => {
     accessData = json;
 
-    // Показываем public ссылки сразу
-    const grid = document.getElementById("linkGrid");
-    json.links.public.forEach(link => {
-      const a = document.createElement("a");
-      a.className = "link-card";
-      a.href = link.href;
-      a.textContent = link.text;
-      grid.appendChild(a);
-    });
-  })
-  .catch(err => alert("Ошибка загрузки access.json: " + err));
+    // Public ссылки загружаем сразу
+    loadPublicLinks();
 
+    // Проверяем сессию
+    autoLogin();
+  });
+
+function loadPublicLinks() {
+  const grid = document.getElementById("linkGrid");
+  accessData.links.public.forEach(link => {
+    const a = document.createElement("a");
+    a.className = "link-card";
+    a.href = link.href;
+    a.textContent = link.text;
+    grid.appendChild(a);
+  });
+}
+
+/* ------------------ LOGIN CHECK ------------------ */
 function checkPassword() {
   const username = document.getElementById("usernameInput").value.trim();
   const password = document.getElementById("passwordInput").value;
@@ -124,7 +158,14 @@ function checkPassword() {
     return;
   }
 
+  saveSession(user);
+  completeLogin(user);
+}
+
+function completeLogin(user) {
   document.getElementById("passwordOverlay").style.display = "none";
+
+  showUserBar(user.username);
 
   const grid = document.getElementById("linkGrid");
 
@@ -139,6 +180,37 @@ function checkPassword() {
   });
 }
 
+/* ------------------ SESSION SYSTEM ------------------ */
+
+function saveSession(user) {
+  localStorage.setItem("loggedUser", JSON.stringify(user));
+}
+
+function autoLogin() {
+  const saved = localStorage.getItem("loggedUser");
+  if(!saved) return;
+
+  const user = JSON.parse(saved);
+
+  document.getElementById("passwordOverlay").style.display = "none";
+  showUserBar(user.username);
+
+  completeLogin(user);
+}
+
+function logout() {
+  localStorage.removeItem("loggedUser");
+  location.reload();
+}
+
+/* ------------------ USER BAR ------------------ */
+
+function showUserBar(username) {
+  document.getElementById("userBar").style.display = "block";
+  document.getElementById("userInfo").textContent = "Bruger: " + username;
+}
+
+/* ENTER KEYS */
 document.getElementById("passwordInput").addEventListener("keyup", e => {
   if(e.key === "Enter") checkPassword();
 });
