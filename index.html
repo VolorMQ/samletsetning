@@ -98,6 +98,24 @@
   #passwordOverlay button:hover {
     background-color: #45a049;
   }
+
+  /* Кнопка очистки статистики */
+  #clearStatsBtn {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 6px;
+    border: none;
+    background-color: #f44336;
+    color: white;
+    font-weight: bold;
+  }
+  #clearStatsBtn:hover {
+    background-color: #d32f2f;
+  }
 </style>
 </head>
 <body>
@@ -108,6 +126,7 @@
   <span id="logoutBtn" onclick="logout()">Logout</span>
 </div>
 
+<!-- LOGIN OVERLAY -->
 <div id="passwordOverlay">
   <h2>Indtast brugernavn og adgangskode</h2>
   <input type="text" id="usernameInput" value="Guest">
@@ -118,18 +137,18 @@
 <h5>Læsning</h5>
 <div class="link-grid" id="linkGrid"></div>
 
+<!-- Кнопка очистки статистики -->
+<button id="clearStatsBtn">Ryd statistik</button>
+
 <script>
 let accessData = null;
 
+// --- Загрузка данных доступа ---
 fetch("access.json")
   .then(res => res.json())
   .then(json => {
     accessData = json;
-
-    // Public ссылки загружаем сразу
     loadPublicLinks();
-
-    // Проверяем сессию
     autoLogin();
   });
 
@@ -164,11 +183,9 @@ function checkPassword() {
 
 function completeLogin(user) {
   document.getElementById("passwordOverlay").style.display = "none";
-
   showUserBar(user.username);
 
   const grid = document.getElementById("linkGrid");
-
   accessData.links.protected.forEach(link => {
     if(user.accessLevel === 0 || user.accessLevel >= link.minLevel) {
       const a = document.createElement("a");
@@ -181,20 +198,17 @@ function completeLogin(user) {
 }
 
 /* ------------------ SESSION SYSTEM ------------------ */
-
 function saveSession(user) {
-  localStorage.setItem("loggedUser", JSON.stringify(user));
+  // Храним только имя пользователя
+  localStorage.setItem("loggedUser", JSON.stringify({ username: user.username }));
 }
 
 function autoLogin() {
   const saved = localStorage.getItem("loggedUser");
   if(!saved) return;
-
   const user = JSON.parse(saved);
-
   document.getElementById("passwordOverlay").style.display = "none";
   showUserBar(user.username);
-
   completeLogin(user);
 }
 
@@ -204,13 +218,38 @@ function logout() {
 }
 
 /* ------------------ USER BAR ------------------ */
-
 function showUserBar(username) {
   document.getElementById("userBar").style.display = "block";
   document.getElementById("userInfo").textContent = "Bruger: " + username;
 }
 
-/* ENTER KEYS */
+/* ------------------ STATISTICS ------------------ */
+document.getElementById('clearStatsBtn').addEventListener('click', () => {
+  if(confirm("Er du sikker på, at du vil rydde alle statistikker?")) {
+    localStorage.removeItem('userLogs');
+    alert("Statistik er ryddet!");
+  }
+});
+
+function logStat(correctCount, wrongCount) {
+  const now = new Date();
+  const ts = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+
+             String(now.getDate()).padStart(2,'0')+' '+String(now.getHours()).padStart(2,'0')+
+             ':'+String(now.getMinutes()).padStart(2,'0');
+
+  const saved = localStorage.getItem("loggedUser");
+  const userObj = saved ? JSON.parse(saved) : { username: "Guest" };
+  const username = userObj.username || "Guest";
+
+  const pageName = document.title || "Ukendt side";
+  const entry = `${ts} — ${username} — ${pageName} — ${correctCount} rigtige / ${wrongCount} forkerte`;
+
+  let logs = JSON.parse(localStorage.getItem('userLogs') || '[]');
+  logs.push(entry);
+  localStorage.setItem('userLogs', JSON.stringify(logs));
+}
+  
+/* ------------------ ENTER KEYS ------------------ */
 document.getElementById("passwordInput").addEventListener("keyup", e => {
   if(e.key === "Enter") checkPassword();
 });
