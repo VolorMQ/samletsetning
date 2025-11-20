@@ -21,7 +21,7 @@ label { margin-right: 10px; }
 #userPanel {
   position: fixed;
   bottom: 10px;
-  left: 10px; /* теперь слева */
+  left: 10px;
   background: rgba(255,255,255,0.8);
   padding: 8px 12px;
   border-radius: 6px;
@@ -32,7 +32,7 @@ label { margin-right: 10px; }
 #statsWindow {
   position: fixed;
   bottom: 10px;
-  right: 10px; /* теперь справа */
+  right: 10px;
   background: rgba(255,255,255,0.8);
   padding: 8px 12px;
   border-radius: 6px;
@@ -68,19 +68,19 @@ label { margin-right: 10px; }
 
 <script>
 // === USER SYSTEM ===
-let userObj = JSON.parse(localStorage.getItem("loggedUser") || '{"username":"Guest","password":"","accessLevel":1}');
+let loggedUser = localStorage.getItem("loggedUser") || "Guest";
 const usernameInput = document.getElementById("usernameInput");
-usernameInput.value = userObj.username;
+usernameInput.value = loggedUser;
 
-usernameInput.addEventListener("change", e=>{
-  userObj.username = e.target.value || "Guest";
-  localStorage.setItem("loggedUser", JSON.stringify(userObj));
+usernameInput.addEventListener("change", e => {
+  loggedUser = e.target.value || "Guest";
+  localStorage.setItem("loggedUser", loggedUser);
   updateStatsWindow();
 });
 
-document.getElementById("logoutBtn").addEventListener("click", ()=>{
+document.getElementById("logoutBtn").addEventListener("click", () => {
   localStorage.removeItem("loggedUser");
-  userObj = {username:"Guest",password:"",accessLevel:1};
+  loggedUser = "Guest";
   usernameInput.value = "Guest";
   updateStatsWindow();
   alert("Log ud udført. Brugernavn sat til Guest.");
@@ -89,11 +89,19 @@ document.getElementById("logoutBtn").addEventListener("click", ()=>{
 // --- LOG SYSTEM ---
 function logStat(correctCount, wrongCount){
   const now = new Date();
-  const ts = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0')+
-             ' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+  const ts = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+
+             String(now.getDate()).padStart(2,'0')+' '+String(now.getHours()).padStart(2,'0')+':'+
+             String(now.getMinutes()).padStart(2,'0');
 
-  const pageName = document.title || 'Ukendt side'; // название страницы
-  const entry = `${ts} — ${loggedUser} — ${pageName} — ${correctCount} rigtige / ${wrongCount} forkerte`;
+  // безопасно определяем страницу
+  let pageName = document.title;
+  if(!pageName || pageName.trim() === '') {
+    const h2 = document.querySelector('h2');
+    pageName = h2 ? h2.textContent : 'Ukendt side';
+  }
+
+  const username = loggedUser || "Guest"; // имя пользователя
+  const entry = `${ts} — ${username} — ${pageName} — ${correctCount} rigtige / ${wrongCount} forkerte`;
 
   let logs = JSON.parse(localStorage.getItem('userLogs') || '[]');
   logs.push(entry);
@@ -104,28 +112,9 @@ function logStat(correctCount, wrongCount){
 function updateStatsWindow(){
   const content = document.getElementById('statsContent');
   const logs = JSON.parse(localStorage.getItem('userLogs') || '[]');
-  // показываем последние 20 записей
   content.innerHTML = logs.slice(-20).reverse().map(l => `<div>${l}</div>`).join('');
 }
 
-// --- USER SESSION ---
-let loggedUser = localStorage.getItem("loggedUser") || "Guest";
-const usernameInput = document.getElementById("usernameInput");
-usernameInput.value = loggedUser;
-
-usernameInput.addEventListener("change", e=>{
-  loggedUser = e.target.value || "Guest";
-  localStorage.setItem("loggedUser", loggedUser);
-  updateStatsWindow();
-});
-
-document.getElementById("logoutBtn").addEventListener("click", ()=>{
-  localStorage.removeItem("loggedUser");
-  loggedUser = "Guest";
-  usernameInput.value = "Guest";
-  updateStatsWindow();
-  alert("Log ud udført. Brugernavn sat til Guest.");
-});
 
 // === EXERCISE LOGIC ===
 let texts = [];
