@@ -195,12 +195,23 @@ function generateWords() {
 // --- Render story with placeholders ---
 function renderStory() {
   let newText = currentText.text;
+
   selectedWords.forEach(word => {
     const escapedWord = word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const regex = new RegExp(`\\b${escapedWord}\\b`);
     const placeholderHTML = `<span class="placeholder" data-expected="${word.toLowerCase()}" ondrop="dropWord(event)" ondragover="allowDrop(event)" onclick="tapPlaceholder(event)">___</span>`;
-    newText = newText.replace(regex, placeholderHTML);
+
+    let count = 0; // ставим placeholder только один раз на слово
+    const regex = new RegExp(`\\b${escapedWord}\\b`, 'gi');
+
+    newText = newText.replace(regex, match => {
+      if (count < 1) {
+        count++;
+        return placeholderHTML;
+      }
+      return match; // остальные вхождения оставляем без изменений
+    });
   });
+
   document.getElementById('story').innerHTML = newText;
 }
 
