@@ -68,7 +68,8 @@ td[data-placeholder]:empty::before { content: attr(data-placeholder); color:#9ca
 
 <!-- Поле пользователя внизу слева -->
 <div id="userBarBottom">
-  Brugernavn: <input type="text" id="usernameInput" value="">
+  <span>Brugernavn:</span>
+  <input type="text" id="usernameInput" value="">
   <span id="logoutBtn">Log ud</span>
 </div>
 
@@ -116,20 +117,22 @@ let mobileMode = false;
 let selectedWordIndex = null;
 
 // --- Пользователь и лог ---
-let loggedUser = localStorage.getItem("loggedUser") || "Volor";
+let userObj = JSON.parse(localStorage.getItem("loggedUser")) || {username:"", password:"", accessLevel:0};
 const usernameInput = document.getElementById("usernameInput");
-usernameInput.value = loggedUser;
+usernameInput.value = userObj.username;
 
+// Изменение имени пользователя
 usernameInput.addEventListener("change", e=>{
-  loggedUser = e.target.value || "Guest";
-  localStorage.setItem("loggedUser", loggedUser);
+  userObj.username = e.target.value || "Guest";
+  localStorage.setItem("loggedUser", JSON.stringify(userObj));
   updateStatsWindow();
 });
 
+// Кнопка выхода
 document.getElementById("logoutBtn").addEventListener("click", ()=>{
-  localStorage.removeItem("loggedUser");
-  loggedUser = "Guest";
-  usernameInput.value = "Guest";
+  userObj = {username:"Guest", password:"", accessLevel:0};
+  localStorage.setItem("loggedUser", JSON.stringify(userObj));
+  usernameInput.value = userObj.username;
   updateStatsWindow();
   alert("Log ud udført. Brugernavn sat til Guest.");
 });
