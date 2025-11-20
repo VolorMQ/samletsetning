@@ -40,13 +40,22 @@ button:disabled{opacity:0.5;cursor:default;}
 #mobile-toggle{margin-bottom:12px;}
 td[data-placeholder]:empty::before { content: attr(data-placeholder); color:#9ca3af; font-style:italic; }
 
-#userBar{
-  position: fixed; top:10px; left:10px;
-  background:white; padding:6px 12px; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.15);
-  font-weight:bold; display:flex; align-items:center; gap:8px; z-index:1000;
+#userBarBottom{
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(255,255,255,0.9);
+  padding: 6px 12px;
+  border-radius:6px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.2);
+  font-weight:bold;
+  z-index:1000;
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
-#logoutBtn{cursor:pointer; color:#d33; font-weight:bold;}
 #usernameInput{width:100px; padding:4px 6px; border-radius:4px; border:1px solid #ccc;}
+#logoutBtn{cursor:pointer; color:#d33; font-weight:bold;}
 #statsBox{
   position: fixed; bottom:10px; right:10px; width:300px; max-height:150px;
   background: rgba(255,255,255,0.9); border:1px solid #ccc; overflow-y:auto; font-size:12px;
@@ -56,8 +65,10 @@ td[data-placeholder]:empty::before { content: attr(data-placeholder); color:#9ca
 </style>
 </head>
 <body>
-<div id="userBar">
-  Brugernavn: <input type="text" id="usernameInput" value="Guest">
+
+<!-- Поле пользователя внизу слева -->
+<div id="userBarBottom">
+  Brugernavn: <input type="text" id="usernameInput" value="">
   <span id="logoutBtn">Log ud</span>
 </div>
 
@@ -104,30 +115,31 @@ let wordsPool = [];
 let mobileMode = false;
 let selectedWordIndex = null;
 
-// Пользователь и статистика
-let loggedUser = localStorage.getItem("loggedUser") || "Guest";
-document.getElementById("usernameInput").value = loggedUser;
-updateStatsWindow();
+// --- Пользователь и лог ---
+let loggedUser = localStorage.getItem("loggedUser") || "Volor";
+const usernameInput = document.getElementById("usernameInput");
+usernameInput.value = loggedUser;
 
-document.getElementById("usernameInput").addEventListener("change", e=>{
+usernameInput.addEventListener("change", e=>{
   loggedUser = e.target.value || "Guest";
   localStorage.setItem("loggedUser", loggedUser);
+  updateStatsWindow();
 });
 
-// Логика logout
 document.getElementById("logoutBtn").addEventListener("click", ()=>{
   localStorage.removeItem("loggedUser");
   loggedUser = "Guest";
-  document.getElementById("usernameInput").value = "Guest";
+  usernameInput.value = "Guest";
+  updateStatsWindow();
   alert("Log ud udført. Brugernavn sat til Guest.");
 });
 
-// Подгрузка JSON с предложениями
+// --- Загрузка JSON ---
 fetch('sentences_0.json')
   .then(res => res.json())
   .then(data => {
     sentences = data.sentences;
-	updateSentenceCounter(); 
+    updateSentenceCounter(); 
     initSentences();
   })
   .catch(err => console.error("Fejl ved indlæsning af JSON:", err));
