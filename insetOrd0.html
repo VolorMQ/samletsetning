@@ -89,14 +89,11 @@ document.getElementById("logoutBtn").addEventListener("click", ()=>{
 // --- LOG SYSTEM ---
 function logStat(correctCount, wrongCount){
   const now = new Date();
-  const ts = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+
-             String(now.getDate()).padStart(2,'0')+' '+
-             String(now.getHours()).padStart(2,'0')+':'+
-             String(now.getMinutes()).padStart(2,'0');
+  const ts = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0')+
+             ' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
 
-  const username = loggedUser || "Guest"; // только имя пользователя
-  const pageName = document.title || "Ukendt side"; // название страницы
-  const entry = `${ts} — ${username} — ${pageName} — ${correctCount} rigtige / ${wrongCount} forkerte`;
+  const pageName = document.title || 'Ukendt side'; // название страницы
+  const entry = `${ts} — ${loggedUser} — ${pageName} — ${correctCount} rigtige / ${wrongCount} forkerte`;
 
   let logs = JSON.parse(localStorage.getItem('userLogs') || '[]');
   logs.push(entry);
