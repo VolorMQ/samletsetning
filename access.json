@@ -3,22 +3,22 @@
     {
       "username": "Volor",
       "password": "",
-      "accessLevel": 0
+      "accessLevel": 99
     },
-    {
+	{
       "username": "Marina",
       "password": "mari123",
-      "accessLevel": 0
+      "accessLevel": 1
     },
     {
       "username": "IrynaC",
       "password": "julia2000",
-      "accessLevel": 0
+      "accessLevel": 1
     },
     {
       "username": "Guest",
       "password": "",
-      "accessLevel": 0
+      "accessLevel": 1
     },
     {
       "username": "User001",
@@ -34,11 +34,19 @@
       {"href":"./insetOrd0.html","text":"Udfyld de manglende ord 0. Anna"}
     ],
     "protected": [
-      {"href":"./dansk-ordstilling_1.html","text":"Læsning 1. Emma"},
-      {"href":"./dansk-ordstilling_1inv.html","text":"Læsning 1 INV. Emma"},
-      {"href":"./insetOrd1.html","text":"Udfyld de manglende ord 1. Emma"},
-      {"href":"./oret.html","text":"Høre og tale"}
+      {"href":"./dansk-ordstilling_1.html","text":"Læsning 1. Emma","minLevel":1},
+      {"href":"./dansk-ordstilling_1inv.html","text":"Læsning 1 INV. Emma","minLevel":1},
+      {"href":"./insetOrd1.html","text":"Udfyld de manglende ord 1. Emma","minLevel":1},
+      {"href":"./dansk-ordstilling_2.html","text":"Læsning 2. Clara","minLevel":2},
+      {"href":"./dansk-ordstilling_2inv.html","text":"Læsning 2 INV. Clara","minLevel":2},
+      {"href":"./insetOrd2.html","text":"Udfyld de manglende ord 2. Clara","minLevel":2},
+      {"href":"./dansk-ordstilling_3.html","text":"Læsning 3. Freja","minLevel":3},
+      {"href":"./dansk-ordstilling_3inv.html","text":"Læsning 3 INV. Freja","minLevel":3},
+      {"href":"./insetOrd3.html","text":"Udfyld de manglende ord 3. Freja","minLevel":3},
+      {"href":"./dansk-ordstilling_4.html","text":"Læsning 4. Mikkel","minLevel":4},
+      {"href":"./dansk-ordstilling_4inv.html","text":"Læsning 4 INV. Mikkel","minLevel":4},
+      {"href":"./insetOrd4.html","text":"Udfyld de manglende ord 4. Mikkel","minLevel":4},
+      {"href":"./oret.html","text":"Høre og tale","minLevel":0}
     ]
   }
 }
-

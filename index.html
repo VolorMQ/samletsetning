@@ -188,11 +188,13 @@ function completeLogin(user) {
   const grid = document.getElementById("linkGrid");
   accessData.links.protected.forEach(link => {
     if(user.accessLevel === 0 || user.accessLevel >= link.minLevel) {
-      const a = document.createElement("a");
-      a.className = "link-card";
-      a.href = link.href;
-      a.textContent = link.text;
-      grid.appendChild(a);
+      if(link.minLevel >= 0 && link.minLevel <= 98) { // только уровни 0–98
+        const a = document.createElement("a");
+        a.className = "link-card";
+        a.href = link.href;
+        a.textContent = link.text;
+        grid.appendChild(a);
+      }
     }
   });
 }
