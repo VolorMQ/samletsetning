@@ -182,9 +182,11 @@ function tokenize(text){
 function generateWords() {
   const num = parseInt(document.getElementById('numWords').value);
   let allWords = currentText.rawWords || [];
-  if(!allWords) allWords = [];
   const uniqueWords = [...new Set(allWords)];
-  selectedWords = shuffleArray(uniqueWords).slice(0, Math.min(num, uniqueWords.length));
+  // переводим все выбранные слова в нижний регистр
+  selectedWords = shuffleArray(uniqueWords)
+                    .slice(0, Math.min(num, uniqueWords.length))
+                    .map(w => w.toLowerCase());
   availableWords = selectedWords.slice();
   renderStory();
   renderWords();
