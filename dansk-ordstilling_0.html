@@ -303,11 +303,12 @@ function logStat(correctCount, wrongCount){
              String(now.getDate()).padStart(2,'0')+' '+
              String(now.getHours()).padStart(2,'0')+':'+
              String(now.getMinutes()).padStart(2,'0');
-  
-  const username = userObj.username || "Guest"; // только имя пользователя
-  const entry = `${ts} — ${username} — ${correctCount} rigtige / ${wrongCount} forkerte`;
 
-  let logs = JSON.parse(localStorage.getItem('userLogs')||'[]');
+  const username = loggedUser || "Guest"; // только имя пользователя
+  const pageName = document.title || "Ukendt side"; // название страницы
+  const entry = `${ts} — ${username} — ${pageName} — ${correctCount} rigtige / ${wrongCount} forkerte`;
+
+  let logs = JSON.parse(localStorage.getItem('userLogs') || '[]');
   logs.push(entry);
   localStorage.setItem('userLogs', JSON.stringify(logs));
   updateStatsWindow();
@@ -315,8 +316,9 @@ function logStat(correctCount, wrongCount){
 
 function updateStatsWindow(){
   const content = document.getElementById('statsContent');
-  const logs = JSON.parse(localStorage.getItem('userLogs')||'[]');
-  content.innerHTML = logs.slice(-20).reverse().map(l=>`<div>${l}</div>`).join('');
+  const logs = JSON.parse(localStorage.getItem('userLogs') || '[]');
+  // показываем последние 20 записей
+  content.innerHTML = logs.slice(-20).reverse().map(l => `<div>${l}</div>`).join('');
 }
 
 // --- HINT AND RESET ---
