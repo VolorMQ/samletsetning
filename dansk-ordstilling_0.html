@@ -121,9 +121,13 @@ let userObj = JSON.parse(localStorage.getItem("loggedUser")) || {username:"", pa
 const usernameInput = document.getElementById("usernameInput");
 usernameInput.value = userObj.username;
 
+// Для старой логики статистики — создаем вспомогательную переменную
+let loggedUser = userObj.username;
+
 // Изменение имени пользователя
 usernameInput.addEventListener("change", e=>{
   userObj.username = e.target.value || "Guest";
+  loggedUser = userObj.username; // обновляем для статистики
   localStorage.setItem("loggedUser", JSON.stringify(userObj));
   updateStatsWindow();
 });
@@ -131,6 +135,7 @@ usernameInput.addEventListener("change", e=>{
 // Кнопка выхода
 document.getElementById("logoutBtn").addEventListener("click", ()=>{
   userObj = {username:"Guest", password:"", accessLevel:0};
+  loggedUser = userObj.username; // обновляем для статистики
   localStorage.setItem("loggedUser", JSON.stringify(userObj));
   usernameInput.value = userObj.username;
   updateStatsWindow();
