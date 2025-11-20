@@ -10,6 +10,7 @@
   th, td { border: 1px solid #999; padding: 6px 10px; text-align: left; }
   th { background: #eee; }
   #container { max-width: 900px; margin: auto; }
+  .paragraph { margin-bottom: 1em; }
 </style>
 </head>
 <body>
@@ -63,11 +64,24 @@ function buildReverseIndex(){
   });
 }
 
-// ---- Показ текста ----
+// ---- Показ текста с обработкой /br ----
 function renderText(raw){
-  const parts = raw.text.split(/\s+/);
-  const html = parts.map(w => `<span class="word">${w}</span>`).join(" ");
-  document.getElementById("text").innerHTML = html;
+  let processed = raw.text
+    .replace(/\s*\/br\s*/g, '[[BR]]') // /br -> метка абзаца
+    .replace(/\n(?!\n)/g, ' ') // одиночные переносы строки игнорируем
+    .trim();
+
+  const paragraphs = processed.split('[[BR]]');
+
+  const container = document.getElementById('text');
+  container.innerHTML = '';
+
+  paragraphs.forEach(p => {
+    const paraDiv = document.createElement('div');
+    paraDiv.className = 'paragraph';
+    paraDiv.innerHTML = p.split(/\s+/).map(w => `<span class="word">${w}</span>`).join(' ');
+    container.appendChild(paraDiv);
+  });
 
   document.querySelectorAll('.word').forEach(el => {
     el.addEventListener('click', () => onWordClick(el.textContent));
@@ -110,10 +124,16 @@ function renderTable(){
   });
 }
 
-// ---- Сохранение словаря ----
+// ---- Сохранение словаря (добавление без перезаписи) ----
 function saveDict(){
   const prev = JSON.parse(localStorage.getItem('myDict') || "[]");
-  prev.push(...selected);
+
+  selected.forEach(s => {
+    if(!prev.some(p => p.word === s.word)) {
+      prev.push(s);
+    }
+  });
+
   localStorage.setItem('myDict', JSON.stringify(prev));
   alert("Сохранено!");
 }
@@ -133,3 +153,4 @@ init();
 </script>
 </body>
 </html>
+
