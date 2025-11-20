@@ -2,7 +2,7 @@
   "users": [
     {
       "username": "Volor",
-      "password": "",
+      "password": "1qw23er45t",
       "accessLevel": 99
     },
 	{
@@ -46,8 +46,9 @@
       {"href":"./dansk-ordstilling_4.html","text":"Læsning 4. Mikkel","minLevel":4},
       {"href":"./dansk-ordstilling_4inv.html","text":"Læsning 4 INV. Mikkel","minLevel":4},
       {"href":"./insetOrd4.html","text":"Udfyld de manglende ord 4. Mikkel","minLevel":4},
-      {"href":"./oret.html","text":"Høre og tale","minLevel":0}
+      {"href":"./oret.html","text":"Høre og tale","minLevel":0},
 	  {"href":"./sel.html","text":"Ordbog","minLevel":2}
     ]
   }
 }
+
