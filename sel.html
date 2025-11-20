@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<title>Интерактивный словарь</title>
+<style>
+  body { font-family: Arial, sans-serif; line-height: 1.6; }
+  .word { cursor: pointer; color: blue; }
+  table { border-collapse: collapse; margin-top: 20px; width: 100%; }
+  th, td { border: 1px solid #999; padding: 6px 10px; text-align: left; }
+  th { background: #eee; }
+  #container { max-width: 900px; margin: auto; }
+</style>
+</head>
+<body>
+<div id="container">
+  <h2>Текст</h2>
+  <div id="text"></div>
+
+  <h2>Выбранные слова</h2>
+  <table id="selectedTable">
+    <thead>
+      <tr>
+        <th>Слово</th>
+        <th>Перевод</th>
+        <th>Тип</th>
+        <th>Удалить</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <button id="saveBtn">Сохранить в словарь</button>
+</div>
+
+<script>
+// ---- Настройки ----
+const TEXT_URL = "insord0.json";       // JSON №1
+const DATA_URL = "sentences_0.json"; // JSON №2 (перевод + тип)
+
+let dictionaryData = []; // база из sentences.json
+let reverseIndex = {};   // word -> { type, translation }
+let selected = [];        // выбранные слова
+
+// ---- Загрузка JSON ----
+async function loadJSON(url){
+  const r = await fetch(url);
+  return await r.json();
+}
+
+// ---- Построение обратного словаря ----
+function buildReverseIndex(){
+  dictionaryData.sentences.forEach(sentence => {
+    for(const key in sentence){
+      if(key === "full_translation") continue;
+      const entry = sentence[key];
+      const type = key.replace(/\d+/g, ""); // убираем цифры: Pronomen1 -> Pronomen
+      if(entry.word){
+        const base = entry.word.toLowerCase();
+        reverseIndex[base] = { type, translation: entry.translation };
+      }
+    }
+  });
+}
+
+// ---- Показ текста ----
+function renderText(raw){
+  const parts = raw.text.split(/\s+/);
+  const html = parts.map(w => `<span class="word">${w}</span>`).join(" ");
+  document.getElementById("text").innerHTML = html;
+
+  document.querySelectorAll('.word').forEach(el => {
+    el.addEventListener('click', () => onWordClick(el.textContent));
+  });
+}
+
+// ---- Обработка клика по слову ----
+function onWordClick(rawWord){
+  const clean = rawWord.toLowerCase().replace(/[^a-zA-ZæøåÆØÅ]/g, "");
+  if(!clean) return;
+
+  if(selected.some(e => e.word === clean)) return;
+
+  const info = reverseIndex[clean] || { type: "?", translation: "?" };
+
+  selected.push({ word: clean, translation: info.translation, type: info.type });
+  renderTable();
+}
+
+// ---- Отрисовка таблицы ----
+function renderTable(){
+  const tbody = document.querySelector('#selectedTable tbody');
+  tbody.innerHTML = "";
+
+  selected.forEach((e, i) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${e.word}</td>
+      <td>${e.translation}</td>
+      <td>${e.type}</td>
+      <td><button data-i="${i}">X</button></td>`;
+    tbody.appendChild(tr);
+  });
+
+  document.querySelectorAll('#selectedTable button').forEach(btn => {
+    btn.onclick = () => {
+      selected.splice(btn.dataset.i, 1);
+      renderTable();
+    };
+  });
+}
+
+// ---- Сохранение словаря ----
+function saveDict(){
+  const prev = JSON.parse(localStorage.getItem('myDict') || "[]");
+  prev.push(...selected);
+  localStorage.setItem('myDict', JSON.stringify(prev));
+  alert("Сохранено!");
+}
+
+// ---- Инициализация ----
+async function init(){
+  dictionaryData = await loadJSON(DATA_URL);
+  buildReverseIndex();
+
+  const textData = await loadJSON(TEXT_URL);
+  renderText(textData[0]);
+}
+
+document.getElementById('saveBtn').onclick = saveDict;
+
+init();
+</script>
+</body>
+</html>
