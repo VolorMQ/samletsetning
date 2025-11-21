@@ -1,0 +1,4 @@
+[
+  { "file": "insord0.json", "data": "sentences_0.json", "name": "Текст 1" },
+  { "file": "insord.json", "data": "sentences_1.json", "name": "Текст 2" }
+]
