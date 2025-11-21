@@ -10,37 +10,19 @@
   th, td { border: 1px solid #999; padding: 6px 10px; text-align: left; }
   th { background: #f3f3f3; }
   #container { max-width: 1100px; margin: auto; }
-  .paragraph { margin-bottom: 1em; }
-  .controls { display:flex; gap:10px; align-items:center; margin:12px 0; }
-  input[type=text], select { padding:6px; }
-  button { padding:6px 10px; cursor:pointer; }
-  td.editable { min-width:120px; }
-  .small { font-size:0.9em; color:#444; }
+  .editable { min-width: 120px; }
 </style>
 </head>
 <body>
 <div id="container">
   <h2>Интерактивный словарь</h2>
 
-  <div class="controls">
-    <label for="textsSelect">Выберите текст:</label>
-    <select id="textsSelect"></select>
-    <button id="reloadTexts">Перезагрузить список</button>
-    <span class="small">(тексты загружаются из списка `texts_list.json` или можно добавить вручную)</span>
-  </div>
-
-  <h3>Текст</h3>
-  <div id="text"></div>
+  <h3>Текст (выбор слов)</h3>
+  <table id="textTable">
+    <tbody></tbody>
+  </table>
 
   <h3>Выбранные / Редактируемые слова</h3>
-
-  <div style="margin-bottom:8px; display:flex; gap:8px; align-items:center;">
-    <button id="saveBtn">Добавить в локальный словарь</button>
-    <button id="exportBtn">Экспорт (скачать myDict.json)</button>
-    <input id="importFile" type="file" accept="application/json" />
-    <button id="clearBtn">Очистить выбранные</button>
-  </div>
-
   <table id="selectedTable">
     <thead>
       <tr>
@@ -53,31 +35,19 @@
     <tbody></tbody>
   </table>
 
-  <h3>Добавить слово вручную</h3>
-  <div style="display:flex; gap:8px; margin-bottom:12px;">
-    <input id="manualWord" placeholder="Слово" />
-    <input id="manualTranslation" placeholder="Перевод" />
-    <input id="manualType" placeholder="Тип (часть речи)" />
-    <button id="addManual">Добавить</button>
+  <div style="margin-top:12px;">
+    <button id="saveBtn">Сохранить изменения в словаре</button>
+    <button id="loadBtn">Загрузить словарь</button>
   </div>
-
-  <h3>Локальный словарь (myDict)</h3>
-  <div style="margin-bottom:8px;">
-    <button id="openLocal">Показать локальный словарь</button>
-    <button id="downloadLocal">Скачать локальный словарь</button>
-    <button id="importToLocal">Импортировать файл в локальный словарь</button>
-  </div>
-  <pre id="localPreview" style="max-height:300px; overflow:auto; background:#fafafa; padding:10px; border:1px solid #eee;"></pre>
-
 </div>
 
 <script>
 // ---- Настройки ----
-const TEXTS_LIST_URL = 'texts_list.json'; // список доступных текстов
+const TEXTS_LIST_URL = 'texts_list.json';
 let currentTextFile = null;
-let dictionaryData = null; // sentences.json structure
-let reverseIndex = {}; // word -> {type, translation}
-let selected = []; // {word, translation, type}
+let dictionaryData = null;
+let reverseIndex = {};
+let selected = [];
 
 function normalizeWord(w) {
   return w.trim().toLowerCase().replace(/[^\p{L}æøåÆØÅ0-9'-]/gu, '');
@@ -90,28 +60,7 @@ async function loadJSON(url){
   return await r.json();
 }
 
-// ---- Список текстов ----
-async function loadTextsList(){
-  const sel = document.getElementById('textsSelect');
-  sel.innerHTML = '';
-  try{
-    const list = await loadJSON(TEXTS_LIST_URL);
-    list.forEach(item => {
-      const opt = document.createElement('option');
-      opt.value = JSON.stringify(item);
-      opt.textContent = item.name || item.file;
-      sel.appendChild(opt);
-    });
-  } catch(e){
-    // если список не найден, добавим вручную один вариант
-    const opt = document.createElement('option');
-    opt.value = JSON.stringify({ file: 'insord0.json', name: 'Текст 1' });
-    opt.textContent = 'Текст 1 (insord0.json)';
-    sel.appendChild(opt);
-  }
-}
-
-// ---- Построение индекса из sentences.json ----
+// ---- Построение обратного словаря ----
 function buildReverseIndex(){
   reverseIndex = {};
   if(!dictionaryData || !dictionaryData.sentences) return;
@@ -128,27 +77,16 @@ function buildReverseIndex(){
   });
 }
 
-// ---- Обработка текста: /br -> параграф, обычные переносы игнорируем ----
-function processText(raw){
-  let processed = raw.replace(/\s*\/br\s*/g, '[[BR]]')
-    .replace(/\r/g, '')
-    .replace(/\n(?!\n)/g, ' ')
-    .trim();
-  const paragraphs = processed.split('[[BR]]').map(p => p.trim()).filter(Boolean);
-  return paragraphs;
-}
-
-// ---- Рендер текста ----
+// ---- Рендер текста в таблице ----
 function renderTextParagraphs(paragraphs){
-  const container = document.getElementById('text');
-  container.innerHTML = '';
+  const tbody = document.querySelector('#textTable tbody');
+  tbody.innerHTML = '';
   paragraphs.forEach(p => {
-    const div = document.createElement('div');
-    div.className = 'paragraph';
-    div.innerHTML = p.split(/\s+/).map(w => `<span class="word">${w}</span>`).join(' ');
-    container.appendChild(div);
+    const tr = document.createElement('tr');
+    tr.innerHTML = p.split(/\s+/).map(w => `<td class="word">${w}</td>`).join('');
+    tbody.appendChild(tr);
   });
-  document.querySelectorAll('.word').forEach(el => {
+  tbody.querySelectorAll('.word').forEach(el => {
     el.addEventListener('click', () => onWordClick(el.textContent));
   });
 }
@@ -163,26 +101,22 @@ function onWordClick(rawWord){
   renderSelectedTable();
 }
 
-// ---- Рендер таблицы выбранных слов (редактируемые ячейки) ----
+// ---- Рендер выбранных слов ----
 function renderSelectedTable(){
   const tbody = document.querySelector('#selectedTable tbody');
   tbody.innerHTML = '';
   selected.forEach((s, i) => {
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td class="editable" contenteditable="true" data-field="word" data-i="${i}">${s.word}</td>
-      <td class="editable" contenteditable="true" data-field="translation" data-i="${i}">${s.translation}</td>
-      <td class="editable" contenteditable="true" data-field="type" data-i="${i}">${s.type}</td>
-      <td>
-        <button data-i="${i}" class="saveRow">✔</button>
-        <button data-i="${i}" class="deleteRow">✖</button>
-      </td>`;
+      <td contenteditable="true" data-field="word" data-i="${i}">${s.word}</td>
+      <td contenteditable="true" data-field="translation" data-i="${i}">${s.translation}</td>
+      <td contenteditable="true" data-field="type" data-i="${i}">${s.type}</td>
+      <td><button data-i="${i}" class="deleteRow">✖</button></td>`;
     tbody.appendChild(tr);
   });
 
-  // делегируем изменения
   tbody.querySelectorAll('td[contenteditable]').forEach(td => {
-    td.addEventListener('input', e => {
+    td.addEventListener('input', () => {
       const i = td.dataset.i;
       const field = td.dataset.field;
       selected[i][field] = td.textContent.trim();
@@ -195,34 +129,9 @@ function renderSelectedTable(){
       renderSelectedTable();
     };
   });
-
-  tbody.querySelectorAll('.saveRow').forEach(btn => {
-    btn.onclick = () => {
-      // сохраняем строку в localStorage напрямую
-      const i = btn.dataset.i;
-      saveSingleToLocal(selected[i]);
-      alert('Сохранено в локальный словарь');
-    };
-  });
 }
 
-// ---- Добавление вручную ----
-function addManual(){
-  const w = document.getElementById('manualWord').value.trim();
-  if(!w) return alert('Введите слово');
-  const obj = {
-    word: normalizeWord(w),
-    translation: document.getElementById('manualTranslation').value.trim(),
-    type: document.getElementById('manualType').value.trim()
-  };
-  selected.push(obj);
-  renderSelectedTable();
-  document.getElementById('manualWord').value = '';
-  document.getElementById('manualTranslation').value = '';
-  document.getElementById('manualType').value = '';
-}
-
-// ---- Работа с локальным словарём (localStorage) ----
+// ---- Работа с локальным словарём ----
 function getLocalDict(){
   try{ return JSON.parse(localStorage.getItem('myDict') || '[]'); }
   catch(e){ return []; }
@@ -232,114 +141,46 @@ function setLocalDict(arr){
   localStorage.setItem('myDict', JSON.stringify(arr));
 }
 
-function saveSingleToLocal(entry){
-  const prev = getLocalDict();
-  const w = normalizeWord(entry.word);
-  if(!prev.some(p => p.word === w)){
-    prev.push({ word: w, translation: entry.translation, type: entry.type });
-    setLocalDict(prev);
-  }
-}
-
 function saveSelectedToLocal(){
   const prev = getLocalDict();
-  selected.forEach(s =>{
+  selected.forEach(s => {
     const w = normalizeWord(s.word);
     if(!prev.some(p => p.word === w)) prev.push({ word: w, translation: s.translation, type: s.type });
   });
   setLocalDict(prev);
-  alert('Выбранные слова добавлены в локальный словарь');
+  alert('Словарь сохранён');
 }
 
-function showLocalPreview(){
-  const pre = document.getElementById('localPreview');
-  pre.textContent = JSON.stringify(getLocalDict(), null, 2);
+function loadDict(){
+  selected = getLocalDict();
+  renderSelectedTable();
+  alert('Словарь загружен');
 }
 
-// ---- Экспорт / импорт файлов ----
-function exportDictToFile(){
-  const data = JSON.stringify(getLocalDict(), null, 2);
-  const blob = new Blob([data], { type: 'application/json' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'myDict.json';
-  a.click();
-}
-
-function importFileToSelected(file){
-  const reader = new FileReader();
-  reader.onload = e => {
-    try{
-      const arr = JSON.parse(e.target.result);
-      if(!Array.isArray(arr)) throw new Error('Неверный формат');
-      // добавляем в локальный словарь
-      const prev = getLocalDict();
-      arr.forEach(item => {
-        const w = normalizeWord(item.word || item);
-        if(!prev.some(p => p.word === w)) prev.push({ word: w, translation: item.translation || '', type: item.type || '' });
-      });
-      setLocalDict(prev);
-      alert('Импорт завершен');
-      showLocalPreview();
-    }catch(err){ alert('Ошибка импорта'); }
-  };
-  reader.readAsText(file);
-}
-
-// ---- Загрузка и инициализация выбранного текста и базы ----
-async function loadSelectedTextAndData(item){
+// ---- Загрузка текста и словаря ----
+async function loadSelectedTextAndData(fileUrl, dataUrl){
   try{
-    const textJson = await loadJSON(item.file);
-    // если файл — массив, как у тебя — берем [0].text или text
-    const textObj = Array.isArray(textJson) ? textJson[0] : textJson;
-    const raw = textObj.text || textObj;
-    const paragraphs = processText(raw);
+    const textJson = await loadJSON(fileUrl);
+    const raw = Array.isArray(textJson) ? textJson[0].text || textJson[0] : textJson.text || textJson;
+    const paragraphs = raw.replace(/\s*\/br\s*/g,'[[BR]]').replace(/\r/g,'').replace(/\n(?!\n)/g,' ').split('[[BR]]').map(p => p.trim()).filter(Boolean);
     renderTextParagraphs(paragraphs);
   }catch(err){ alert('Ошибка загрузки текста: ' + err.message); }
 
-  // пытаемся загрузить sentences_{n}.json рядом с файлом (предполагается имя в item.data)
-  if(item.data){
-    try{
-      dictionaryData = await loadJSON(item.data);
-      buildReverseIndex();
-    }catch(e){ /* нет данных */ }
-  } else {
-    // если нет указания data, попытаемся угадать по имени файла
-    const guessed = item.file.replace(/insord(\d+)\.json$/, 'sentences_$1.json');
-    try{ dictionaryData = await loadJSON(guessed); buildReverseIndex(); }catch(e){}
-  }
+  try{
+    dictionaryData = await loadJSON(dataUrl);
+    buildReverseIndex();
+  }catch(e){ /* нет данных */ }
 }
 
-// ---- Инициализация страницы ----
+// ---- Инициализация ----
 async function init(){
-  await loadTextsList();
-  document.getElementById('reloadTexts').onclick = loadTextsList;
-
-  document.getElementById('textsSelect').onchange = async (e) => {
-    const item = JSON.parse(e.target.value);
-    currentTextFile = item.file;
-    await loadSelectedTextAndData(item);
-  };
+  await loadSelectedTextAndData('insord0.json','sentences_0.json');
 
   document.getElementById('saveBtn').onclick = saveSelectedToLocal;
-  document.getElementById('exportBtn').onclick = exportDictToFile;
-  document.getElementById('importFile').onchange = (e) => { if(e.target.files[0]) importFileToSelected(e.target.files[0]); };
-  document.getElementById('addManual').onclick = addManual;
-  document.getElementById('clearBtn').onclick = () => { selected = []; renderSelectedTable(); };
-  document.getElementById('openLocal').onclick = showLocalPreview;
-  document.getElementById('downloadLocal').onclick = exportDictToFile;
-  document.getElementById('importToLocal').onclick = () => document.getElementById('importFile').click();
-
-  // загрузим первый элемент
-  const sel = document.getElementById('textsSelect');
-  if(sel.options.length) {
-    sel.selectedIndex = 0;
-    sel.dispatchEvent(new Event('change'));
-  }
+  document.getElementById('loadBtn').onclick = loadDict;
 }
 
 init();
 </script>
 </body>
 </html>
-
