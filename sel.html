@@ -10,26 +10,23 @@
   th, td { border: 1px solid #999; padding: 6px 10px; text-align: left; }
   th { background: #f3f3f3; }
   #container { max-width: 1100px; margin: auto; }
-  .editable { min-width: 120px; }
+  td.editable { min-width:120px; }
 </style>
 </head>
 <body>
 <div id="container">
   <h2>Интерактивный словарь</h2>
 
-  <h3>Текст (выбор слов)</h3>
-  <table id="textTable">
-    <tbody></tbody>
-  </table>
+  <h3>Текст</h3>
+  <div id="text"></div>
 
-  <h3>Выбранные / Редактируемые слова</h3>
+  <h3>Локальный словарь</h3>
   <table id="selectedTable">
     <thead>
       <tr>
         <th>Слово</th>
         <th>Перевод</th>
         <th>Тип</th>
-        <th>Действия</th>
       </tr>
     </thead>
     <tbody></tbody>
@@ -42,139 +39,76 @@
 </div>
 
 <script>
-// ---- Настройки ----
-const TEXTS_LIST_URL = 'texts_list.json';
-let currentTextFile = null;
-let dictionaryData = null;
-let reverseIndex = {};
 let selected = [];
 
+// --- функция нормализации ---
 function normalizeWord(w) {
   return w.trim().toLowerCase().replace(/[^\p{L}æøåÆØÅ0-9'-]/gu, '');
 }
 
-// ---- Загрузка JSON ----
-async function loadJSON(url){
-  const r = await fetch(url);
-  if(!r.ok) throw new Error('Не удалось загрузить ' + url);
-  return await r.json();
-}
-
-// ---- Построение обратного словаря ----
-function buildReverseIndex(){
-  reverseIndex = {};
-  if(!dictionaryData || !dictionaryData.sentences) return;
-  dictionaryData.sentences.forEach(sentence => {
-    for(const key in sentence){
-      if(key === 'full_translation') continue;
-      const entry = sentence[key];
-      const type = key.replace(/\d+/g, '');
-      if(entry && entry.word){
-        const base = normalizeWord(entry.word);
-        reverseIndex[base] = { type, translation: entry.translation };
-      }
-    }
-  });
-}
-
-// ---- Рендер текста в таблице ----
-function renderTextParagraphs(paragraphs){
-  const tbody = document.querySelector('#textTable tbody');
-  tbody.innerHTML = '';
-  paragraphs.forEach(p => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = p.split(/\s+/).map(w => `<td class="word">${w}</td>`).join('');
-    tbody.appendChild(tr);
-  });
-  tbody.querySelectorAll('.word').forEach(el => {
-    el.addEventListener('click', () => onWordClick(el.textContent));
-  });
-}
-
-// ---- Клик по слову ----
-function onWordClick(rawWord){
-  const clean = normalizeWord(rawWord);
-  if(!clean) return;
-  if(selected.some(s => s.word === clean)) return;
-  const info = reverseIndex[clean] || { type: '', translation: '' };
-  selected.push({ word: clean, translation: info.translation || '', type: info.type || '' });
-  renderSelectedTable();
-}
-
-// ---- Рендер выбранных слов ----
+// --- рендер таблицы словаря ---
 function renderSelectedTable(){
   const tbody = document.querySelector('#selectedTable tbody');
   tbody.innerHTML = '';
-  selected.forEach((s, i) => {
+  selected.forEach((s,i)=>{
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td contenteditable="true" data-field="word" data-i="${i}">${s.word}</td>
       <td contenteditable="true" data-field="translation" data-i="${i}">${s.translation}</td>
-      <td contenteditable="true" data-field="type" data-i="${i}">${s.type}</td>
-      <td><button data-i="${i}" class="deleteRow">✖</button></td>`;
+      <td contenteditable="true" data-field="type" data-i="${i}">${s.type}</td>`;
     tbody.appendChild(tr);
   });
 
-  tbody.querySelectorAll('td[contenteditable]').forEach(td => {
-    td.addEventListener('input', () => {
+  tbody.querySelectorAll('td[contenteditable]').forEach(td=>{
+    td.oninput = ()=> {
       const i = td.dataset.i;
       const field = td.dataset.field;
       selected[i][field] = td.textContent.trim();
-    });
-  });
-
-  tbody.querySelectorAll('.deleteRow').forEach(btn => {
-    btn.onclick = () => {
-      selected.splice(btn.dataset.i, 1);
-      renderSelectedTable();
     };
   });
 }
 
-// ---- Работа с локальным словарём ----
-function getLocalDict(){
-  try{ return JSON.parse(localStorage.getItem('myDict') || '[]'); }
-  catch(e){ return []; }
+// --- работа с localStorage ---
+function getLocalDict(){ 
+  try{return JSON.parse(localStorage.getItem('myDict')||'[]');} 
+  catch(e){return [];} 
+}
+function setLocalDict(arr){ 
+  localStorage.setItem('myDict', JSON.stringify(arr)); 
 }
 
-function setLocalDict(arr){
-  localStorage.setItem('myDict', JSON.stringify(arr));
-}
-
+// --- сохранить изменения ---
 function saveSelectedToLocal(){
-  const prev = getLocalDict();
-  selected.forEach(s => {
-    const w = normalizeWord(s.word);
-    if(!prev.some(p => p.word === w)) prev.push({ word: w, translation: s.translation, type: s.type });
-  });
-  setLocalDict(prev);
+  setLocalDict(selected);
   alert('Словарь сохранён');
 }
 
+// --- загрузить словарь ---
 function loadDict(){
   selected = getLocalDict();
   renderSelectedTable();
   alert('Словарь загружен');
 }
 
-// ---- Загрузка текста и словаря ----
-async function loadSelectedTextAndData(fileUrl, dataUrl){
-  try{
-    const textJson = await loadJSON(fileUrl);
-    const raw = Array.isArray(textJson) ? textJson[0].text || textJson[0] : textJson.text || textJson;
-    const paragraphs = raw.replace(/\s*\/br\s*/g,'[[BR]]').replace(/\r/g,'').replace(/\n(?!\n)/g,' ').split('[[BR]]').map(p => p.trim()).filter(Boolean);
-    renderTextParagraphs(paragraphs);
-  }catch(err){ alert('Ошибка загрузки текста: ' + err.message); }
-
-  try{
-    dictionaryData = await loadJSON(dataUrl);
-    buildReverseIndex();
-  }catch(e){ /* нет данных */ }
+// --- рендер текста ---
+function renderTextParagraphs(raw){
+  const container = document.getElementById('text');
+  container.innerHTML = '';
+  raw.replace(/\s*\/br\s*/g,'[[BR]]').replace(/\r/g,'').replace(/\n(?!\n)/g,' ').split('[[BR]]').map(p=>p.trim()).filter(Boolean)
+    .forEach(p=>{
+      const div = document.createElement('div');
+      div.className = 'paragraph';
+      div.textContent = p;
+      container.appendChild(div);
+    });
 }
 
-// ---- Инициализация ----
+// --- инициализация ---
 async function init(){
-  await loadSelectedTextAndData('insord0.json','sentences_0.json');
+  // пример текста, можно заменить на fetch()
+  const sampleText = `Пример текста /br с абзацами.
+  Второй абзац текста.`;
+  renderTextParagraphs(sampleText);
 
   document.getElementById('saveBtn').onclick = saveSelectedToLocal;
   document.getElementById('loadBtn').onclick = loadDict;
