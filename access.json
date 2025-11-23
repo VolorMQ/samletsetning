@@ -18,7 +18,7 @@
     {
       "username": "Guest",
       "password": "",
-      "accessLevel": 1
+      "accessLevel": 0
     },
     {
       "username": "IRINA HANSEN",
@@ -51,5 +51,6 @@
     ]
   }
 }
+
 
 
