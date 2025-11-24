@@ -29,12 +29,13 @@
 
   "links": {
     "public": [
-	  {"href":"./alfa.html","text":"Alfabet"}
+	  
     ],
     "protected": [
+		{"href":"./alfa.html","text":"Alfabet","minLevel":0},
 	  {"href":"./dansk-ordstilling_0.html","text":"Læsning 0. Anna","minLevel":0},
       {"href":"./dansk-ordstilling_0inv.html","text":"Læsning 0 INV. Anna","minLevel":0},
-      {"href":"./insetOrd0.html","text":"Udfyld de manglende ord 0. Anna","minLevel":0}
+      {"href":"./insetOrd0.html","text":"Udfyld de manglende ord 0. Anna","minLevel":0},
       {"href":"./dansk-ordstilling_1.html","text":"Læsning 1. Emma","minLevel":1},
       {"href":"./dansk-ordstilling_1inv.html","text":"Læsning 1 INV. Emma","minLevel":1},
       {"href":"./insetOrd1.html","text":"Udfyld de manglende ord 1. Emma","minLevel":1},
@@ -52,6 +53,7 @@
     ]
   }
 }
+
 
 
 
