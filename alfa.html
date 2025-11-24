@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <title>Интерактивный алфавит датского языка</title>
+  <style>
+    body { font-family: sans-serif; background: #FFF0F5; padding: 20px; }
+    h1 { font-size: 2.2em; color: #333; text-align: center; margin-bottom: 20px; }
+    .letter-btn { background: #87cefa; border: none; padding: 12px 18px; margin: 4px; border-radius: 8px; cursor: pointer; font-size: 1.3em; }
+    .letter-btn:hover { background: #1e90ff; color: white; }
+    .letter-detail { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 0 15px rgba(0,0,0,0.2); margin-top: 20px; display: none; max-width: 500px; margin-left: auto; margin-right: auto; text-align: center; }
+    .next-btn { margin-top: 15px; background: #32cd32; color: white; padding: 10px 16px; border: none; border-radius: 8px; cursor: pointer; font-size: 1em; }
+    .next-btn:hover { background: #228b22; }
+    .example-img { margin-top: 15px; max-width: 250px; border-radius: 12px; border: 2px solid #ccc; }
+    .sentence { margin-top: 15px; font-size: 1.1em; font-weight: bold; color: #444; }
+    .audio-control { margin: 10px 0; }
+    .audio-control label { display: block; margin-bottom: 5px; }
+    .audio-control input[type="range"] { width: 80%; }
+  </style>
+</head>
+<body>
+
+<h1>Интерактивный алфавит датского языка</h1>
+<div id="letterList"></div>
+
+<div id="letterDetail" class="letter-detail">
+  <h2 id="letterChar"></h2>
+  <p id="letterPronunciation"></p>
+  <p id="letterExample"></p>
+  <img id="letterImg" class="example-img" src="" alt="">
+  
+  <!-- Короткое предложение вместо поля ввода -->
+  <p class="sentence" id="letterSentence"></p>
+
+  <div class="audio-control">
+    <label>Прослушать букву:</label>
+    <button id="playLetterBtn">▶</button>
+    Скорость: <input type="range" id="letterSpeed" min="0.5" max="2" step="0.1" value="1">
+  </div>
+  
+  <div class="audio-control">
+    <label>Прослушать слово/предложение:</label>
+    <button id="playWordBtn">▶</button>
+    Скорость: <input type="range" id="wordSpeed" min="0.5" max="2" step="0.1" value="1">
+  </div>
+
+  <button id="nextLetter" class="next-btn">Следующая буква</button>
+</div>
+
+<script>
+const alphabet = [
+  {char:"A", letterSound:"ae", pronunciation:"[aː]", example:"And (утка)", sentence:"Anden svømmer i søen.", img:"images/A.jpg"},
+  {char:"B", letterSound:"Bi", pronunciation:"[beː]", example:"Bord (стол)", sentence:"Bordet er stort.", img:"images/B.jpg"},
+  {char:"C", letterSound:"Ci", pronunciation:"[seː]", example:"Cykel (велосипед)", sentence:"Cyklen er rød.", img:"images/C.jpg"},
+  {char:"D", letterSound:"Di", pronunciation:"[deː]", example:"Dør (дверь)", sentence:"Døren er åben.", img:"images/D.jpg"},
+  {char:"E", letterSound:"E", pronunciation:"[eː]", example:"Esel (осел)", sentence:"Esel er brun.", img:"images/E.jpg"},
+  {char:"F", letterSound:"F", pronunciation:"[ef]", example:"Fisk (рыба)", sentence:"Fisken svømmer i vandet.", img:"images/F.jpg"},
+  {char:"G", letterSound:"Gi", pronunciation:"[geː]", example:"Gade (улица)", sentence:"Gaden er lang.", img:"images/G.jpg"},
+  {char:"H", letterSound:"Ho", pronunciation:"[hoː]", example:"Hund (собака)", sentence:"Hunden leger i haven.", img:"images/H.jpg"},
+  {char:"I", letterSound:"I", pronunciation:"[iː]", example:"Is (мороженое)", sentence:"Isen smelter hurtigt.", img:"images/I.jpg"},
+  {char:"J", letterSound:"J", pronunciation:"[jɔt]", example:"Jord (земля)", sentence:"Jorden er fugtig.", img:"images/J.jpg"},
+  {char:"K", letterSound:"Ko", pronunciation:"[kɔ]", example:"Kat (кот)", sentence:"Katten sover på sofaen.", img:"images/K.jpg"},
+  {char:"L", letterSound:"L", pronunciation:"[el]", example:"Lam (ягнёнок)", sentence:"Lammen leger i marken.", img:"images/L.jpg"},
+  {char:"M", letterSound:"M", pronunciation:"[em]", example:"Mus (мышь)", sentence:"Musen løber hurtigt.", img:"images/M.jpg"},
+  {char:"N", letterSound:"N", pronunciation:"[en]", example:"Nat (ночь)", sentence:"Natten er mørk.", img:"images/N.jpg"},
+  {char:"O", letterSound:"O", pronunciation:"[oː]", example:"Ost (сыр)", sentence:"Osten er lækker.", img:"images/O.jpg"},
+  {char:"P", letterSound:"Pi", pronunciation:"[peː]", example:"Pære (груша)", sentence:"Pæren er saftig.", img:"images/P.jpg"},
+  {char:"Q", letterSound:"Q", pronunciation:"[kuː]", example:"QR-kode (QR-код)", sentence:"QR-koden scanner hurtigt.", img:"images/Q.jpg"},
+  {char:"R", letterSound:"R", pronunciation:"[æʁ]", example:"Ris (рис)", sentence:"Risen er kogt.", img:"images/R.jpg"},
+  {char:"S", letterSound:"S", pronunciation:"[es]", example:"Sol (солнце)", sentence:"Solen skinner klart.", img:"images/S.jpg"},
+  {char:"T", letterSound:"Te", pronunciation:"[teː]", example:"Træ (дерево)", sentence:"Træet er højt.", img:"images/T.jpg"},
+  {char:"U", letterSound:"U", pronunciation:"[uː]", example:"Ugle (сова)", sentence:"Uglen sover om dagen.", img:"images/U.jpg"},
+  {char:"V", letterSound:"V", pronunciation:"[veː]", example:"Vand (вода)", sentence:"Vandet er koldt.", img:"images/V.jpg"},
+  {char:"W", letterSound:"W", pronunciation:"[veː]", example:"Whisky (виски)", sentence:"Whisky er stærk.", img:"images/W.jpg"},
+  {char:"X", letterSound:"Ex", pronunciation:"[eks]", example:"Xylofon (ксилофон)", sentence:"Xylofonen spiller højt.", img:"images/X.jpg"},
+  {char:"Y", letterSound:"Y", pronunciation:"[yː]", example:"Yacht (яхта)", sentence:"Yachten sejler hurtigt.", img:"images/Y.jpg"},
+  {char:"Z", letterSound:"Zet", pronunciation:"[set]", example:"Zebra (зебра)", sentence:"Zebraen løber på savannen.", img:"images/Z.jpg"},
+  {char:"Æ", letterSound:"Æ", pronunciation:"[ɛː]", example:"Æble (яблоко)", sentence:"Æblet er rødt.", img:"images/AE.jpg"},
+  {char:"Ø", letterSound:"Ø", pronunciation:"[øː]", example:"Øl (пиво)", sentence:"Øllen er kold.", img:"images/OE.jpg"},
+  {char:"Å", letterSound:"ow", pronunciation:"[ɔː]", example:"Å (река)", sentence:"Åen flyder stille.", img:"images/AA.jpg"}
+];
+
+const letterListDiv = document.getElementById("letterList");
+const letterDetailDiv = document.getElementById("letterDetail");
+const letterChar = document.getElementById("letterChar");
+const letterPronunciation = document.getElementById("letterPronunciation");
+const letterExample = document.getElementById("letterExample");
+const letterImg = document.getElementById("letterImg");
+const letterSentence = document.getElementById("letterSentence");
+const nextLetterBtn = document.getElementById("nextLetter");
+const playLetterBtn = document.getElementById("playLetterBtn");
+const playWordBtn = document.getElementById("playWordBtn");
+const letterSpeed = document.getElementById("letterSpeed");
+const wordSpeed = document.getElementById("wordSpeed");
+
+let currentIndex = 0;
+
+function speak(text, rate=1) {
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = 'da-DK';
+  utterance.rate = rate;
+  speechSynthesis.speak(utterance);
+}
+
+function showLetter(index) {
+  const letter = alphabet[index];
+  letterChar.textContent = "Буква: " + letter.char;
+  letterPronunciation.textContent = "Произношение: " + letter.pronunciation;
+  letterExample.textContent = "Пример: " + letter.example;
+  letterSentence.textContent = letter.sentence;
+  letterImg.src = letter.img;
+  letterDetailDiv.style.display = "block";
+}
+
+alphabet.forEach((letter, i) => {
+  const btn = document.createElement("button");
+  btn.textContent = letter.char;
+  btn.className = "letter-btn";
+  btn.onclick = () => {
+    currentIndex = i;
+    showLetter(i);
+  };
+  letterListDiv.appendChild(btn);
+});
+
+nextLetterBtn.onclick = () => {
+  currentIndex = (currentIndex + 1) % alphabet.length;
+  showLetter(currentIndex);
+};
+
+playLetterBtn.onclick = () => {
+  const letter = alphabet[currentIndex];
+  speak(letter.letterSound, parseFloat(letterSpeed.value));
+};
+
+playWordBtn.onclick = () => {
+  const letter = alphabet[currentIndex];
+  speak(letter.sentence, parseFloat(wordSpeed.value));
+};
+</script>
+
+</body>
+</html>
