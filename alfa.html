@@ -44,7 +44,7 @@
     Скорость: <input type="range" id="wordSpeed" min="0.5" max="2" step="0.1" value="1">
   </div>
 
-  <button id="nextLetter" class="next-btn">Следующая буква</button>
+  <button id="nextLetter" class="next-btn">Næste bogstav</button>
 </div>
 
 <script>
@@ -104,7 +104,7 @@ function speak(text, rate=1) {
 
 function showLetter(index) {
   const letter = alphabet[index];
-  letterChar.textContent = "Буква: " + letter.char;
+  letterChar.textContent = "Et bogstav: " + letter.char;
   letterPronunciation.textContent = "Произношение: " + letter.pronunciation;
   letterExample.textContent = "Пример: " + letter.example;
   letterSentence.textContent = letter.sentence;
@@ -141,4 +141,5 @@ playWordBtn.onclick = () => {
 
 </body>
 </html>
+
 
