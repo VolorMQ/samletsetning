@@ -32,7 +32,7 @@
 	  
     ],
     "protected": [
-		{"href":"./alfa.html","text":"Alfabet","minLevel":0},
+	  {"href":"./alfa.html","text":"Alfabet","minLevel":0},
 	  {"href":"./dansk-ordstilling_0.html","text":"Læsning 0. Anna","minLevel":0},
       {"href":"./dansk-ordstilling_0inv.html","text":"Læsning 0 INV. Anna","minLevel":0},
       {"href":"./insetOrd0.html","text":"Udfyld de manglende ord 0. Anna","minLevel":0},
@@ -53,6 +53,7 @@
     ]
   }
 }
+
 
 
 
