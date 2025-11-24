@@ -135,12 +135,24 @@ playLetterBtn.onclick = () => {
 
 playWordBtn.onclick = () => {
   const letter = alphabet[currentIndex];
-  speak(letter.sentence, parseFloat(wordSpeed.value));
+  const rate = parseFloat(wordSpeed.value);
+
+  // Сначала произнести слово (например, "And")
+  speak(letter.example.split(" ")[0], rate);
+
+  // Пауза, потом произнести предложение
+  // Рассчитываем задержку примерно: длина слова * 400 мс (можно регулировать)
+  const wordDelay = letter.example.split(" ")[0].length * 400;
+
+  setTimeout(() => {
+    speak(letter.sentence, rate);
+  }, wordDelay);
 };
 </script>
 
 </body>
 </html>
+
 
 
 
