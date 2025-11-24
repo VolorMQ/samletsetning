@@ -182,8 +182,14 @@ function checkPassword() {
 }
 
 function completeLogin(user) {
-    const grid = document.getElementById("linkGrid");
+    // Скрываем окно входа
+    document.getElementById("passwordOverlay").style.display = "none";
 
+    // Показываем панель пользователя
+    showUserBar(user.username);
+
+    // Загружаем ссылки, доступные по уровню
+    const grid = document.getElementById("linkGrid");
     accessData.links.protected.forEach(link => {
         if (user.accessLevel >= link.minLevel) {
             const a = document.createElement("a");
@@ -210,10 +216,10 @@ function autoLogin() {
     const user = JSON.parse(saved);
     if (!user.username) return;
 
+    // Скрываем окно входа
     document.getElementById("passwordOverlay").style.display = "none";
-    showUserBar(user.username);
 
-    // Загружаем ссылки сразу
+    showUserBar(user.username);
     completeLogin(user);
 }
 
