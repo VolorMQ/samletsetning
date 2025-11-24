@@ -208,11 +208,30 @@ function saveSession(user) {
 function autoLogin() {
   const saved = localStorage.getItem("loggedUser");
   if(!saved) return;
+
   const user = JSON.parse(saved);
+
+  // Скрываем overlay
   document.getElementById("passwordOverlay").style.display = "none";
+
+  // Отображаем панель пользователя
   showUserBar(user.username);
-  completeLogin(user);
+
+  // Добавляем protected ссылки
+  const grid = document.getElementById("linkGrid");
+  accessData.links.protected.forEach(link => {
+    if(user.accessLevel === 0 || user.accessLevel >= link.minLevel) {
+      if(link.minLevel >= 0 && link.minLevel <= 4) { // только 0–4
+        const a = document.createElement("a");
+        a.className = "link-card";
+        a.href = link.href;
+        a.textContent = link.text;
+        grid.appendChild(a);
+      }
+    }
+  });
 }
+
 
 function logout() {
   localStorage.removeItem("loggedUser");
