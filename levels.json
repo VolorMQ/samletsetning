@@ -2,17 +2,27 @@
   {
     "bg": "game/room.jpg",
     "items": [
-      {"word": "Hund", "top": "79%", "left": "16%", "w": "8%", "h": "12%"},
-      {"word": "Avis", "top": "76%", "left": "55%", "w": "8%", "h": "13%"},
-      {"word": "Ur", "top": "36%", "left": "55%", "w": "5%", "h": "16%"}
+      {"word": "Et hund", "top": "76.56%", "left": "20.52%", "w": "6.61%", "h": "9.19%"},
+      {"word": "En kat", "top": "88.07%", "left": "67.76%", "w": "2.76%", "h": "11.19%"},
+      {"word": "En gul fugl", "top": "53.85%", "left": "33.44%", "w": "4.38%", "h": "7.07%"},
+	  {"word": "En computer", "top": "43.82%", "left": "24.22%", "w": "2.66%", "h": "11.51%"},
+	  {"word": "En bog", "top": "41.82%", "left": "31.30%", "w": "3.54%", "h": "2.43%"},
+	  {"word": "Et ur", "top": "38.33%", "left": "54.84%", "w": "3.39%", "h": "13.62%"},
+	  {"word": "En lampe", "top": "28.41%", "left": "13.44%", "w": "1.77%", "h": "16.16%"},
+	  {"word": "En vase med blomster", "top": "6.76%", "left": "51.67%", "w": "2.60%", "h": "10.45%"},
+	  {"word": "Et spejl", "top": "6.12%", "left": "45.94%", "w": "2.40%", "h": "13.31%"},
+	  {"word": "En plante", "top": "10.35%", "left": "70.89%", "w": "3.23%", "h": "9.93%"},
+	  {"word": "En gul trøje", "top": "64.63%", "left": "50.31%", "w": "3.65%", "h": "11.72%"},
+	  {"word": "En sabel", "top": "1.90%", "left": "85.16%", "w": "1.30%", "h": "14.47%"},
+	  {"word": "En avis", "top": "75.92%", "left": "55.16%", "w": "7.08%", "h": "6.86%"}
     ],
     "dialog": [
-      ["Hej! Hvordan går det?", "Det går godt."],
-      ["Hvad laver du?", "Jeg studerer dansk."],
-      ["Hvor bor du?", "Jeg bor i Danmark."],
-      ["Hvad drikker du?", "Kaffe."],
-      ["Kan du lide spil?", "Ja!"],
-      ["Skal vi fortsætte?", "Ja, selvfølgelig."]
+	  ["Har du fundet nøglekortet endnu?", "Ja, det lå under sofaen hele tiden."],
+	  ["Seriøst? Jeg ledte overalt!", "Jeg ved, det var gemt godt."],
+	  ["Nå, godt at vi fik det. Klar til næste niveau?", "Absolut, lad os se, hvad der venter os!"],
+	  ["Jeg håber, næste niveau bliver lettere.", "Det tror jeg ikke, men vi klarer det sammen."],
+	  ["Måske finder vi nogle hemmelige genstande også.", "Ja, det ville være fedt!"],
+	  ["Lad os komme i gang.", "Ja, lad os gå!"]
     ]
   },
   {
@@ -23,12 +33,12 @@
       {"word": "Stol", "top": "30%", "left": "50%", "w": "12%", "h": "18%"}
     ],
     "dialog": [
-      ["Hvad laver du i dag?", "Jeg lærer."],
-      ["Ser du film?", "Ja, ofte."],
-      ["Har du hobbyer?", "Ja."],
-      ["Hvad tid står du op?", "Klokken syv."],
-      ["Spiser du morgenmad?", "Ja."],
-      ["Er du klar til næste niveau?", "Ja!"]
+	  ["Den gamle bog er væk igen!", "Jeg tror, jeg så den på hylden bag døren."],
+	  ["Virkelig? Hvorfor kigger jeg aldrig der?", "Måske fordi vi altid leder for langt frem."],
+	  ["Haha, ja, nogle gange er løsningen lige foran næsen.", "Klar til at tjekke næste rum?"],
+	  ["Ja, lad os se, om der er flere spor.", "God idé, vi må være opmærksomme."],
+	  ["Håber vi finder noget spændende.", "Det gør vi sikkert, lad os starte."],
+	  ["Så går vi.", "Lad os gøre det!"]
     ]
   }
 ]
