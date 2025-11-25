@@ -185,8 +185,10 @@ function startGame(mode) {
   words = levels[currentLevel].items.map(i => i.word).sort(() => Math.random() - 0.5);
   currentIndex = 0;
 
+  // Скрываем меню, статистику и диалог во время игры
   document.getElementById("menu").style.display = "none";
   document.getElementById("stats").style.display = "none";
+  document.getElementById("dialog").style.display = "none";
 
   showWord();
 
@@ -251,14 +253,20 @@ function endGame(win) {
   stats.style.display = "block";
 
   const menu = document.getElementById("menu");
+  // меню возвращаем на исходную позицию сверху
   menu.style.position = "absolute";
-  menu.style.top = "60%";
+  menu.style.top = "70px";
   menu.style.left = "50%";
   menu.style.transform = "translateX(-50%)";
   menu.style.display = "flex";
 
   wordDiv.textContent = win ? "Du fandt alt! 🎉" : "Tid er slut! ❌";
   document.querySelectorAll('.item').forEach(i => i.style.pointerEvents = "none");
+
+  // Показываем диалог, если он есть для конца уровня
+  if (levels[currentLevel] && levels[currentLevel].dialog.length) {
+    startDialog();
+  }
 }
 
 function spawnFirework(x, y) {
