@@ -253,7 +253,6 @@ function endGame(win) {
   stats.style.display = "block";
 
   const menu = document.getElementById("menu");
-  // меню возвращаем на исходную позицию сверху
   menu.style.position = "absolute";
   menu.style.top = "70px";
   menu.style.left = "50%";
@@ -263,8 +262,8 @@ function endGame(win) {
   wordDiv.textContent = win ? "Du fandt alt! 🎉" : "Tid er slut! ❌";
   document.querySelectorAll('.item').forEach(i => i.style.pointerEvents = "none");
 
-  // Показываем диалог, если он есть для конца уровня
-  if (levels[currentLevel] && levels[currentLevel].dialog.length) {
+  // ⛔ Диалог показываем только если уровень выигран!
+  if (win && levels[currentLevel] && levels[currentLevel].dialog.length) {
     startDialog();
   }
 }
