@@ -132,6 +132,8 @@ fetch("levels.json")
   .then(data => { levels = data; });
 
 let currentLevel = 0;
+let levelOrder = [];
+let orderIndex = 0;
 let timerInterval = null;
 let currentDifficulty = null;
 let correctCount = 0;
@@ -158,6 +160,16 @@ timerSpanWord.style.padding = "3px 8px";
 timerSpanWord.style.borderRadius = "5px";
 wordDiv.appendChild(timerSpanWord);
 
+function shuffleLevels() {
+  levelOrder = [...Array(levels.length).keys()]; 
+  for (let i = levelOrder.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [levelOrder[i], levelOrder[j]] = [levelOrder[j], levelOrder[i]];
+  }
+  orderIndex = 0;
+}
+
+
 function loadLevel() {
   const lvl = levels[currentLevel];
   gameDiv.style.background = `url('${lvl.bg}') center/contain no-repeat`;
@@ -176,16 +188,32 @@ function loadLevel() {
 }
 
 function startGame(mode) {
+  shuffleLevels();     // ← запускаем случайный порядок уровней
+  loadNextLevelStart(mode);
+}
+
+function loadNextLevelStart(mode) {
   currentDifficulty = mode;
-  timeLeft = difficulties[mode];
+  currentLevel = levelOrder[orderIndex];
+  orderIndex++;
+
+  runLevel();
+}
+
+function runLevel() {
+  timeLeft = difficulties[currentDifficulty];
   correctCount = 0;
   wrongCount = 0;
   foundCount = 0;
+
   loadLevel();
-  words = levels[currentLevel].items.map(i => i.word).sort(() => Math.random() - 0.5);
+
+  words = levels[currentLevel].items
+    .map(i => i.word)
+    .sort(() => Math.random() - 0.5);
+
   currentIndex = 0;
 
-  // Скрываем меню, статистику и диалог во время игры
   document.getElementById("menu").style.display = "none";
   document.getElementById("stats").style.display = "none";
   document.getElementById("dialog").style.display = "none";
@@ -333,12 +361,15 @@ function showDialog() {
   });
 }
 function nextLevel() {
-  currentLevel++;
-  if (currentLevel >= levels.length) {
+  if (orderIndex >= levelOrder.length) {
     showEndScreen();
     return;
   }
-  startGame(currentDifficulty);
+
+  currentLevel = levelOrder[orderIndex];
+  orderIndex++;
+
+  runLevel();
 }
 function showEndScreen() {
   gameDiv.innerHTML = `
