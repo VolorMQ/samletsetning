@@ -55,5 +55,41 @@
 	  ["Håber vi finder noget spændende.", "Det gør vi sikkert, lad os starte."],
 	  ["Så går vi.", "Lad os gøre det!"]
     ]
+  },
+  {
+    "bg": "game/room2.jpg",
+    "items": [
+      {"word": "En globus", "top": "52.48%", "left": "24.64%", "w": "5.05%", "h": "7.81%"},
+      {"word": "En and", "top": "62.51%", "left": "28.23%", "w": "2.71%", "h": "5.70%"},
+      {"word": "En hæftemaskine", "top": "68.00%", "left": "35.89%", "w": "2.86%", "h": "2.32%"},
+	  {"word": "En pære", "top": "72.76%", "left": "37.60%", "w": "3.85%", "h": "2.85%"},
+	  {"word": "En violin", "top": "89.65%", "left": "15.21%", "w": "3.96%", "h": "9.08%"},
+	  {"word": "En paraply", "top": "69.90%", "left": "17.76%", "w": "3.70%", "h": "18.06%"},
+	  {"word": "En bøjle", "top": "15.31%", "left": "17.76%", "w": "11.77%", "h": "5.28%"},
+	  {"word": "En sommerfugl", "top": "57.34%", "left": "18.07%", "w": "4.79%", "h": "9.82%"},
+	  {"word": "En frø", "top": "top": "87.96%", "left": "23.39%", "w": "5.42%", "h": "5.70%"},
+	  {"word": "En fugl", "top": "26.40%", "left": "81.51%", "w": "2.19%", "h": "6.12%"},
+	  {"word": "En maske", "top": "27.67%", "left": "63.18%", "w": "5.99%", "h": "5.81%"},
+	  {"word": "En kat", "top": "56.71%", "left": "63.54%", "w": "4.22%", "h": "4.86%"},
+	  {"word": "Et kamera", "top": "51.32%", "left": "52.81%", "w": "2.60%", "h": "5.28%"},
+	  {"word": "Et armbånd", "top": "79.83%", "left": "39.69%", "w": "4.06%", "h": "2.75%"},
+	  {"word": "En vifte", "top": "45.20%", "left": "25.94%", "w": "7.03%", "h": "5.49%"},
+	  {"word": "En pokal", "top": "43.40%", "left": "35.16%", "w": "1.93%", "h": "13.20%"},
+	  {"word": "En musling", "top": "35.27%", "left": "30.73%", "w": "3.49%", "h": "4.33%"},
+	  {"word": "En kikkert", "top": "53.85%", "left": "56.56%", "w": "5.00%", "h": "5.28%"},
+	  {"word": "En dartpil", "top": "30.20%", "left": "48.85%", "w": "4.17%", "h": "6.12%"},
+	  {"word": "En terning", "top": "62.62%", "left": "46.51%", "w": "2.34%", "h": "3.27%"},
+	  {"word": "Et bælte", "top": "91.55%", "left": "53.49%", "w": "10.73%", "h": "6.97%"},
+	  {"word": "En kop", "top": "59.66%", "left": "35.16%", "w": "2.97%", "h": "6.34%"},
+	  {"word": "En klokke", "top": "65.15%", "left": "33.91%", "w": "1.35%", "h": "4.86%"}
+    ],
+    "dialog": [
+	  ["Har du bemærket, at lyset skifter farve, når vi rører ved stenen?", "Ja, det er ret mystisk. Måske er det en ledetråd?"],
+	  ["Måske. Skal vi prøve at flytte den?", "Ja, men forsigtigt. Vi vil ikke aktivere en fælde."],
+	  ["Okay, jeg flytter den lidt…", "Se, en skjult dør åbnede sig!"],
+	  ["Wow, det var uventet.", "Ja, hvem ved, hvad der gemmer sig derinde."],
+	  ["Vi skal være forsigtige.", "Selvfølgelig, lad os gå langsomt."],
+	  ["Er du klar?", "Ja, lad os udforske."]
+    ]
   }
 ]
