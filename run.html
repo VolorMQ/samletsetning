@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<title>Søgeordsspil</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    font-family: sans-serif;
+    background: #000;
+    color: #fff;
+  }
+  #game {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: center/contain no-repeat;
+  }
+  .item {
+    position: absolute;
+    cursor: pointer;
+    border: 2px solid transparent;
+  }
+  #word {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 32px;
+    background: rgba(0,0,0,0.5);
+    padding: 10px 20px;
+    border-radius: 10px;
+    z-index: 20;
+  }
+  #stats {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20px;
+    background: rgba(0,0,0,0.5);
+    padding: 5px 15px;
+    border-radius: 10px;
+    z-index: 20;
+  }
+  #menu {
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 20;
+  }
+  .btn {
+    background: #222;
+    border: 2px solid #888;
+    padding: 8px 18px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 18px;
+  }
+  .btn:hover {
+    background: #444;
+  }
+  .firework {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: explode 0.8s ease-out forwards;
+  }
+  @keyframes explode {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(3); opacity: 0; }
+  }
+
+  /* === добавлено: диалог === */
+  #dialog {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.8);
+    padding: 20px;
+    z-index: 30;
+  }
+  #dialog p {
+    font-size: 22px;
+    margin: 0 0 10px 0;
+  }
+  #dialog input {
+    width: 80%;
+    padding: 10px;
+    font-size: 20px;
+  }
+  #dialog button {
+    padding: 10px 20px;
+    font-size: 20px;
+    margin-left: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div id="game">
+
+  <div id="word">Tryk på en sværhedsgrad</div>
+
+  <div id="menu">
+    <div class="btn" onclick="startGame('let')">Let (60s)</div>
+    <div class="btn" onclick="startGame('mellem')">Mellem (40s)</div>
+    <div class="btn" onclick="startGame('svaer')">Svær (25s)</div>
+    <div class="btn" onclick="restartGame()">Nyt spil</div>
+  </div>
+
+  <div id="stats">
+    Rigtige: <span id="correct">0</span> |
+    Forkerte: <span id="wrong">0</span> |
+    Fundet: <span id="found">0</span>/<span id="total">0</span> |
+    Tid: <span id="time">0</span>s
+  </div>
+
+  <!-- === добавлено: диалоговый блок === -->
+  <div id="dialog">
+    <p id="dialog-line"></p>
+    <input id="dialog-input" placeholder="dit svar…">
+    <button onclick="dialogSubmit()">OK</button>
+  </div>
+
+</div>
+
+<script>
+/* ===========================================================
+   LEVEL SYSTEM (добавлено)
+=========================================================== */
+let levels = [];
+fetch("levels.json")
+  .then(r => r.json())
+  .then(data => {
+    levels = data;
+    startGame(currentDifficulty);
+  });
+
+let currentLevel = 0;
+
+/* ===========================================================
+   ТВОЙ ИСХОДНЫЙ КОД (не тронут)
+=========================================================== */
+let timerInterval = null;
+let currentDifficulty = null;
+
+let correctCount = 0;
+let wrongCount = 0;
+let foundCount = 0;
+let words = [];
+let currentIndex = 0;
+let timeLeft = 0;
+
+const difficulties = { let:60, mellem:40, svaer:25 };
+
+const wordDiv = document.getElementById('word');
+const correctSpan = document.getElementById('correct');
+const wrongSpan = document.getElementById('wrong');
+const foundSpan = document.getElementById('found');
+const totalSpan = document.getElementById('total');
+const timeSpan = document.getElementById('time');
+const gameDiv = document.getElementById('game');
+
+/* ===========================================================
+   ЗАПУСК УРОВНЯ (новая функция)
+=========================================================== */
+function loadLevel() {
+  const lvl = levels[currentLevel];
+
+  gameDiv.style.background = `url('${lvl.bg}') center/contain no-repeat`;
+
+  document.querySelectorAll('.item').forEach(i => i.remove());
+
+  lvl.items.forEach(obj => {
+    const div = document.createElement("div");
+    div.className = "item";
+    div.dataset.word = obj.word;
+    div.style.top = obj.top;
+    div.style.left = obj.left;
+    div.style.width = obj.w;
+    div.style.height = obj.h;
+
+    div.addEventListener("click", () => itemClick(div));
+
+    gameDiv.appendChild(div);
+  });
+}
+
+/* ===========================================================
+   СТАРТ ИГРЫ
+=========================================================== */
+function startGame(mode) {
+  currentDifficulty = mode;
+  timeLeft = difficulties[mode];
+
+  correctCount = 0;
+  wrongCount = 0;
+  foundCount = 0;
+
+  loadLevel();
+
+  words = levels[currentLevel].items.map(i => i.word).sort(() => Math.random() - 0.5);
+  currentIndex = 0;
+
+  totalSpan.textContent = words.length;
+
+  showWord();
+  updateStats();
+
+  if (timerInterval) clearInterval(timerInterval);
+  timerInterval = setInterval(tick, 1000);
+}
+
+function restartGame() { location.reload(); }
+
+function tick() {
+  timeLeft--;
+  updateStats();
+  if (timeLeft <= 0) endGame(false);
+}
+
+function showWord() {
+  if (currentIndex < words.length) {
+    wordDiv.textContent = "Find: " + words[currentIndex];
+  } else {
+    endGame(true);
+  }
+}
+
+function updateStats() {
+  correctSpan.textContent = correctCount;
+  wrongSpan.textContent = wrongCount;
+  foundSpan.textContent = foundCount;
+  timeSpan.textContent = timeLeft;
+}
+
+/* ===========================================================
+   КЛИК ПО ПРЕДМЕТУ (оставлено, только вынесено)
+=========================================================== */
+function itemClick(item) {
+  if (!timerInterval) return;
+
+  const targetWord = words[currentIndex];
+  const rect = item.getBoundingClientRect();
+  const x = rect.left + rect.width/2;
+  const y = rect.top + rect.height/2;
+
+  if (item.dataset.word === targetWord) {
+    correctCount++;
+    foundCount++;
+    currentIndex++;
+    spawnFirework(x, y);
+  } else {
+    wrongCount++;
+  }
+
+  updateStats();
+  showWord();
+}
+
+function endGame(win) {
+  clearInterval(timerInterval);
+  timerInterval = null;
+
+  if (win) {
+    wordDiv.textContent = "Du fandt alt! 🎉";
+    startDialog();   // === добавлено ===
+  } else {
+    wordDiv.textContent = "Tid er slut! ❌";
+  }
+
+  document.querySelectorAll('.item').forEach(i => i.style.pointerEvents = "none");
+}
+
+/* ===========================================================
+   ФЕЙЕРВЕРК (без изменений)
+=========================================================== */
+function spawnFirework(x, y) {
+  for (let i = 0; i < 10; i++) {
+    const fw = document.createElement('div');
+    fw.className = 'firework';
+    fw.style.background = `hsl(${Math.random()*360}, 100%, 50%)`;
+    fw.style.left = `${x}px`;
+    fw.style.top = `${y}px`;
+    fw.style.transform = `translate(-50%, -50%) rotate(${Math.random()*360}deg)`;
+    gameDiv.appendChild(fw);
+    setTimeout(() => fw.remove(), 800);
+  }
+}
+
+/* ===========================================================
+   ДИАЛОГ (добавлено)
+=========================================================== */
+let dialogStep = 0;
+
+function startDialog() {
+  dialogStep = 0;
+  buildDialogUI();
+  document.getElementById("dialog").style.display = "block";
+  showDialog();
+}
+
+function buildDialogUI() {
+  const dlg = document.getElementById("dialog");
+  dlg.innerHTML = `
+    <p id="dialog-line"></p>
+    <div id="dialog-options" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
+  `;
+}
+
+function showDialog() {
+  const npcLine = levels[currentLevel].dialog[dialogStep][0];
+  const playerLine = levels[currentLevel].dialog[dialogStep][1];
+
+  document.getElementById("dialog-line").textContent = npcLine;
+
+  const container = document.getElementById("dialog-options");
+  container.innerHTML = "";
+
+  // ==== создаём 2 варианта: правильный и неправильный ====
+  const options = [playerLine];
+  let wrong = "Jeg ved ikke..."; // универсальный неверный вариант
+
+  options.push(wrong);
+
+  // перемешиваем
+  options.sort(() => Math.random() - 0.5);
+
+  options.forEach(opt => {
+    const btn = document.createElement("button");
+    btn.style.padding = "10px 20px";
+    btn.style.fontSize = "20px";
+    btn.textContent = opt;
+
+    btn.onclick = () => {
+      if (opt === playerLine) {
+        dialogStep++;
+        if (dialogStep >= levels[currentLevel].dialog.length) {
+          document.getElementById("dialog").style.display = "none";
+          nextLevel();
+        } else {
+          showDialog();
+        }
+      } else {
+        alert("Jeg forstår ikke, hvad du mener.");
+      }
+    };
+
+    container.appendChild(btn);
+  });
+}
+
+/* ===========================================================
+   ПЕРЕХОД К СЛЕДУЮЩЕМУ УРОВНЮ
+=========================================================== */
+function nextLevel() {
+  currentLevel++;
+  if (currentLevel >= levels.length) currentLevel = 0;
+  startGame(currentDifficulty);
+}
+
+</script>
+
+</body>
+</html>
