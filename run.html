@@ -322,12 +322,13 @@ function showDialog() {
   const npcLine = levels[currentLevel].dialog[dialogStep][0];
   const correctAnswer = levels[currentLevel].dialog[dialogStep][1];
 
-  document.getElementById("dialog-line").textContent = npcLine;
+  const dialogLine = document.getElementById("dialog-line");
+  dialogLine.textContent = npcLine;
 
   const container = document.getElementById("dialog-options");
   container.innerHTML = "";
 
-  // ✨ Берём ВСЕ ответы игрока из всего диалога текущего уровня
+  // ВСЕ ответы игрока
   const allPlayerAnswers = levels[currentLevel].dialog.map(pair => pair[1]);
 
   allPlayerAnswers.forEach(answer => {
@@ -340,14 +341,22 @@ function showDialog() {
       if (answer === correctAnswer) {
         dialogStep++;
         if (dialogStep >= levels[currentLevel].dialog.length) {
-          // диалог закончен → переход уровня
           document.getElementById("dialog").style.display = "none";
           nextLevel();
         } else {
           showDialog();
         }
       } else {
-        alert("Jeg forstår ikke, hvad du mener.");
+        // Показываем сообщение об ошибке прямо в диалоге на 3 секунды
+        const prevText = dialogLine.textContent;
+        dialogLine.textContent = "Jeg forstår ikke, hvad du mener.";
+        // блокируем кнопки на время
+        container.querySelectorAll("button").forEach(b => b.disabled = true);
+
+        setTimeout(() => {
+          dialogLine.textContent = prevText;
+          container.querySelectorAll("button").forEach(b => b.disabled = false);
+        }, 3000);
       }
     };
 
