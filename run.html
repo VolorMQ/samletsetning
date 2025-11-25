@@ -142,6 +142,7 @@ let foundCount = 0;
 let words = [];
 let currentIndex = 0;
 let timeLeft = 0;
+let availableLevels = [];
 
 const difficulties = { let:90, mellem:60, svaer:45 };
 const wordDiv = document.getElementById('word');
@@ -192,6 +193,18 @@ function startGame(mode) {
   loadNextLevelStart(mode);
 }
 
+function resetLevelOrder() {
+  availableLevels = [...levels.keys()]; // все индексы уровней
+  shuffleArray(availableLevels);
+}
+
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
 function loadNextLevelStart(mode) {
   currentDifficulty = mode;
   currentLevel = levelOrder[orderIndex];
@@ -200,7 +213,16 @@ function loadNextLevelStart(mode) {
   runLevel();
 }
 
+function getNextLevel() {
+  if (availableLevels.length === 0) {
+    resetLevelOrder(); // снова создаём список, когда закончился
+  }
+  return availableLevels.shift(); // выдаём первый, без повторов
+}
+
 function runLevel() {
+  currentLevel = getNextLevel();  // ← ДОБАВЛЕНО: выбираем следующий неповторяющийся уровень
+
   timeLeft = difficulties[currentDifficulty];
   correctCount = 0;
   wrongCount = 0;
