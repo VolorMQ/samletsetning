@@ -320,32 +320,27 @@ function buildDialogUI() {
 
 function showDialog() {
   const npcLine = levels[currentLevel].dialog[dialogStep][0];
-  const playerLine = levels[currentLevel].dialog[dialogStep][1];
+  const correctAnswer = levels[currentLevel].dialog[dialogStep][1];
 
   document.getElementById("dialog-line").textContent = npcLine;
 
   const container = document.getElementById("dialog-options");
   container.innerHTML = "";
 
-  // ==== создаём 2 варианта: правильный и неправильный ====
-  const options = [playerLine];
-  let wrong = "Jeg ved ikke..."; // универсальный неверный вариант
+  // ✨ Берём ВСЕ ответы игрока из всего диалога текущего уровня
+  const allPlayerAnswers = levels[currentLevel].dialog.map(pair => pair[1]);
 
-  options.push(wrong);
-
-  // перемешиваем
-  options.sort(() => Math.random() - 0.5);
-
-  options.forEach(opt => {
+  allPlayerAnswers.forEach(answer => {
     const btn = document.createElement("button");
     btn.style.padding = "10px 20px";
     btn.style.fontSize = "20px";
-    btn.textContent = opt;
+    btn.textContent = answer;
 
     btn.onclick = () => {
-      if (opt === playerLine) {
+      if (answer === correctAnswer) {
         dialogStep++;
         if (dialogStep >= levels[currentLevel].dialog.length) {
+          // диалог закончен → переход уровня
           document.getElementById("dialog").style.display = "none";
           nextLevel();
         } else {
