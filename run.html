@@ -213,6 +213,8 @@ function runLevel() {
     .sort(() => Math.random() - 0.5);
 
   currentIndex = 0;
+  totalSpan.textContent = words.length;
+  updateStats();
 
   document.getElementById("menu").style.display = "none";
   document.getElementById("stats").style.display = "none";
