@@ -330,6 +330,9 @@ function showDialog() {
 
   // ВСЕ ответы игрока
   const allPlayerAnswers = levels[currentLevel].dialog.map(pair => pair[1]);
+  
+  // перемешиваем массив
+  allPlayerAnswers.sort(() => Math.random() - 0.5);
 
   allPlayerAnswers.forEach(answer => {
     const btn = document.createElement("button");
@@ -350,7 +353,6 @@ function showDialog() {
         // Показываем сообщение об ошибке прямо в диалоге на 3 секунды
         const prevText = dialogLine.textContent;
         dialogLine.textContent = "Jeg forstår ikke, hvad du mener.";
-        // блокируем кнопки на время
         container.querySelectorAll("button").forEach(b => b.disabled = true);
 
         setTimeout(() => {
