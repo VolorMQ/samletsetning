@@ -45,7 +45,7 @@
 	  {"word": "Et gardin", "top": "0.42%", "left": "17.81%", "w": "25.42%", "h": "11.09%"},
 	  {"word": "Et maleri", "top": "6.86%", "left": "59.06%", "w": "3.96%", "h": "5.91%"},
 	  {"word": "En hjørnehylde", "top": "27.35%", "left": "48.80%", "w": "15.31%", "h": "4.54%"},
-	  {"word": "En kuffert", "top": "78.99%", "left": "40.26%", "w": "9.48%", "h": "13.73%"},
+	  {"word": "En kuffert", "top": "78.99%", "left": "40.26%", "w": "9.48%", "h": "13.73%"}
     ],
     "dialog": [
 	  ["Den gamle bog er væk igen!", "Jeg tror, jeg så den på hylden bag døren."],
