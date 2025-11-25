@@ -112,9 +112,9 @@
   <div id="word">Tryk på en sværhedsgrad</div>
 
   <div id="menu">
-    <div class="btn" onclick="startGame('let')">Let (60s)</div>
-    <div class="btn" onclick="startGame('mellem')">Mellem (40s)</div>
-    <div class="btn" onclick="startGame('svaer')">Svær (25s)</div>
+    <div class="btn" onclick="startGame('let')">Let (90s)</div>
+    <div class="btn" onclick="startGame('mellem')">Mellem (60s)</div>
+    <div class="btn" onclick="startGame('svaer')">Svær (45s)</div>
     <div class="btn" onclick="restartGame()">Nyt spil</div>
   </div>
 
@@ -161,7 +161,7 @@ let words = [];
 let currentIndex = 0;
 let timeLeft = 0;
 
-const difficulties = { let:60, mellem:40, svaer:25 };
+const difficulties = { let:90, mellem:60, svaer:45 };
 
 const wordDiv = document.getElementById('word');
 const correctSpan = document.getElementById('correct');
@@ -385,14 +385,18 @@ function showEndScreen() {
       width:100%; height:100%;
       background: url('end.gif') center/cover no-repeat;
       display:flex; justify-content:center; align-items:center;
-      flex-direction:column;
+      flex-direction:column; color:#fff; text-align:center;
     ">
+      <h1 style="font-size:40px; margin-bottom:20px;">Spillet er slut! 🎉</h1>
+      <p style="font-size:24px; margin-bottom:10px;">Rigtige: ${correctCount}</p>
+      <p style="font-size:24px; margin-bottom:30px;">Forkerte: ${wrongCount}</p>
       <button id="restartBtn" style="
         padding:20px 40px; font-size:28px; border-radius:10px;
         cursor:pointer; background:#222; color:#fff; border:2px solid #888;
       ">Start igen</button>
     </div>
   `;
+
   document.getElementById("restartBtn").onclick = () => {
     location.reload();
   };
