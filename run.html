@@ -217,9 +217,15 @@ function startGame(mode) {
   showWord();
   updateStats();
 
+  // Скрываем меню и статистику
+  document.getElementById("menu").style.display = "none";
+  const statsDiv = document.getElementById("stats");
+  statsDiv.style.display = "none";
+
   if (timerInterval) clearInterval(timerInterval);
   timerInterval = setInterval(tick, 1000);
 }
+
 
 function restartGame() { location.reload(); }
 
@@ -272,15 +278,25 @@ function endGame(win) {
   clearInterval(timerInterval);
   timerInterval = null;
 
+  const statsDiv = document.getElementById("stats");
+  statsDiv.style.display = "block";
+  statsDiv.style.position = "absolute";
+  statsDiv.style.top = "50%";
+  statsDiv.style.left = "50%";
+  statsDiv.style.transform = "translate(-50%, -50%)";
+  statsDiv.style.fontSize = "28px";
+  statsDiv.style.padding = "15px 25px";
+
   if (win) {
     wordDiv.textContent = "Du fandt alt! 🎉";
-    startDialog();   // === добавлено ===
+    startDialog();
   } else {
     wordDiv.textContent = "Tid er slut! ❌";
   }
 
   document.querySelectorAll('.item').forEach(i => i.style.pointerEvents = "none");
 }
+
 
 /* ===========================================================
    ФЕЙЕРВЕРК (без изменений)
