@@ -49,10 +49,12 @@
       {"href":"./dansk-ordstilling_4inv.html","text":"Læsning 4 INV. Mikkel","minLevel":4},
       {"href":"./insetOrd4.html","text":"Udfyld de manglende ord 4. Mikkel","minLevel":4},
       {"href":"./oret.html","text":"Høre og tale","minLevel":0},
-	  {"href":"./sel.html","text":"Ordbog","minLevel":2}
+	  {"href":"./sel.html","text":"Ordbog","minLevel":2},
+	  {"href":"./run.html","text":"At spille et spil","minLevel":2}
     ]
   }
 }
+
 
 
 
