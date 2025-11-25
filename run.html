@@ -34,6 +34,8 @@
     padding: 10px 20px;
     border-radius: 10px;
     z-index: 20;
+    display: flex;
+    align-items: center;
   }
   #stats {
     position: absolute;
@@ -78,8 +80,6 @@
     0% { transform: scale(0); opacity: 1; }
     100% { transform: scale(3); opacity: 0; }
   }
-
-  /* === добавлено: диалог === */
   #dialog {
     display: none;
     position: absolute;
@@ -93,11 +93,6 @@
     font-size: 22px;
     margin: 0 0 10px 0;
   }
-  #dialog input {
-    width: 80%;
-    padding: 10px;
-    font-size: 20px;
-  }
   #dialog button {
     padding: 10px 20px;
     font-size: 20px;
@@ -108,7 +103,6 @@
 <body>
 
 <div id="game">
-
   <div id="word">Tryk på en sværhedsgrad</div>
 
   <div id="menu">
@@ -125,35 +119,21 @@
     Tid: <span id="time">0</span>s
   </div>
 
-  <!-- === добавлено: диалоговый блок === -->
   <div id="dialog">
     <p id="dialog-line"></p>
-    <input id="dialog-input" placeholder="dit svar…">
-    <button onclick="dialogSubmit()">OK</button>
+    <div id="dialog-options" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
   </div>
-
 </div>
 
 <script>
-/* ===========================================================
-   LEVEL SYSTEM (добавлено)
-=========================================================== */
 let levels = [];
 fetch("levels.json")
   .then(r => r.json())
-  .then(data => {
-    levels = data;
-    startGame(currentDifficulty);
-  });
+  .then(data => { levels = data; });
 
 let currentLevel = 0;
-
-/* ===========================================================
-   ТВОЙ ИСХОДНЫЙ КОД (не тронут)
-=========================================================== */
 let timerInterval = null;
 let currentDifficulty = null;
-
 let correctCount = 0;
 let wrongCount = 0;
 let foundCount = 0;
@@ -162,7 +142,6 @@ let currentIndex = 0;
 let timeLeft = 0;
 
 const difficulties = { let:90, mellem:60, svaer:45 };
-
 const wordDiv = document.getElementById('word');
 const correctSpan = document.getElementById('correct');
 const wrongSpan = document.getElementById('wrong');
@@ -179,10 +158,6 @@ timerSpanWord.style.padding = "3px 8px";
 timerSpanWord.style.borderRadius = "5px";
 wordDiv.appendChild(timerSpanWord);
 
-
-/* ===========================================================
-   ЗАПУСК УРОВНЯ (новая функция)
-=========================================================== */
 function loadLevel() {
   const lvl = levels[currentLevel];
   gameDiv.style.background = `url('${lvl.bg}') center/contain no-repeat`;
@@ -200,9 +175,6 @@ function loadLevel() {
   });
 }
 
-/* ===========================================================
-   СТАРТ ИГРЫ
-=========================================================== */
 function startGame(mode) {
   currentDifficulty = mode;
   timeLeft = difficulties[mode];
@@ -213,9 +185,9 @@ function startGame(mode) {
   words = levels[currentLevel].items.map(i => i.word).sort(() => Math.random() - 0.5);
   currentIndex = 0;
 
-  // скрываем меню и статистику
   document.getElementById("menu").style.display = "none";
   document.getElementById("stats").style.display = "none";
+
   showWord();
 
   if (timerInterval) clearInterval(timerInterval);
@@ -302,15 +274,14 @@ function spawnFirework(x, y) {
   }
 }
 
+// Диалог и переходы оставляем как было
 let dialogStep = 0;
-
 function startDialog() {
   dialogStep = 0;
   buildDialogUI();
   document.getElementById("dialog").style.display = "block";
   showDialog();
 }
-
 function buildDialogUI() {
   const dlg = document.getElementById("dialog");
   dlg.innerHTML = `
@@ -318,26 +289,20 @@ function buildDialogUI() {
     <div id="dialog-options" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
   `;
 }
-
 function showDialog() {
   const npcLine = levels[currentLevel].dialog[dialogStep][0];
   const correctAnswer = levels[currentLevel].dialog[dialogStep][1];
-
   const dialogLine = document.getElementById("dialog-line");
   dialogLine.textContent = npcLine;
-
   const container = document.getElementById("dialog-options");
   container.innerHTML = "";
-
   const allPlayerAnswers = levels[currentLevel].dialog.map(pair => pair[1]);
   allPlayerAnswers.sort(() => Math.random() - 0.5);
-
   allPlayerAnswers.forEach(answer => {
     const btn = document.createElement("button");
     btn.style.padding = "10px 20px";
     btn.style.fontSize = "20px";
     btn.textContent = answer;
-
     btn.onclick = () => {
       if (answer === correctAnswer) {
         dialogStep++;
@@ -360,7 +325,6 @@ function showDialog() {
     container.appendChild(btn);
   });
 }
-
 function nextLevel() {
   currentLevel++;
   if (currentLevel >= levels.length) {
@@ -369,7 +333,6 @@ function nextLevel() {
   }
   startGame(currentDifficulty);
 }
-
 function showEndScreen() {
   gameDiv.innerHTML = `
     <div style="
