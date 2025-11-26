@@ -322,57 +322,49 @@ function loadLevelMobile() {
   const img = document.getElementById('level-bg');
   img.src = lvl.bg;
 
-  // удаляем старые элементы
+  // удаляем старые зоны
   document.querySelectorAll('.item').forEach(i => i.remove());
 
   const gameDiv = document.getElementById('gameDiv');
 
-  // вспомогательная функция пересечения
-  function intersectionArea(ax, ay, aw, ah, bx, by, bw, bh) {
-    const ix = Math.max(ax, bx);
-    const iy = Math.max(ay, by);
-    const ir = Math.min(ax + aw, bx + bw);
-    const ib = Math.min(ay + ah, by + bh);
-    const iw = Math.max(0, ir - ix);
-    const ih = Math.max(0, ib - iy);
-    return iw * ih;
-  }
-
-  // -------------------------
-  //     ГЛАВНАЯ ФУНКЦИЯ
-  // -------------------------
   function renderMobile() {
     document.querySelectorAll('.item').forEach(i => i.remove());
 
-    const naturalWidth  = (lvl.scale?.width)  || img.naturalWidth;
-    const naturalHeight = (lvl.scale?.height) || img.naturalHeight;
+    const naturalW = lvl.scale?.width  || img.naturalWidth;
+    const naturalH = lvl.scale?.height || img.naturalHeight;
 
-    const containerW = gameDiv.clientWidth;
-    const containerH = gameDiv.clientHeight;
+    const contW = gameDiv.clientWidth;
+    const contH = gameDiv.clientHeight;
 
-    // правильный scale объекта
-    const scale = Math.min(containerW / naturalWidth, containerH / naturalHeight);
+    // --- ВАЖНО ---
+    // На мобильном НЕ пытаемся впихнуть горизонтальное изображение в вертикальный экран.
+    // Масштабируем только по ширине.
+    const scale = contW / naturalW;
 
-    const visW = naturalWidth * scale;
-    const visH = naturalHeight * scale;
+    const visW = naturalW * scale;
+    const visH = naturalH * scale;
 
-    const offsetX = (containerW - visW) / 2;
-    const offsetY = (containerH - visH) / 2;
+    img.style.width  = `${visW}px`;
+    img.style.height = `${visH}px`;
 
-    // позиция img на экране
+    // если картинка выше контейнера — разрешаем скролл
+    if (visH > contH) {
+      gameDiv.style.overflowY = "scroll";
+    } else {
+      gameDiv.style.overflowY = "hidden";
+    }
+
+    // позиция картинки внутри контейнера
+    const offsetX = (contW - visW) / 2;
+    const offsetY = (contH - visH) / 2;
+
     const imgRect  = img.getBoundingClientRect();
     const gameRect = gameDiv.getBoundingClientRect();
 
-    const imgRelLeft = imgRect.left - gameRect.left;
-    const imgRelTop  = imgRect.top  - gameRect.top;
+    const imgX = imgRect.left - gameRect.left;
+    const imgY = imgRect.top  - gameRect.top;
 
-    const imgVisibleX = imgRelLeft + offsetX;
-    const imgVisibleY = imgRelTop  + offsetY;
-    const imgVisibleW = visW;
-    const imgVisibleH = visH;
-
-    // минимальный размер зоны
-    const MIN_HIT = Math.max(40, Math.round(imgVisibleW * 0.04));
+    const MIN_HIT = Math.max(40, Math.round(visW * 0.04));
 
     lvl.items.forEach(obj => {
       const div = document.createElement("div");
@@ -384,53 +376,13 @@ function loadLevelMobile() {
       const pW    = parseFloat(obj.w);
       const pH    = parseFloat(obj.h);
 
-      // Вариант А — проценты от видимой картинки
-      const leftA   = imgVisibleX + (pLeft / 100) * visW;
-      const topA    = imgVisibleY + (pTop  / 100) * visH;
-      const widthA  = (pW / 100) * visW;
-      const heightA = (pH / 100) * visH;
-      const cxA = leftA + widthA / 2;
-      const cyA = topA + heightA / 2;
+      // координаты строго в рамках видимой картинки
+      let leftPx   = imgX + (pLeft / 100) * visW;
+      let topPx    = imgY + (pTop  / 100) * visH;
+      let widthPx  = (pW / 100) * visW;
+      let heightPx = (pH / 100) * visH;
 
-      // Вариант B — проценты от контейнера
-      const leftB   = (pLeft / 100) * containerW;
-      const topB    = (pTop  / 100) * containerH;
-      const widthB  = (pW / 100) * containerW;
-      const heightB = (pH / 100) * containerH;
-      const cxB = leftB + widthB / 2;
-      const cyB = topB + heightB / 2;
-
-      const areaA = intersectionArea(leftA, topA, widthA, heightA, imgVisibleX, imgVisibleY, imgVisibleW, imgVisibleH);
-      const areaB = intersectionArea(leftB, topB, widthB, heightB, imgVisibleX, imgVisibleY, imgVisibleW, imgVisibleH);
-
-      const centerAinside =
-        cxA >= imgVisibleX && cxA <= imgVisibleX + imgVisibleW &&
-        cyA >= imgVisibleY && cyA <= imgVisibleY + imgVisibleH;
-
-      const centerBinside =
-        cxB >= imgVisibleX && cxB <= imgVisibleX + imgVisibleW &&
-        cyB >= imgVisibleY && cyB <= imgVisibleY + imgVisibleH;
-
-      let chosen =
-        (centerAinside && !centerBinside) ? 'A' :
-        (!centerAinside && centerBinside) ? 'B' :
-        (areaA >= areaB ? 'A' : 'B');
-
-      let leftPx, topPx, widthPx, heightPx;
-
-      if (chosen === 'A') {
-        leftPx = leftA;
-        topPx  = topA;
-        widthPx  = widthA;
-        heightPx = heightA;
-      } else {
-        leftPx = leftB;
-        topPx  = topB;
-        widthPx  = widthB;
-        heightPx = heightB;
-      }
-
-      // расширение маленьких зон
+      // минимальный размер
       if (widthPx < MIN_HIT) {
         const cx = leftPx + widthPx / 2;
         widthPx = MIN_HIT;
@@ -442,56 +394,47 @@ function loadLevelMobile() {
         topPx = cy - heightPx / 2;
       }
 
-      // clamp внутри картинки
-      if (leftPx < imgVisibleX) leftPx = imgVisibleX;
-      if (topPx < imgVisibleY) topPx = imgVisibleY;
+      // чтобы зона не выходила за пределы изображения
+      if (leftPx < imgX) leftPx = imgX;
+      if (topPx < imgY) topPx = imgY;
 
-      if (leftPx + widthPx > imgVisibleX + imgVisibleW)
-        widthPx = imgVisibleX + imgVisibleW - leftPx;
+      if (leftPx + widthPx > imgX + visW)
+        widthPx = imgX + visW - leftPx;
 
-      if (topPx + heightPx > imgVisibleY + imgVisibleH)
-        heightPx = imgVisibleY + imgVisibleH - topPx;
+      if (topPx + heightPx > imgY + visH)
+        heightPx = imgY + visH - topPx;
 
       div.style.left   = `${Math.round(leftPx)}px`;
       div.style.top    = `${Math.round(topPx)}px`;
       div.style.width  = `${Math.round(widthPx)}px`;
       div.style.height = `${Math.round(heightPx)}px`;
 
-      div.style.touchAction = "manipulation";
-      div.style.webkitTapHighlightColor = "transparent";
-
       div.addEventListener("click", () => itemClick(div));
       gameDiv.appendChild(div);
     });
   }
 
-  // -------------------------
-  //    ВАЖНО: задержка рендера
-  // -------------------------
   img.onload = () => {
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        renderMobile();  // ← теперь после фактической отрисовки и масштабирования
+        renderMobile();
       });
     });
 
     let rt = null;
     const deb = () => {
-      if (rt) clearTimeout(rt);
+      clearTimeout(rt);
       rt = setTimeout(() => {
-
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
             renderMobile();
           });
         });
-
-        rt = null;
-      }, 120);
+      }, 150);
     };
 
-    window.addEventListener('resize', deb);
-    window.addEventListener('orientationchange', deb);
+    window.addEventListener("resize", deb);
+    window.addEventListener("orientationchange", deb);
   };
 
   if (img.complete && img.naturalWidth) img.onload();
