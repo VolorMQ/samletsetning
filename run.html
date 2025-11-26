@@ -322,8 +322,20 @@ function loadLevelMobile() {
   const img = document.getElementById('level-bg');
   img.src = lvl.bg;
 
-  document.querySelectorAll('.item').forEach(i => i.remove());
   const gameDiv = document.getElementById('gameDiv');
+
+  // удаляем старые зоны
+  document.querySelectorAll('.item').forEach(i => i.remove());
+
+  function intersectionArea(ax, ay, aw, ah, bx, by, bw, bh) {
+    const ix = Math.max(ax, bx);
+    const iy = Math.max(ay, by);
+    const ir = Math.min(ax + aw, bx + bw);
+    const ib = Math.min(ay + ah, by + bh);
+    const iw = Math.max(0, ir - ix);
+    const ih = Math.max(0, ib - iy);
+    return iw * ih;
+  }
 
   function renderMobile() {
     document.querySelectorAll('.item').forEach(i => i.remove());
@@ -334,49 +346,48 @@ function loadLevelMobile() {
     const containerW = gameDiv.clientWidth;
     const containerH = gameDiv.clientHeight;
 
-    const scale = containerW / naturalWidth;
+    const scale = containerW / naturalWidth; // масштаб по ширине
 
     const visW = naturalWidth * scale;
     const visH = naturalHeight * scale;
 
-    img.style.width = `${visW}px`;
+    img.style.width  = `${visW}px`;
     img.style.height = `${visH}px`;
 
     gameDiv.style.overflowY = (visH > containerH) ? "scroll" : "hidden";
 
-    const offsetX = 0;
+    const offsetX = 0; // картинка выровнена по левому краю
     const offsetY = 0;
-    const MIN_HIT = Math.max(40, Math.round(visW * 0.04));
 
     lvl.items.forEach(obj => {
       const div = document.createElement("div");
       div.className = "item";
       div.dataset.word = obj.word;
 
-      const pLeft = parseFloat(obj.left);
-      const pTop  = parseFloat(obj.top);
-      const pW    = parseFloat(obj.w);
-      const pH    = parseFloat(obj.h);
+      // координаты исходного изображения
+      const origLeftPx = (parseFloat(obj.left) / 100) * naturalWidth;
+      const origTopPx  = (parseFloat(obj.top)  / 100) * naturalHeight;
+      const origWPx    = (parseFloat(obj.w)    / 100) * naturalWidth;
+      const origHPx    = (parseFloat(obj.h)    / 100) * naturalHeight;
 
-      // --- ИНВЕРСИЯ: используем десктопные left/top, но меняем местами для мобильной ---
-      let leftPx   = offsetX + (pTop / 100) * visW;    // раньше было pLeft
-      let topPx    = offsetY + (pLeft / 100) * visH;   // раньше было pTop
-      let widthPx  = (pW / 100) * visW;
-      let heightPx = (pH / 100) * visH;
+      // масштабируем и позиционируем относительно img
+      let leftPx = offsetX + origLeftPx * scale;
+      let topPx  = offsetY + origTopPx * scale - gameDiv.scrollTop; // учитываем скролл
+      let widthPx  = Math.max(0, origWPx * scale);
+      let heightPx = Math.max(0, origHPx * scale);
 
+      // минимальный размер зоны
+      const MIN_HIT = Math.max(40, Math.round(visW * 0.04));
       if (widthPx < MIN_HIT) {
-        const cx = leftPx + widthPx / 2;
+        const cx = leftPx + widthPx/2;
         widthPx = MIN_HIT;
-        leftPx = cx - widthPx / 2;
+        leftPx = cx - widthPx/2;
       }
       if (heightPx < MIN_HIT) {
-        const cy = topPx + heightPx / 2;
+        const cy = topPx + heightPx/2;
         heightPx = MIN_HIT;
-        topPx = cy - heightPx / 2;
+        topPx = cy - heightPx/2;
       }
-
-      if (leftPx < offsetX) leftPx = offsetX;
-      if (topPx < offsetY) topPx = offsetY;
 
       div.style.left   = `${Math.round(leftPx)}px`;
       div.style.top    = `${Math.round(topPx)}px`;
@@ -389,16 +400,19 @@ function loadLevelMobile() {
   }
 
   img.onload = () => {
-    requestAnimationFrame(() => requestAnimationFrame(renderMobile));
+    renderMobile(); // отрисовка зон при загрузке
 
     let rt = null;
     const deb = () => {
       clearTimeout(rt);
-      rt = setTimeout(() => requestAnimationFrame(() => requestAnimationFrame(renderMobile)), 150);
+      rt = setTimeout(() => {
+        renderMobile(); // пересчёт зон при изменении размера или ориентации
+      }, 150);
     };
 
     window.addEventListener("resize", deb);
     window.addEventListener("orientationchange", deb);
+    gameDiv.addEventListener("scroll", () => renderMobile()); // пересчёт при скролле
   };
 
   if (img.complete && img.naturalWidth) img.onload();
