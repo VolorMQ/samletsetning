@@ -223,17 +223,15 @@ function loadLevel() {
 
     const imgW = naturalWidth * scale;
     const imgH = naturalHeight * scale;
-    const offsetX = (containerRect.width - imgW) / 2;
-    const offsetY = (containerRect.height - imgH) / 2;
 
     lvl.items.forEach(obj => {
       const div = document.createElement("div");
       div.className = "item";
       div.dataset.word = obj.word;
 
-      // вычисляем позиции относительно видимой картинки
-      div.style.left   = `${offsetX + parseFloat(obj.left)/100 * imgW}px`;
-      div.style.top    = `${offsetY + parseFloat(obj.top)/100 * imgH}px`;
+      // вычисляем позиции без добавления offsetX/offsetY
+      div.style.left   = `${parseFloat(obj.left)/100 * imgW}px`;
+      div.style.top    = `${parseFloat(obj.top)/100 * imgH}px`;
       div.style.width  = `${parseFloat(obj.w)/100 * imgW}px`;
       div.style.height = `${parseFloat(obj.h)/100 * imgH}px`;
 
@@ -242,6 +240,7 @@ function loadLevel() {
     });
   };
 }
+
 
 
 function startGame(mode) {
