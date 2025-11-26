@@ -171,6 +171,8 @@ let currentIndex = 0;
 let timeLeft = 0;
 let availableLevels = [];
 
+const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
 const difficulties = { let:90, mellem:60, svaer:45 };
 const wordDiv = document.getElementById('word');
 const correctSpan = document.getElementById('correct');
@@ -205,7 +207,7 @@ function getNextLevel() {
   return availableLevels.shift();
 }
 
-function loadLevel() {
+function loadLevelDesktop() {
   const lvl = levels[currentLevel];
   const img = document.getElementById('level-bg');
   img.src = lvl.bg;
@@ -315,6 +317,86 @@ function loadLevel() {
 	};
 }
 
+function loadLevelMobile() {
+  const lvl = levels[currentLevel];
+  const img = document.getElementById('level-bg');
+  img.src = lvl.bg;
+
+  document.querySelectorAll('.item').forEach(i => i.remove());
+
+  img.onload = () => {
+    const naturalWidth = (lvl.scale && lvl.scale.width) ? lvl.scale.width : img.naturalWidth;
+    const naturalHeight = (lvl.scale && lvl.scale.height) ? lvl.scale.height : img.naturalHeight;
+
+    const clientWidth = img.clientWidth;
+    const clientHeight = img.clientHeight;
+
+    const scale = Math.min(clientWidth / naturalWidth, clientHeight / naturalHeight);
+
+    const visW = naturalWidth * scale;
+    const visH = naturalHeight * scale;
+    const offsetX = (clientWidth - visW) / 2;
+    const offsetY = (clientHeight - visH) / 2;
+
+    const MIN_HIT = 40; // минимальный размер зоны для мобильных
+
+    lvl.items.forEach(obj => {
+      const div = document.createElement("div");
+      div.className = "item";
+      div.dataset.word = obj.word;
+
+      let leftPx = (parseFloat(obj.left)/100 * naturalWidth) * scale + offsetX;
+      let topPx  = (parseFloat(obj.top)/100 * naturalHeight) * scale + offsetY;
+      let widthPx  = (parseFloat(obj.w)/100 * naturalWidth) * scale;
+      let heightPx = (parseFloat(obj.h)/100 * naturalHeight) * scale;
+
+      // Увеличиваем маленькие зоны для мобильных
+      if (widthPx < MIN_HIT) widthPx = MIN_HIT;
+      if (heightPx < MIN_HIT) heightPx = MIN_HIT;
+
+      div.style.transform = "";
+      div.style.left = `${Math.round(leftPx)}px`;
+      div.style.top = `${Math.round(topPx)}px`;
+      div.style.width = `${Math.round(widthPx)}px`;
+      div.style.height = `${Math.round(heightPx)}px`;
+
+      div.addEventListener("click", () => itemClick(div));
+      gameDiv.appendChild(div);
+    });
+  };
+
+  if (img.complete && img.naturalWidth) img.onload();
+}
+
+// В runLevel выбираем функцию в зависимости от устройства
+function runLevel() {
+  currentLevel = getNextLevel();
+
+  timeLeft = difficulties[currentDifficulty];
+  correctCount = 0;
+  wrongCount = 0;
+  foundCount = 0;
+
+  if (isMobile) {
+    loadLevelMobile();
+  } else {
+    loadLevelDesktop();
+  }
+
+  words = levels[currentLevel].items.map(i => i.word).sort(() => Math.random() - 0.5);
+  currentIndex = 0;
+  totalSpan.textContent = words.length;
+  updateStats();
+
+  document.getElementById("menu").style.display = "none";
+  document.getElementById("stats").style.display = "none";
+  document.getElementById("dialog").style.display = "none";
+
+  showWord();
+
+  if (timerInterval) clearInterval(timerInterval);
+  timerInterval = setInterval(tick, 1000);
+}
 
 function startGame(mode) {
   currentDifficulty = mode;
