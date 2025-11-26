@@ -213,29 +213,36 @@ function loadLevel() {
 
   document.querySelectorAll('.item').forEach(i => i.remove());
 
-  lvl.items.forEach(obj => {
-    const div = document.createElement("div");
-    div.className = "item";
-    div.dataset.word = obj.word;
+  // дождёмся загрузки изображения, чтобы знать натуральный размер
+  img.onload = () => {
+    const naturalWidth = img.naturalWidth;
+    const naturalHeight = img.naturalHeight;
 
-    const img = document.querySelector('#game img');
-    const parentRect = gameDiv.getBoundingClientRect();
-    const imgRect = img.getBoundingClientRect();
-	
     const containerRect = gameDiv.getBoundingClientRect();
-    const offsetX = imgRect.left - containerRect.left;
-    const offsetY = imgRect.top - containerRect.top;
+    const scale = Math.min(containerRect.width / naturalWidth, containerRect.height / naturalHeight);
 
-	div.style.left   = `${imgRect.x + parseFloat(obj.left)/100 * imgRect.w}px`;
-	div.style.top    = `${imgRect.y + parseFloat(obj.top)/100 * imgRect.h}px`;
-	div.style.width  = `${parseFloat(obj.w)/100 * imgRect.w}px`;
-	div.style.height = `${parseFloat(obj.h)/100 * imgRect.h}px`;
+    const imgW = naturalWidth * scale;
+    const imgH = naturalHeight * scale;
+    const offsetX = (containerRect.width - imgW) / 2;
+    const offsetY = (containerRect.height - imgH) / 2;
 
+    lvl.items.forEach(obj => {
+      const div = document.createElement("div");
+      div.className = "item";
+      div.dataset.word = obj.word;
 
-    div.addEventListener("click", () => itemClick(div));
-    gameDiv.appendChild(div);
-  });
+      // вычисляем позиции относительно видимой картинки
+      div.style.left   = `${offsetX + parseFloat(obj.left)/100 * imgW}px`;
+      div.style.top    = `${offsetY + parseFloat(obj.top)/100 * imgH}px`;
+      div.style.width  = `${parseFloat(obj.w)/100 * imgW}px`;
+      div.style.height = `${parseFloat(obj.h)/100 * imgH}px`;
+
+      div.addEventListener("click", () => itemClick(div));
+      gameDiv.appendChild(div);
+    });
+  };
 }
+
 
 function startGame(mode) {
   currentDifficulty = mode;
