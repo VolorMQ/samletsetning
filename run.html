@@ -221,18 +221,16 @@ function loadLevel() {
     const img = document.querySelector('#game img');
     const parentRect = gameDiv.getBoundingClientRect();
     const imgRect = img.getBoundingClientRect();
+	
+    const containerRect = gameDiv.getBoundingClientRect();
+    const offsetX = imgRect.left - containerRect.left;
+    const offsetY = imgRect.top - containerRect.top;
 
-    const scaleX = imgRect.width / 100;
-    const scaleY = imgRect.height / 100;
+    div.style.left   = `${offsetX + parseFloat(obj.left)/100 * imgRect.width}px`;
+    div.style.top    = `${offsetY + parseFloat(obj.top)/100 * imgRect.height}px`;
+    div.style.width  = `${parseFloat(obj.w)/100 * imgRect.width}px`;
+    div.style.height = `${parseFloat(obj.h)/100 * imgRect.height}px`;
 
-  // Смещение картинки внутри контейнера (если object-fit: contain)
-    const offsetX = (parentRect.width - imgRect.width) / 2;
-    const offsetY = (parentRect.height - imgRect.height) / 2;
-
-    div.style.left   = `${offsetX + parseFloat(obj.left) * scaleX}px`;
-    div.style.top    = `${offsetY + parseFloat(obj.top) * scaleY}px`;
-    div.style.width  = `${parseFloat(obj.w) * scaleX}px`;
-    div.style.height = `${parseFloat(obj.h) * scaleY}px`;
 
     div.addEventListener("click", () => itemClick(div));
     gameDiv.appendChild(div);
