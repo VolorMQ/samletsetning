@@ -322,6 +322,7 @@ function loadLevelMobile() {
   const img = document.getElementById('level-bg');
   img.src = lvl.bg;
 
+  // удаляем старые элементы
   document.querySelectorAll('.item').forEach(i => i.remove());
 
   img.onload = () => {
@@ -331,42 +332,93 @@ function loadLevelMobile() {
     const clientWidth = img.clientWidth;
     const clientHeight = img.clientHeight;
 
+    // равномерный scale (contain)
     const scale = Math.min(clientWidth / naturalWidth, clientHeight / naturalHeight);
 
+    // видимая часть картинки внутри элемента img
     const visW = naturalWidth * scale;
     const visH = naturalHeight * scale;
     const offsetX = (clientWidth - visW) / 2;
     const offsetY = (clientHeight - visH) / 2;
 
-    const MIN_HIT = 40; // минимальный размер зоны для мобильных
+    // позиция img внутри gameDiv — для мобильных учитываем реальное положение на странице
+    const imgRect = img.getBoundingClientRect();
+    const gameRect = gameDiv.getBoundingClientRect();
+    const imgRelLeft = imgRect.left - gameRect.left;
+    const imgRelTop  = imgRect.top  - gameRect.top;
+
+    // видимая область картинки в системе координат gameDiv
+    const imgVisibleX = imgRelLeft + offsetX;
+    const imgVisibleY = imgRelTop  + offsetY;
+    const imgVisibleW = visW;
+    const imgVisibleH = visH;
+
+    // минимальная зона тап-хита: минимум 40px, но не меньше 5% видимой ширины
+    const MIN_HIT = Math.max(40, Math.round(imgVisibleW * 0.05));
 
     lvl.items.forEach(obj => {
       const div = document.createElement("div");
       div.className = "item";
       div.dataset.word = obj.word;
 
-      let leftPx = (parseFloat(obj.left)/100 * naturalWidth) * scale + offsetX;
-      let topPx  = (parseFloat(obj.top)/100 * naturalHeight) * scale + offsetY;
-      let widthPx  = (parseFloat(obj.w)/100 * naturalWidth) * scale;
-      let heightPx = (parseFloat(obj.h)/100 * naturalHeight) * scale;
+      // проценты из JSON
+      const pLeft = parseFloat(obj.left);
+      const pTop  = parseFloat(obj.top);
+      const pW    = parseFloat(obj.w);
+      const pH    = parseFloat(obj.h);
 
-      // Увеличиваем маленькие зоны для мобильных
-      if (widthPx < MIN_HIT) widthPx = MIN_HIT;
-      if (heightPx < MIN_HIT) heightPx = MIN_HIT;
+      // исходные пиксели на оригинале
+      const origLeftPx = (pLeft / 100) * naturalWidth;
+      const origTopPx  = (pTop  / 100) * naturalHeight;
+      const origWPx    = (pW    / 100) * naturalWidth;
+      const origHPx    = (pH    / 100) * naturalHeight;
 
+      // позиция/размер по оригиналу -> экран (внутри img) и перевод в координаты gameDiv
+      let leftPx  = imgRelLeft + offsetX + origLeftPx * scale;
+      let topPx   = imgRelTop  + offsetY + origTopPx  * scale;
+      let widthPx = Math.max(0, origWPx * scale);
+      let heightPx= Math.max(0, origHPx * scale);
+
+      // если зона слишком мала — расширяем, сохранив центр
+      if (widthPx < MIN_HIT) {
+        const cx = leftPx + widthPx / 2;
+        widthPx = MIN_HIT;
+        leftPx = cx - widthPx / 2;
+      }
+      if (heightPx < MIN_HIT) {
+        const cy = topPx + heightPx / 2;
+        heightPx = MIN_HIT;
+        topPx = cy - heightPx / 2;
+      }
+
+      // защита: не вылезаем за видимую картинку
+      if (leftPx < imgVisibleX) leftPx = imgVisibleX;
+      if (topPx < imgVisibleY) topPx = imgVisibleY;
+      if (leftPx + widthPx > imgVisibleX + imgVisibleW) widthPx = Math.max(0, imgVisibleX + imgVisibleW - leftPx);
+      if (topPx + heightPx > imgVisibleY + imgVisibleH) heightPx = Math.max(0, imgVisibleY + imgVisibleH - topPx);
+
+      // отключаем transform (твой CSS уже убрал translate)
       div.style.transform = "";
-      div.style.left = `${Math.round(leftPx)}px`;
-      div.style.top = `${Math.round(topPx)}px`;
-      div.style.width = `${Math.round(widthPx)}px`;
+
+      // применяем (округляем)
+      div.style.left   = `${Math.round(leftPx)}px`;
+      div.style.top    = `${Math.round(topPx)}px`;
+      div.style.width  = `${Math.round(widthPx)}px`;
       div.style.height = `${Math.round(heightPx)}px`;
+
+      // улучшения для тача
+      div.style.touchAction = "manipulation";
+      div.style.webkitTapHighlightColor = "transparent";
 
       div.addEventListener("click", () => itemClick(div));
       gameDiv.appendChild(div);
     });
   };
 
+  // если картинка уже в кеше — вызовем обработчик
   if (img.complete && img.naturalWidth) img.onload();
 }
+
 
 // В runLevel выбираем функцию в зависимости от устройства
 function runLevel() {
