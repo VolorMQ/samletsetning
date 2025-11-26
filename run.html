@@ -325,7 +325,11 @@ function loadLevelMobile() {
   // удаляем старые элементы
   document.querySelectorAll('.item').forEach(i => i.remove());
 
-  img.onload = () => {
+  // Вспом. функция, чтобы можно было вызвать при resize
+  function renderMobile() {
+    // удаляем старые элементы (повторно)
+    document.querySelectorAll('.item').forEach(i => i.remove());
+
     const naturalWidth = (lvl.scale && lvl.scale.width) ? lvl.scale.width : img.naturalWidth;
     const naturalHeight = (lvl.scale && lvl.scale.height) ? lvl.scale.height : img.naturalHeight;
 
@@ -335,82 +339,30 @@ function loadLevelMobile() {
     // равномерный scale (contain)
     const scale = Math.min(clientWidth / naturalWidth, clientHeight / naturalHeight);
 
-    // видимая часть картинки внутри элемента img
+    // видимая часть картинки внутри img
     const visW = naturalWidth * scale;
     const visH = naturalHeight * scale;
     const offsetX = (clientWidth - visW) / 2;
     const offsetY = (clientHeight - visH) / 2;
 
-    // позиция img внутри gameDiv — для мобильных учитываем реальное положение на странице
-    const imgRect = img.getBoundingClientRect();
-    const gameRect = gameDiv.getBoundingClientRect();
-    const imgRelLeft = imgRect.left - gameRect.left;
-    const imgRelTop  = imgRect.top  - gameRect.top;
-
-    // видимая область картинки в системе координат gameDiv
-    const imgVisibleX = imgRelLeft + offsetX;
-    const imgVisibleY = imgRelTop  + offsetY;
-    const imgVisibleW = visW;
-    const imgVisibleH = visH;
-
-    // минимальная зона тап-хита: минимум 40px, но не меньше 5% видимой ширины
-    const MIN_HIT = Math.max(40, Math.round(imgVisibleW * 0.05));
-
-    // container размеры (важно: используем размеры gameDiv, а не img)
-    const containerW = gameRect.width;
-    const containerH = gameRect.height;
+    // минимальная зона тап-хита: минимум 40px, или 5% видимой ширины
+    const MIN_HIT = Math.max(40, Math.round(visW * 0.05));
 
     lvl.items.forEach(obj => {
       const div = document.createElement("div");
       div.className = "item";
       div.dataset.word = obj.word;
 
-      // проценты из JSON
       const pLeft = parseFloat(obj.left);
       const pTop  = parseFloat(obj.top);
       const pW    = parseFloat(obj.w);
       const pH    = parseFloat(obj.h);
 
-      // исходные пиксели на оригинале
-      const origLeftPx = (pLeft / 100) * naturalWidth;
-      const origTopPx  = (pTop  / 100) * naturalHeight;
-      const origWPx    = (pW    / 100) * naturalWidth;
-      const origHPx    = (pH    / 100) * naturalHeight;
-
-      // ---- ВАРИант A: оригинал-based -> экранные пиксели (внутри img), затем в координаты gameDiv
-      let leftA  = imgRelLeft + offsetX + origLeftPx * scale;
-      let topA   = imgRelTop  + offsetY + origTopPx  * scale;
-      let widthA = Math.max(0, origWPx * scale);
-      let heightA= Math.max(0, origHPx * scale);
-
-      // ---- ВАРИант B: container-based (исходные проценты считались относительно gameDiv)
-      // Ключевое исправление: используем размеры container (gameRect), без добавления imgRelLeft
-      let leftB  = (pLeft / 100) * containerW;
-      let topB   = (pTop  / 100) * containerH;
-      let widthB = Math.max(0, (pW / 100) * containerW);
-      let heightB= Math.max(0, (pH / 100) * containerH);
-
-      // Теперь выберем вариант по пересечению с видимой картинкой (imgVisible...)
-      function intersectionArea(ax, ay, aw, ah, bx, by, bw, bh) {
-        const ix = Math.max(ax, bx);
-        const iy = Math.max(ay, by);
-        const ir = Math.min(ax + aw, bx + bw);
-        const ib = Math.min(ay + ah, by + bh);
-        const iw = Math.max(0, ir - ix);
-        const ih = Math.max(0, ib - iy);
-        return iw * ih;
-      }
-
-      const areaA = intersectionArea(leftA, topA, widthA, heightA, imgVisibleX, imgVisibleY, imgVisibleW, imgVisibleH);
-      const areaB = intersectionArea(leftB, topB, widthB, heightB, imgVisibleX, imgVisibleY, imgVisibleW, imgVisibleH);
-
-      // выбираем вариант (если оба 0 — берём A)
-      const useA = (areaA >= areaB);
-
-      let leftPx  = useA ? leftA  : leftB;
-      let topPx   = useA ? topA   : topB;
-      let widthPx = useA ? widthA : widthB;
-      let heightPx= useA ? heightA: heightB;
+      // --- ключ: проценты применяем к видимой части (visW / visH) ---
+      let leftPx  = offsetX + (pLeft / 100) * visW;
+      let topPx   = offsetY + (pTop  / 100) * visH;
+      let widthPx = Math.max(0, (pW / 100) * visW);
+      let heightPx= Math.max(0, (pH / 100) * visH);
 
       // если зона слишком мала — расширяем, сохранив центр
       if (widthPx < MIN_HIT) {
@@ -424,16 +376,17 @@ function loadLevelMobile() {
         topPx = cy - heightPx / 2;
       }
 
-      // защита: не вылазим за видимую картинку
-      if (leftPx < imgVisibleX) leftPx = imgVisibleX;
-      if (topPx < imgVisibleY) topPx = imgVisibleY;
-      if (leftPx + widthPx > imgVisibleX + imgVisibleW) widthPx = Math.max(0, imgVisibleX + imgVisibleW - leftPx);
-      if (topPx + heightPx > imgVisibleY + imgVisibleH) heightPx = Math.max(0, imgVisibleY + imgVisibleH - topPx);
+      // защита: не вылазим за видимую картинку (clamp)
+      if (leftPx < offsetX) leftPx = offsetX;
+      if (topPx < offsetY) topPx = offsetY;
+      if (leftPx + widthPx > offsetX + visW) widthPx = Math.max(0, offsetX + visW - leftPx);
+      if (topPx + heightPx > offsetY + visH) heightPx = Math.max(0, offsetY + visH - topPx);
 
-      // отключаем transform (твой CSS уже убрал translate)
+      // отключаем transform (у тебя уже нет translate)
       div.style.transform = "";
 
-      // применяем (округляем)
+      // Применяем — позиция относительно контейнера img (img занимает 100% внутри #game)
+      // Поскольку img width = 100% game, left/top в px здесь совпадают с позицией внутри game
       div.style.left   = `${Math.round(leftPx)}px`;
       div.style.top    = `${Math.round(topPx)}px`;
       div.style.width  = `${Math.round(widthPx)}px`;
@@ -445,13 +398,27 @@ function loadLevelMobile() {
 
       div.addEventListener("click", () => itemClick(div));
       gameDiv.appendChild(div);
-
-      // --- (опциональный debug) ---
-      // console.log({ word: obj.word, useA, leftA: Math.round(leftA), leftB: Math.round(leftB), finalLeft: Math.round(leftPx) });
     });
+  } // renderMobile end
+
+  // вызываем когда картинка загрузится
+  img.onload = () => {
+    renderMobile();
+
+    // пересчёт при изменении размеров / повороте — debounce небольшой
+    let rt = null;
+    function deb() {
+      if (rt) clearTimeout(rt);
+      rt = setTimeout(() => {
+        renderMobile();
+        rt = null;
+      }, 120);
+    }
+    window.addEventListener('resize', deb);
+    window.addEventListener('orientationchange', deb);
   };
 
-  // если картинка уже в кеше — вызовем обработчик
+  // если картинка уже в кеше — вызовем сразу
   if (img.complete && img.naturalWidth) img.onload();
 }
 
