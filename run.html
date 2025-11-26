@@ -213,32 +213,45 @@ function loadLevel() {
 
   document.querySelectorAll('.item').forEach(i => i.remove());
 
-  // дождёмся загрузки изображения
   img.onload = () => {
-    const naturalWidth = img.naturalWidth;
-    const naturalHeight = img.naturalHeight;
+    // Исходный размер изображения из JSON
+    const scaleW = lvl.scale.w;
+    const scaleH = lvl.scale.h;
 
+    // Размер отображённого изображения на экране
     const clientWidth = img.clientWidth;
     const clientHeight = img.clientHeight;
 
-    const scaleX = clientWidth / naturalWidth;
-    const scaleY = clientHeight / naturalHeight;
+    // Масштабирование от исходного размера → к экранному
+    const scaleX = clientWidth / scaleW;
+    const scaleY = clientHeight / scaleH;
 
     lvl.items.forEach(obj => {
       const div = document.createElement("div");
       div.className = "item";
       div.dataset.word = obj.word;
 
-      // вычисляем реальные позиции и размеры зон
-      div.style.left   = `${parseFloat(obj.left)/100 * naturalWidth * scaleX}px`;
-      div.style.top    = `${parseFloat(obj.top)/100 * naturalHeight * scaleY}px`;
-      div.style.width  = `${parseFloat(obj.w)/100 * naturalWidth * scaleX}px`;
-      div.style.height = `${parseFloat(obj.h)/100 * naturalHeight * scaleY}px`;
+      // ---------- Новый расчёт (вариант А) ----------
+
+      // проценты → координаты исходного изображения → масштаб в экран
+      const left   = (parseFloat(obj.left) / 100 * scaleW) * scaleX;
+      const top    = (parseFloat(obj.top)  / 100 * scaleH) * scaleY;
+      const width  = (parseFloat(obj.w)    / 100 * scaleW) * scaleX;
+      const height = (parseFloat(obj.h)    / 100 * scaleH) * scaleY;
+
+      div.style.left   = `${left}px`;
+      div.style.top    = `${top}px`;
+      div.style.width  = `${width}px`;
+      div.style.height = `${height}px`;
+
+      // ------------------------------------------------
 
       div.addEventListener("click", () => itemClick(div));
       gameDiv.appendChild(div);
     });
   };
+}
+
 
   // если картинка уже загружена, вызовем сразу
   if (img.complete && img.naturalWidth) {

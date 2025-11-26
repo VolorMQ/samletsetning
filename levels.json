@@ -23,7 +23,8 @@
 	  ["Jeg håber, næste niveau bliver lettere.", "Det tror jeg ikke, men vi klarer det sammen."],
 	  ["Måske finder vi nogle hemmelige genstande også.", "Ja, det ville være fedt!"],
 	  ["Lad os komme i gang.", "Ja, lad os gå!"]
-    ]
+    ],
+	"scale": { "width": 5824, "height": 3264 }
   },
   {
     "bg": "game/room1.jpg",
@@ -54,7 +55,8 @@
 	  ["Ja, lad os se, om der er flere spor.", "God idé, vi må være opmærksomme."],
 	  ["Håber vi finder noget spændende.", "Det gør vi sikkert, lad os starte."],
 	  ["Så går vi.", "Lad os gøre det!"]
-    ]
+    ],
+	"scale": { "width": 1024, "height": 768 }
   },
   {
     "bg": "game/room2.jpg",
@@ -90,6 +92,7 @@
 	  ["Wow, det var uventet.", "Ja, hvem ved, hvad der gemmer sig derinde."],
 	  ["Vi skal være forsigtige.", "Selvfølgelig, lad os gå langsomt."],
 	  ["Er du klar?", "Ja, lad os udforske."]
-    ]
+    ],
+	"scale": { "width": 2100, "height": 1333 }
   }
 ]
