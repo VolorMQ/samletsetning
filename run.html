@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Søgeordsspil</title>
-
 <style>
   html, body {
     margin: 0;
@@ -15,27 +14,21 @@
     color: #fff;
   }
 
-  /* Контейнер — только держит изображение и зоны */
+  /* Контейнер для правильного масштабирования */
   #gameContainer {
     position: relative;
     width: 100vw;
     max-width: 100%;
+    aspect-ratio: 16 / 9;
     margin: 0 auto;
-    overflow: hidden;
   }
 
   /* Фон уровня */
   #game {
     position: relative;
     width: 100%;
-    height: auto;
-  }
-
-  #game img {
-    width: 100%;
-    height: auto;
-    display: block;
-    pointer-events: none;
+    height: 100%;
+    background: center/contain no-repeat;
   }
 
   /* Кликабельные зоны */
@@ -43,8 +36,10 @@
     position: absolute;
     transform: translate(-50%, -50%);
     cursor: pointer;
+    border: 2px solid transparent;
   }
 
+  /* Слово сверху */
   #word {
     position: absolute;
     top: 10px;
@@ -59,6 +54,7 @@
     align-items: center;
   }
 
+  /* Статистика */
   #stats {
     position: absolute;
     bottom: 10px;
@@ -71,6 +67,7 @@
     z-index: 20;
   }
 
+  /* Меню */
   #menu {
     position: absolute;
     top: 70px;
@@ -93,6 +90,7 @@
     background: #444;
   }
 
+  /* Фейерверк */
   .firework {
     position: absolute;
     width: 20px;
@@ -106,6 +104,7 @@
     100% { transform: scale(3); opacity: 0; }
   }
 
+  /* Диалог */
   #dialog {
     display: none;
     position: absolute;
@@ -130,7 +129,6 @@
 
 <div id="gameContainer">
   <div id="game">
-
     <div id="word">Tryk på en sværhedsgrad</div>
 
     <div id="menu">
@@ -151,18 +149,14 @@
       <p id="dialog-line"></p>
       <div id="dialog-options" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
     </div>
-
   </div>
 </div>
 
 <script>
 let levels = [];
-fetch("levels.json")
-  .then(r => r.json())
-  .then(data => { levels = data; resetLevelOrder(); });
+fetch("levels.json").then(r => r.json()).then(data => { levels = data; });
 
 let currentLevel = 0;
-let levelOrder = [];
 let orderIndex = 0;
 let timerInterval = null;
 let currentDifficulty = null;
@@ -191,11 +185,6 @@ timerSpanWord.style.padding = "3px 8px";
 timerSpanWord.style.borderRadius = "5px";
 wordDiv.appendChild(timerSpanWord);
 
-function resetLevelOrder() {
-  availableLevels = [...levels.keys()];
-  shuffleArray(availableLevels);
-}
-
 function shuffleArray(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -203,18 +192,39 @@ function shuffleArray(arr) {
   }
 }
 
+function resetLevelOrder() {
+  availableLevels = [...Array(levels.length).keys()];
+  shuffleArray(availableLevels);
+}
+
 function getNextLevel() {
-  if (availableLevels.length === 0)
-    resetLevelOrder();
+  if (!availableLevels.length) resetLevelOrder();
   return availableLevels.shift();
+}
+
+function loadLevel() {
+  const lvl = levels[currentLevel];
+  gameDiv.style.background = `url('${lvl.bg}') center/contain no-repeat`;
+  document.querySelectorAll('.item').forEach(i => i.remove());
+
+  lvl.items.forEach(obj => {
+    const div = document.createElement("div");
+    div.className = "item";
+    div.dataset.word = obj.word;
+    div.style.top = obj.top;
+    div.style.left = obj.left;
+    div.style.width = obj.w;
+    div.style.height = obj.h;
+    div.addEventListener("click", () => itemClick(div));
+    gameDiv.appendChild(div);
+  });
 }
 
 function startGame(mode) {
   currentDifficulty = mode;
+  resetLevelOrder();
   runLevel();
 }
-
-function restartGame() { location.reload(); }
 
 function runLevel() {
   currentLevel = getNextLevel();
@@ -226,10 +236,7 @@ function runLevel() {
 
   loadLevel();
 
-  words = levels[currentLevel].items
-    .map(i => i.word)
-    .sort(() => Math.random() - 0.5);
-
+  words = levels[currentLevel].items.map(i => i.word).sort(() => Math.random() - 0.5);
   currentIndex = 0;
   totalSpan.textContent = words.length;
   updateStats();
@@ -244,46 +251,7 @@ function runLevel() {
   timerInterval = setInterval(tick, 1000);
 }
 
-function loadLevel() {
-  const lvl = levels[currentLevel];
-
-  gameDiv.innerHTML = `
-      <img src="${lvl.bg}" id="bgImg">
-      ${document.getElementById("word").outerHTML}
-      ${document.getElementById("menu").outerHTML}
-      ${document.getElementById("stats").outerHTML}
-      ${document.getElementById("dialog").outerHTML}
-  `;
-
-  // восстановить ссылки на элементы
-  wordDiv = document.getElementById("word");
-  timerSpanWord = document.createElement("span");
-  timerSpanWord.style.marginLeft = "15px";
-  timerSpanWord.style.fontSize = "24px";
-  timerSpanWord.style.background = "rgba(0,0,0,0.5)";
-  timerSpanWord.style.padding = "3px 8px";
-  timerSpanWord.style.borderRadius = "5px";
-  wordDiv.appendChild(timerSpanWord);
-
-  correctSpan = document.getElementById('correct');
-  wrongSpan = document.getElementById('wrong');
-  foundSpan = document.getElementById('found');
-  totalSpan = document.getElementById('total');
-  timeSpan = document.getElementById('time');
-
-  // кликабельные зоны
-  lvl.items.forEach(obj => {
-    const div = document.createElement("div");
-    div.className = "item";
-    div.dataset.word = obj.word;
-    div.style.top = obj.top;
-    div.style.left = obj.left;
-    div.style.width = obj.w;
-    div.style.height = obj.h;
-    div.addEventListener("click", () => itemClick(div));
-    gameDiv.appendChild(div);
-  });
-}
+function restartGame() { location.reload(); }
 
 function tick() {
   timeLeft--;
@@ -295,7 +263,9 @@ function showWord() {
   if (currentIndex < words.length) {
     wordDiv.textContent = "Find: " + words[currentIndex];
     wordDiv.appendChild(timerSpanWord);
-  } else endGame(true);
+  } else {
+    endGame(true);
+  }
 }
 
 function updateStats() {
@@ -308,7 +278,6 @@ function updateStats() {
 function itemClick(item) {
   if (!timerInterval) return;
   const targetWord = words[currentIndex];
-
   const rect = item.getBoundingClientRect();
   const x = rect.left + rect.width/2;
   const y = rect.top + rect.height/2;
@@ -318,7 +287,9 @@ function itemClick(item) {
     foundCount++;
     currentIndex++;
     spawnFirework(x, y);
-  } else wrongCount++;
+  } else {
+    wrongCount++;
+  }
 
   updateStats();
   showWord();
@@ -337,12 +308,16 @@ function endGame(win) {
   stats.style.display = "block";
 
   const menu = document.getElementById("menu");
+  menu.style.position = "absolute";
+  menu.style.top = "70px";
+  menu.style.left = "50%";
+  menu.style.transform = "translateX(-50%)";
   menu.style.display = "flex";
 
   wordDiv.textContent = win ? "Du fandt alt! 🎉" : "Tid er slut! ❌";
   document.querySelectorAll('.item').forEach(i => i.style.pointerEvents = "none");
 
-  if (win && levels[currentLevel].dialog.length) startDialog();
+  if (win && levels[currentLevel] && levels[currentLevel].dialog.length) startDialog();
 }
 
 function spawnFirework(x, y) {
@@ -358,17 +333,14 @@ function spawnFirework(x, y) {
   }
 }
 
-/* ---- диалоги ---- */
-
+// Диалог
 let dialogStep = 0;
-
 function startDialog() {
   dialogStep = 0;
   buildDialogUI();
   document.getElementById("dialog").style.display = "block";
   showDialog();
 }
-
 function buildDialogUI() {
   const dlg = document.getElementById("dialog");
   dlg.innerHTML = `
@@ -376,44 +348,68 @@ function buildDialogUI() {
     <div id="dialog-options" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
   `;
 }
-
 function showDialog() {
   const npcLine = levels[currentLevel].dialog[dialogStep][0];
   const correctAnswer = levels[currentLevel].dialog[dialogStep][1];
-
   const dialogLine = document.getElementById("dialog-line");
   dialogLine.textContent = npcLine;
-
   const container = document.getElementById("dialog-options");
   container.innerHTML = "";
-
-  const allAnswers = levels[currentLevel].dialog.map(p => p[1]);
-  allAnswers.sort(() => Math.random() - 0.5);
-
-  allAnswers.forEach(answer => {
+  const allPlayerAnswers = levels[currentLevel].dialog.map(pair => pair[1]).sort(() => Math.random() - 0.5);
+  allPlayerAnswers.forEach(answer => {
     const btn = document.createElement("button");
-    btn.textContent = answer;
-    btn.style.fontSize = "20px";
     btn.style.padding = "10px 20px";
+    btn.style.fontSize = "20px";
+    btn.textContent = answer;
     btn.onclick = () => {
       if (answer === correctAnswer) {
         dialogStep++;
         if (dialogStep >= levels[currentLevel].dialog.length) {
           document.getElementById("dialog").style.display = "none";
-          runLevel();
-        } else showDialog();
+          nextLevel();
+        } else {
+          showDialog();
+        }
       } else {
-        const prev = dialogLine.textContent;
+        const prevText = dialogLine.textContent;
         dialogLine.textContent = "Jeg forstår ikke, hvad du mener.";
         container.querySelectorAll("button").forEach(b => b.disabled = true);
         setTimeout(() => {
-          dialogLine.textContent = prev;
+          dialogLine.textContent = prevText;
           container.querySelectorAll("button").forEach(b => b.disabled = false);
         }, 3000);
       }
     };
     container.appendChild(btn);
   });
+}
+
+function nextLevel() {
+  if (!availableLevels.length) {
+    // если уровни закончились — показываем экран конца игры
+    const endStats = document.createElement("div");
+    endStats.innerHTML = `
+      <div style="
+        width:100%; height:100%;
+        background: url('end.gif') center/cover no-repeat;
+        display:flex; justify-content:center; align-items:center;
+        flex-direction:column; color:#fff; text-align:center;
+      ">
+        <h1 style="font-size:40px; margin-bottom:20px;">Spillet er slut! 🎉</h1>
+        <p style="font-size:24px; margin-bottom:10px;">Rigtige: ${correctCount}</p>
+        <p style="font-size:24px; margin-bottom:30px;">Forkerte: ${wrongCount}</p>
+        <button id="restartBtn" style="
+          padding:20px 40px; font-size:28px; border-radius:10px;
+          cursor:pointer; background:#222; color:#fff; border:2px solid #888;
+        ">Start igen</button>
+      </div>
+    `;
+    gameDiv.innerHTML = "";
+    gameDiv.appendChild(endStats);
+    document.getElementById("restartBtn").onclick = () => location.reload();
+    return;
+  }
+  runLevel();
 }
 </script>
 
