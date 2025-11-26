@@ -213,76 +213,38 @@ function loadLevel() {
 
   document.querySelectorAll('.item').forEach(i => i.remove());
 
-  // функция, которая расчётит и поставит зоны
-  function positionAll() {
-    // naturalWidth / naturalHeight — как у тебя
+  // дождёмся загрузки изображения
+  img.onload = () => {
     const naturalWidth = img.naturalWidth;
     const naturalHeight = img.naturalHeight;
 
-    const containerRect = gameDiv.getBoundingClientRect();
-    const scale = Math.min(containerRect.width / naturalWidth, containerRect.height / naturalHeight);
+    const clientWidth = img.clientWidth;
+    const clientHeight = img.clientHeight;
 
-    const imgW = naturalWidth * scale;
-    const imgH = naturalHeight * scale;
-    const offsetX = (containerRect.width - imgW) / 2;
-    const offsetY = (containerRect.height - imgH) / 2;
+    const scaleX = clientWidth / naturalWidth;
+    const scaleY = clientHeight / naturalHeight;
 
-    // Выбор метода: A = проценты привязаны к видимой картинке (imgW,imgH+offset),
-    // B = проценты привязаны к контейнеру (containerRect.width/height).
-    let insideA = 0, insideB = 0;
-    lvl.items.forEach(obj => {
-      const cxA = offsetX + (parseFloat(obj.left) / 100) * imgW + ((parseFloat(obj.w) / 100) * imgW) / 2;
-      const cyA = offsetY + (parseFloat(obj.top) / 100) * imgH + ((parseFloat(obj.h) / 100) * imgH) / 2;
-      if (cxA >= offsetX && cxA <= offsetX + imgW && cyA >= offsetY && cyA <= offsetY + imgH) insideA++;
-
-      const cxB = (parseFloat(obj.left) / 100) * containerRect.width + ((parseFloat(obj.w) / 100) * containerRect.width) / 2;
-      const cyB = (parseFloat(obj.top) / 100) * containerRect.height + ((parseFloat(obj.h) / 100) * containerRect.height) / 2;
-      if (cxB >= offsetX && cxB <= offsetX + imgW && cyB >= offsetY && cyB <= offsetY + imgH) insideB++;
-    });
-
-    const useMethodA = insideA >= insideB; // true — проценты для видимой картинки; false — для контейнера
-
-    // очистим и заново создадим зоны
-    document.querySelectorAll('.item').forEach(i => i.remove());
     lvl.items.forEach(obj => {
       const div = document.createElement("div");
       div.className = "item";
       div.dataset.word = obj.word;
 
-      if (useMethodA) {
-        // проценты относительно видимой картинки (без добавления лишнего смещения наружу)
-        div.style.left   = `${offsetX + parseFloat(obj.left)/100 * imgW}px`;
-        div.style.top    = `${offsetY + parseFloat(obj.top)/100 * imgH}px`;
-        div.style.width  = `${parseFloat(obj.w)/100 * imgW}px`;
-        div.style.height = `${parseFloat(obj.h)/100 * imgH}px`;
-      } else {
-        // проценты относительны контейнера
-        div.style.left   = `${parseFloat(obj.left)/100 * containerRect.width}px`;
-        div.style.top    = `${parseFloat(obj.top)/100 * containerRect.height}px`;
-        div.style.width  = `${parseFloat(obj.w)/100 * containerRect.width}px`;
-        div.style.height = `${parseFloat(obj.h)/100 * containerRect.height}px`;
-      }
+      // вычисляем реальные позиции и размеры зон
+      div.style.left   = `${parseFloat(obj.left)/100 * naturalWidth * scaleX}px`;
+      div.style.top    = `${parseFloat(obj.top)/100 * naturalHeight * scaleY}px`;
+      div.style.width  = `${parseFloat(obj.w)/100 * naturalWidth * scaleX}px`;
+      div.style.height = `${parseFloat(obj.h)/100 * naturalHeight * scaleY}px`;
 
       div.addEventListener("click", () => itemClick(div));
       gameDiv.appendChild(div);
     });
-  }
-
-  // если картинка уже загружена — сразу позиционируем, иначе ждём load
-  const onImgReady = () => {
-    // удаляем старый слушатель, если он был (чтобы не дублировалось)
-    window.removeEventListener('resize', positionAll);
-    positionAll();
-    window.addEventListener('resize', positionAll);
   };
 
+  // если картинка уже загружена, вызовем сразу
   if (img.complete && img.naturalWidth) {
-    onImgReady();
-  } else {
-    img.onload = onImgReady;
+    img.onload();
   }
 }
-
 
 
 function startGame(mode) {
