@@ -18,26 +18,25 @@
   #gameContainer {
     position: relative;
     width: 100vw;
-    margin: 0 auto;
-
-    /* Пропорции для твоих фото — 16/9 стандарт */
     aspect-ratio: 16 / 9;
-
+    margin: 0 auto;
     overflow: hidden;
   }
 
-  /* Картинка по центру, вписана корректно */
+/* game — это фон уровня */
   #game {
+    position: relative;
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    display: block;
+    background: center/contain no-repeat;
   }
 
-  /* Итемы теперь в пределах контейнера и не съезжают */
+/* кликабельные зоны — внутри game */
   .item {
     position: absolute;
     transform: translate(-50%, -50%);
+    border: 2px solid transparent;
+    cursor: pointer;
   }
 
   /* Слово сверху */
@@ -128,27 +127,31 @@
 </head>
 <body>
 
-<div id="game">
-  <div id="word">Tryk på en sværhedsgrad</div>
+<div id="gameContainer">
+    <div id="game">
 
-  <div id="menu">
-    <div class="btn" onclick="startGame('let')">Let (90s)</div>
-    <div class="btn" onclick="startGame('mellem')">Mellem (60s)</div>
-    <div class="btn" onclick="startGame('svaer')">Svær (45s)</div>
-    <div class="btn" onclick="restartGame()">Nyt spil</div>
-  </div>
+      <div id="word">Tryk på en sværhedsgrad</div>
 
-  <div id="stats">
-    Rigtige: <span id="correct">0</span> |
-    Forkerte: <span id="wrong">0</span> |
-    Fundet: <span id="found">0</span>/<span id="total">0</span> |
-    Tid: <span id="time">0</span>s
-  </div>
+      <div id="menu">
+        <div class="btn" onclick="startGame('let')">Let (90s)</div>
+        <div class="btn" onclick="startGame('mellem')">Mellem (60s)</div>
+        <div class="btn" onclick="startGame('svaer')">Svær (45s)</div>
+        <div class="btn" onclick="restartGame()">Nyt spil</div>
+      </div>
 
-  <div id="dialog">
-    <p id="dialog-line"></p>
-    <div id="dialog-options" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
-  </div>
+      <div id="stats">
+        Rigtige: <span id="correct">0</span> |
+        Forkerte: <span id="wrong">0</span> |
+        Fundet: <span id="found">0</span>/<span id="total">0</span> |
+        Tid: <span id="time">0</span>s
+      </div>
+
+      <div id="dialog">
+        <p id="dialog-line"></p>
+        <div id="dialog-options" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
+      </div>
+
+    </div>
 </div>
 
 <script>
