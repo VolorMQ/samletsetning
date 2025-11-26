@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Søgeordsspil</title>
+
 <style>
   html, body {
     margin: 0;
@@ -14,32 +15,36 @@
     color: #fff;
   }
 
-  /* === Новый контейнер для правильного отображения картинки === */
+  /* Контейнер — только держит изображение и зоны */
   #gameContainer {
     position: relative;
     width: 100vw;
-    aspect-ratio: 16 / 9;
+    max-width: 100%;
     margin: 0 auto;
     overflow: hidden;
   }
 
-/* game — это фон уровня */
+  /* Фон уровня */
   #game {
     position: relative;
     width: 100%;
-    height: 100%;
-    background: center/contain no-repeat;
+    height: auto;
   }
 
-/* кликабельные зоны — внутри game */
+  #game img {
+    width: 100%;
+    height: auto;
+    display: block;
+    pointer-events: none;
+  }
+
+  /* Кликабельные зоны */
   .item {
     position: absolute;
     transform: translate(-50%, -50%);
-    border: 2px solid transparent;
     cursor: pointer;
   }
 
-  /* Слово сверху */
   #word {
     position: absolute;
     top: 10px;
@@ -54,7 +59,6 @@
     align-items: center;
   }
 
-  /* Статистика */
   #stats {
     position: absolute;
     bottom: 10px;
@@ -67,7 +71,6 @@
     z-index: 20;
   }
 
-  /* Меню выбора уровня */
   #menu {
     position: absolute;
     top: 70px;
@@ -90,7 +93,6 @@
     background: #444;
   }
 
-  /* Анимация фейерверка */
   .firework {
     position: absolute;
     width: 20px;
@@ -104,7 +106,6 @@
     100% { transform: scale(3); opacity: 0; }
   }
 
-  /* Диалог */
   #dialog {
     display: none;
     position: absolute;
@@ -128,37 +129,37 @@
 <body>
 
 <div id="gameContainer">
-    <div id="game">
+  <div id="game">
 
-      <div id="word">Tryk på en sværhedsgrad</div>
+    <div id="word">Tryk på en sværhedsgrad</div>
 
-      <div id="menu">
-        <div class="btn" onclick="startGame('let')">Let (90s)</div>
-        <div class="btn" onclick="startGame('mellem')">Mellem (60s)</div>
-        <div class="btn" onclick="startGame('svaer')">Svær (45s)</div>
-        <div class="btn" onclick="restartGame()">Nyt spil</div>
-      </div>
-
-      <div id="stats">
-        Rigtige: <span id="correct">0</span> |
-        Forkerte: <span id="wrong">0</span> |
-        Fundet: <span id="found">0</span>/<span id="total">0</span> |
-        Tid: <span id="time">0</span>s
-      </div>
-
-      <div id="dialog">
-        <p id="dialog-line"></p>
-        <div id="dialog-options" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
-      </div>
-
+    <div id="menu">
+      <div class="btn" onclick="startGame('let')">Let (90s)</div>
+      <div class="btn" onclick="startGame('mellem')">Mellem (60s)</div>
+      <div class="btn" onclick="startGame('svaer')">Svær (45s)</div>
+      <div class="btn" onclick="restartGame()">Nyt spil</div>
     </div>
+
+    <div id="stats">
+      Rigtige: <span id="correct">0</span> |
+      Forkerte: <span id="wrong">0</span> |
+      Fundet: <span id="found">0</span>/<span id="total">0</span> |
+      Tid: <span id="time">0</span>s
+    </div>
+
+    <div id="dialog">
+      <p id="dialog-line"></p>
+      <div id="dialog-options" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
+    </div>
+
+  </div>
 </div>
 
 <script>
 let levels = [];
 fetch("levels.json")
   .then(r => r.json())
-  .then(data => { levels = data; });
+  .then(data => { levels = data; resetLevelOrder(); });
 
 let currentLevel = 0;
 let levelOrder = [];
@@ -190,40 +191,8 @@ timerSpanWord.style.padding = "3px 8px";
 timerSpanWord.style.borderRadius = "5px";
 wordDiv.appendChild(timerSpanWord);
 
-function shuffleLevels() {
-  levelOrder = [...Array(levels.length).keys()]; 
-  for (let i = levelOrder.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [levelOrder[i], levelOrder[j]] = [levelOrder[j], levelOrder[i]];
-  }
-  orderIndex = 0;
-}
-
-
-function loadLevel() {
-  const lvl = levels[currentLevel];
-  gameDiv.style.background = `url('${lvl.bg}') center/contain no-repeat`;
-  document.querySelectorAll('.item').forEach(i => i.remove());
-  lvl.items.forEach(obj => {
-    const div = document.createElement("div");
-    div.className = "item";
-    div.dataset.word = obj.word;
-    div.style.top = obj.top;
-    div.style.left = obj.left;
-    div.style.width = obj.w;
-    div.style.height = obj.h;
-    div.addEventListener("click", () => itemClick(div));
-    gameDiv.appendChild(div);
-  });
-}
-
-function startGame(mode) {
-  shuffleLevels();     // ← запускаем случайный порядок уровней
-  loadNextLevelStart(mode);
-}
-
 function resetLevelOrder() {
-  availableLevels = [...levels.keys()]; // все индексы уровней
+  availableLevels = [...levels.keys()];
   shuffleArray(availableLevels);
 }
 
@@ -234,23 +203,21 @@ function shuffleArray(arr) {
   }
 }
 
-function loadNextLevelStart(mode) {
-  currentDifficulty = mode;
-  currentLevel = levelOrder[orderIndex];
-  orderIndex++;
+function getNextLevel() {
+  if (availableLevels.length === 0)
+    resetLevelOrder();
+  return availableLevels.shift();
+}
 
+function startGame(mode) {
+  currentDifficulty = mode;
   runLevel();
 }
 
-function getNextLevel() {
-  if (availableLevels.length === 0) {
-    resetLevelOrder(); // снова создаём список, когда закончился
-  }
-  return availableLevels.shift(); // выдаём первый, без повторов
-}
+function restartGame() { location.reload(); }
 
 function runLevel() {
-  currentLevel = getNextLevel();  // ← ДОБАВЛЕНО: выбираем следующий неповторяющийся уровень
+  currentLevel = getNextLevel();
 
   timeLeft = difficulties[currentDifficulty];
   correctCount = 0;
@@ -277,7 +244,46 @@ function runLevel() {
   timerInterval = setInterval(tick, 1000);
 }
 
-function restartGame() { location.reload(); }
+function loadLevel() {
+  const lvl = levels[currentLevel];
+
+  gameDiv.innerHTML = `
+      <img src="${lvl.bg}" id="bgImg">
+      ${document.getElementById("word").outerHTML}
+      ${document.getElementById("menu").outerHTML}
+      ${document.getElementById("stats").outerHTML}
+      ${document.getElementById("dialog").outerHTML}
+  `;
+
+  // восстановить ссылки на элементы
+  wordDiv = document.getElementById("word");
+  timerSpanWord = document.createElement("span");
+  timerSpanWord.style.marginLeft = "15px";
+  timerSpanWord.style.fontSize = "24px";
+  timerSpanWord.style.background = "rgba(0,0,0,0.5)";
+  timerSpanWord.style.padding = "3px 8px";
+  timerSpanWord.style.borderRadius = "5px";
+  wordDiv.appendChild(timerSpanWord);
+
+  correctSpan = document.getElementById('correct');
+  wrongSpan = document.getElementById('wrong');
+  foundSpan = document.getElementById('found');
+  totalSpan = document.getElementById('total');
+  timeSpan = document.getElementById('time');
+
+  // кликабельные зоны
+  lvl.items.forEach(obj => {
+    const div = document.createElement("div");
+    div.className = "item";
+    div.dataset.word = obj.word;
+    div.style.top = obj.top;
+    div.style.left = obj.left;
+    div.style.width = obj.w;
+    div.style.height = obj.h;
+    div.addEventListener("click", () => itemClick(div));
+    gameDiv.appendChild(div);
+  });
+}
 
 function tick() {
   timeLeft--;
@@ -289,9 +295,7 @@ function showWord() {
   if (currentIndex < words.length) {
     wordDiv.textContent = "Find: " + words[currentIndex];
     wordDiv.appendChild(timerSpanWord);
-  } else {
-    endGame(true);
-  }
+  } else endGame(true);
 }
 
 function updateStats() {
@@ -304,6 +308,7 @@ function updateStats() {
 function itemClick(item) {
   if (!timerInterval) return;
   const targetWord = words[currentIndex];
+
   const rect = item.getBoundingClientRect();
   const x = rect.left + rect.width/2;
   const y = rect.top + rect.height/2;
@@ -313,9 +318,7 @@ function itemClick(item) {
     foundCount++;
     currentIndex++;
     spawnFirework(x, y);
-  } else {
-    wrongCount++;
-  }
+  } else wrongCount++;
 
   updateStats();
   showWord();
@@ -334,19 +337,12 @@ function endGame(win) {
   stats.style.display = "block";
 
   const menu = document.getElementById("menu");
-  menu.style.position = "absolute";
-  menu.style.top = "70px";
-  menu.style.left = "50%";
-  menu.style.transform = "translateX(-50%)";
   menu.style.display = "flex";
 
   wordDiv.textContent = win ? "Du fandt alt! 🎉" : "Tid er slut! ❌";
   document.querySelectorAll('.item').forEach(i => i.style.pointerEvents = "none");
 
-  // ⛔ Диалог показываем только если уровень выигран!
-  if (win && levels[currentLevel] && levels[currentLevel].dialog.length) {
-    startDialog();
-  }
+  if (win && levels[currentLevel].dialog.length) startDialog();
 }
 
 function spawnFirework(x, y) {
@@ -362,14 +358,17 @@ function spawnFirework(x, y) {
   }
 }
 
-// Диалог и переходы оставляем как было
+/* ---- диалоги ---- */
+
 let dialogStep = 0;
+
 function startDialog() {
   dialogStep = 0;
   buildDialogUI();
   document.getElementById("dialog").style.display = "block";
   showDialog();
 }
+
 function buildDialogUI() {
   const dlg = document.getElementById("dialog");
   dlg.innerHTML = `
@@ -377,71 +376,44 @@ function buildDialogUI() {
     <div id="dialog-options" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
   `;
 }
+
 function showDialog() {
   const npcLine = levels[currentLevel].dialog[dialogStep][0];
   const correctAnswer = levels[currentLevel].dialog[dialogStep][1];
+
   const dialogLine = document.getElementById("dialog-line");
   dialogLine.textContent = npcLine;
+
   const container = document.getElementById("dialog-options");
   container.innerHTML = "";
-  const allPlayerAnswers = levels[currentLevel].dialog.map(pair => pair[1]);
-  allPlayerAnswers.sort(() => Math.random() - 0.5);
-  allPlayerAnswers.forEach(answer => {
+
+  const allAnswers = levels[currentLevel].dialog.map(p => p[1]);
+  allAnswers.sort(() => Math.random() - 0.5);
+
+  allAnswers.forEach(answer => {
     const btn = document.createElement("button");
-    btn.style.padding = "10px 20px";
-    btn.style.fontSize = "20px";
     btn.textContent = answer;
+    btn.style.fontSize = "20px";
+    btn.style.padding = "10px 20px";
     btn.onclick = () => {
       if (answer === correctAnswer) {
         dialogStep++;
         if (dialogStep >= levels[currentLevel].dialog.length) {
           document.getElementById("dialog").style.display = "none";
-          nextLevel();
-        } else {
-          showDialog();
-        }
+          runLevel();
+        } else showDialog();
       } else {
-        const prevText = dialogLine.textContent;
+        const prev = dialogLine.textContent;
         dialogLine.textContent = "Jeg forstår ikke, hvad du mener.";
         container.querySelectorAll("button").forEach(b => b.disabled = true);
         setTimeout(() => {
-          dialogLine.textContent = prevText;
+          dialogLine.textContent = prev;
           container.querySelectorAll("button").forEach(b => b.disabled = false);
         }, 3000);
       }
     };
     container.appendChild(btn);
   });
-}
-function nextLevel() {
-  if (orderIndex >= levelOrder.length) {
-    showEndScreen();
-    return;
-  }
-
-  currentLevel = levelOrder[orderIndex];
-  orderIndex++;
-
-  runLevel();
-}
-function showEndScreen() {
-  gameDiv.innerHTML = `
-    <div style="
-      width:100%; height:100%;
-      background: url('end.gif') center/cover no-repeat;
-      display:flex; justify-content:center; align-items:center;
-      flex-direction:column; color:#fff; text-align:center;
-    ">
-      <h1 style="font-size:40px; margin-bottom:20px;">Spillet er slut! 🎉</h1>
-      <p style="font-size:24px; margin-bottom:10px;">Rigtige: ${correctCount}</p>
-      <p style="font-size:24px; margin-bottom:30px;">Forkerte: ${wrongCount}</p>
-      <button id="restartBtn" style="
-        padding:20px 40px; font-size:28px; border-radius:10px;
-        cursor:pointer; background:#222; color:#fff; border:2px solid #888;
-      ">Start igen</button>
-    </div>
-  `;
-  document.getElementById("restartBtn").onclick = () => location.reload();
 }
 </script>
 
