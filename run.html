@@ -39,7 +39,6 @@
 
   .item {
     position: absolute;
-    transform: translate(-50%, -50%);
     cursor: pointer;
   }
 
@@ -214,33 +213,67 @@ function loadLevel() {
   document.querySelectorAll('.item').forEach(i => i.remove());
 
   // дождёмся загрузки изображения
-  img.onload = () => {
+	img.onload = () => {
+	  // исходный размер (берём из JSON, если есть, иначе natural)
+	  const naturalWidth = (lvl.scale && lvl.scale.width) ? lvl.scale.width : img.naturalWidth;
+	  const naturalHeight = (lvl.scale && lvl.scale.height) ? lvl.scale.height : img.naturalHeight;
 
-    // БЕРЁМ масштаб из JSON
-    const naturalWidth = lvl.scale.width;
-    const naturalHeight = lvl.scale.height;
+	  // реально отрисованный размер img
+	  const clientWidth = img.clientWidth;
+	  const clientHeight = img.clientHeight;
 
-    const clientWidth = img.clientWidth;
-    const clientHeight = img.clientHeight;
+	  // равномерный scale (object-fit: contain)
+	  const scale = Math.min(clientWidth / naturalWidth, clientHeight / naturalHeight);
 
-    const scaleX = clientWidth / naturalWidth;
-    const scaleY = clientHeight / naturalHeight;
+	  // видимый размер картинки и смещения (центрование)
+	  const visW = naturalWidth * scale;
+	  const visH = naturalHeight * scale;
+	  const offsetX = (clientWidth - visW) / 2;
+	  const offsetY = (clientHeight - visH) / 2;
 
-    lvl.items.forEach(obj => {
-      const div = document.createElement("div");
-      div.className = "item";
-      div.dataset.word = obj.word;
+	  lvl.items.forEach(obj => {
+		const div = document.createElement("div");
+		div.className = "item";
+		div.dataset.word = obj.word;
 
-      // вычисляем реальные позиции и размеры зон через scale из JSON
-      div.style.left   = `${parseFloat(obj.left)/100 * naturalWidth * scaleX}px`;
-      div.style.top    = `${parseFloat(obj.top)/100 * naturalHeight * scaleY}px`;
-      div.style.width  = `${parseFloat(obj.w)/100 * naturalWidth * scaleX}px`;
-      div.style.height = `${parseFloat(obj.h)/100 * naturalHeight * scaleY}px`;
+		// исходные проценты
+		const pLeft = parseFloat(obj.left);
+		const pTop  = parseFloat(obj.top);
+		const pW    = parseFloat(obj.w);
+		const pH    = parseFloat(obj.h);
 
-      div.addEventListener("click", () => itemClick(div));
-      gameDiv.appendChild(div);
-    });
-  };
+		// проценты -> пиксели в координатах оригинала
+		const origLeftPx = (pLeft / 100) * naturalWidth;
+		const origTopPx  = (pTop  / 100) * naturalHeight;
+		const origWPx    = (pW    / 100) * naturalWidth;
+		const origHPx    = (pH    / 100) * naturalHeight;
+
+		// масштабируем в экранные пиксели и добавляем смещение (offset)
+		let screenLeft = offsetX + origLeftPx * scale;
+		let screenTop  = offsetY + origTopPx * scale;
+		let screenW    = origWPx * scale;
+		let screenH    = origHPx * scale;
+
+		// защита: обрезаем чтобы зона была внутри видимой картинки
+		if (screenLeft < offsetX) screenLeft = offsetX;
+		if (screenTop < offsetY) screenTop = offsetY;
+		if (screenLeft + screenW > offsetX + visW) screenW = Math.max(0, offsetX + visW - screenLeft);
+		if (screenTop + screenH > offsetY + visH) screenH = Math.max(0, offsetY + visH - screenTop);
+
+		// применяем стили (px). translate(-50%,-50%) у тебя в CSS — если он мешает, можно убрать.
+		// В твоём CSS .item имеет transform: translate(-50%, -50%) — это смещает центр, 
+		// поэтому ставим позиционирование как левый верх: убери translate в CSS либо компенсируй здесь.
+		// Я предполагаю, что ты хочешь left/top как верхний левый угол — тогда временно сбрось transform:
+		div.style.transform = ""; // <--- убираем translate, чтобы left/top означали левый верх
+		div.style.left   = `${screenLeft}px`;
+		div.style.top    = `${screenTop}px`;
+		div.style.width  = `${screenW}px`;
+		div.style.height = `${screenH}px`;
+
+		div.addEventListener("click", () => itemClick(div));
+		gameDiv.appendChild(div);
+	  });
+	};
 }
 
 
