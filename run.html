@@ -56,6 +56,18 @@
     display: flex;
     align-items: center;
   }
+  #level-bg {
+    max-width: none !important;
+    max-height: none !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: unset !important;
+  }
+  
+  #gameDiv {
+    overflow: scroll;     /* картинка может быть больше экрана */
+    position: relative;
+  }
 
   /* Статистика */
   #stats {
@@ -344,8 +356,10 @@ function loadLevelMobile() {
     const visW = naturalW * scale;
     const visH = naturalH * scale;
 
-    img.style.width  = `${visW}px`;
-    img.style.height = `${visH}px`;
+	img.style.width = visW + "px";
+	img.style.height = visH + "px";
+	img.style.maxWidth = "none";
+	img.style.maxHeight = "none";
 
     // если картинка выше контейнера — разрешаем скролл
     if (visH > contH) {
@@ -377,8 +391,8 @@ function loadLevelMobile() {
       const pH    = parseFloat(obj.h);
 
       // координаты строго в рамках видимой картинки
-      let leftPx   = imgX + (pLeft / 100) * visW;
-      let topPx    = imgY + (pTop  / 100) * visH;
+      let leftPx = imgX + offsetX + (pLeft / 100) * visW;
+      let topPx = imgY + offsetY + (pTop / 100) * visH;
       let widthPx  = (pW / 100) * visW;
       let heightPx = (pH / 100) * visH;
 
