@@ -210,109 +210,152 @@ function loadLevel() {
   const img = document.getElementById('level-bg');
   img.src = lvl.bg;
 
+  // убираем старые элементы
   document.querySelectorAll('.item').forEach(i => i.remove());
 
-  // дождёмся загрузки изображения
-	img.onload = () => {
-	  const naturalWidth = (lvl.scale && lvl.scale.width) ? lvl.scale.width : img.naturalWidth;
-	  const naturalHeight = (lvl.scale && lvl.scale.height) ? lvl.scale.height : img.naturalHeight;
+  // helper: пересечение прямоугольников
+  function intersectionArea(ax, ay, aw, ah, bx, by, bw, bh) {
+    const ix = Math.max(ax, bx);
+    const iy = Math.max(ay, by);
+    const ir = Math.min(ax + aw, bx + bw);
+    const ib = Math.min(ay + ah, by + bh);
+    const iw = Math.max(0, ir - ix);
+    const ih = Math.max(0, ib - iy);
+    return iw * ih;
+  }
 
-	  const clientWidth = img.clientWidth;
-	  const clientHeight = img.clientHeight;
+  // перерисовка зон — вынесена в функцию, чтобы можно было вызывать при resize
+  function renderZones() {
+    // удаляем старые элементы
+    document.querySelectorAll('.item').forEach(i => i.remove());
 
-	  // равномерный масштаб (contain)
-	  const scale = Math.min(clientWidth / naturalWidth, clientHeight / naturalHeight);
+    // исходный размер изображения (из JSON или fallback)
+    const naturalWidth = (lvl.scale && lvl.scale.width) ? lvl.scale.width : img.naturalWidth;
+    const naturalHeight = (lvl.scale && lvl.scale.height) ? lvl.scale.height : img.naturalHeight;
 
-	  // видимая часть картинки и отступ внутри <img> (центрирование)
-	  const visW = naturalWidth * scale;
-	  const visH = naturalHeight * scale;
-	  const offsetX = (clientWidth - visW) / 2;
-	  const offsetY = (clientHeight - visH) / 2;
+    // реальный отрисованный размер в элементе <img>
+    const clientWidth = img.clientWidth;
+    const clientHeight = img.clientHeight;
 
-	  // helper: пересечение прямоугольников
-	  function intersectionArea(ax, ay, aw, ah, bx, by, bw, bh) {
-		const ix = Math.max(ax, bx);
-		const iy = Math.max(ay, by);
-		const ir = Math.min(ax + aw, bx + bw);
-		const ib = Math.min(ay + ah, by + bh);
-		const iw = Math.max(0, ir - ix);
-		const ih = Math.max(0, ib - iy);
-		return iw * ih;
-	  }
+    // равномерный масштаб (contain)
+    const scale = Math.min(clientWidth / naturalWidth, clientHeight / naturalHeight);
 
-	  // видимая картинка в координатах элемента img (лев.верх = 0,0 внутри img)
-	  const imgVisibleX = offsetX;
-	  const imgVisibleY = offsetY;
-	  const imgVisibleW = visW;
-	  const imgVisibleH = visH;
+    // видимая часть картинки
+    const visW = naturalWidth * scale;
+    const visH = naturalHeight * scale;
 
-	  lvl.items.forEach(obj => {
-		const div = document.createElement("div");
-		div.className = "item";
-		div.dataset.word = obj.word;
+    // смещения внутри элемента <img> (letterbox)
+    const imgOffsetX = (clientWidth - visW) / 2;
+    const imgOffsetY = (clientHeight - visH) / 2;
 
-		// исходные проценты
-		const pLeft = parseFloat(obj.left);
-		const pTop  = parseFloat(obj.top);
-		const pW    = parseFloat(obj.w);
-		const pH    = parseFloat(obj.h);
+    // позиция img внутри gameDiv (в пикселях относительно верхнего левого gameDiv)
+    const imgRect = img.getBoundingClientRect();
+    const gameRect = gameDiv.getBoundingClientRect();
+    const imgRelLeft = imgRect.left - gameRect.left;
+    const imgRelTop  = imgRect.top  - gameRect.top;
 
-		// ---- ВАРИант A: проценты привязаны к исходному изображению (orig-based) ----
-		const origLeftPx = (pLeft / 100) * naturalWidth;
-		const origTopPx  = (pTop  / 100) * naturalHeight;
-		const origWPx    = (pW    / 100) * naturalWidth;
-		const origHPx    = (pH    / 100) * naturalHeight;
+    // видимая картинка в координатах gameDiv
+    const imgVisibleX = imgRelLeft + imgOffsetX;
+    const imgVisibleY = imgRelTop  + imgOffsetY;
+    const imgVisibleW = visW;
+    const imgVisibleH = visH;
 
-		const leftA = offsetX + origLeftPx * scale;
-		const topA  = offsetY + origTopPx * scale;
-		const wA    = Math.max(0, origWPx * scale);
-		const hA    = Math.max(0, origHPx * scale);
+    // минимальный размер "хит-зоны" в пикселях (на мобильных лучше >= 40)
+    const MIN_HIT = 40;
 
-		// ---- ВАРИант B: проценты привязаны к контейнеру (container-based) ----
-		const leftB = (pLeft / 100) * clientWidth;
-		const topB  = (pTop  / 100) * clientHeight;
-		const wB    = Math.max(0, (pW / 100) * clientWidth);
-		const hB    = Math.max(0, (pH / 100) * clientHeight);
+    lvl.items.forEach(obj => {
+      const div = document.createElement("div");
+      div.className = "item";
+      div.dataset.word = obj.word;
 
-		// вычисляем площадь пересечения с видимой картинкой
-		const areaA = intersectionArea(leftA, topA, wA, hA, imgVisibleX, imgVisibleY, imgVisibleW, imgVisibleH);
-		const areaB = intersectionArea(leftB, topB, wB, hB, imgVisibleX, imgVisibleY, imgVisibleW, imgVisibleH);
+      // парсим проценты
+      const pLeft = parseFloat(obj.left);
+      const pTop  = parseFloat(obj.top);
+      const pW    = parseFloat(obj.w);
+      const pH    = parseFloat(obj.h);
 
-		// выбираем вариант с большей пересекаемой площадью (если оба 0 -> берем A)
-		const useA = (areaA >= areaB);
+      // ---- ВАРИант A: проценты относительно оригинала (orig-based) ----
+      const origLeftPx = (pLeft / 100) * naturalWidth;
+      const origTopPx  = (pTop  / 100) * naturalHeight;
+      const origWPx    = (pW    / 100) * naturalWidth;
+      const origHPx    = (pH    / 100) * naturalHeight;
 
-		let finalLeft, finalTop, finalW, finalH;
-		if (useA) {
-		  finalLeft = leftA;
-		  finalTop  = topA;
-		  finalW    = wA;
-		  finalH    = hA;
-		} else {
-		  finalLeft = leftB;
-		  finalTop  = topB;
-		  finalW    = wB;
-		  finalH    = hB;
-		}
+      const leftA = imgRelLeft + imgOffsetX + origLeftPx * scale;
+      const topA  = imgRelTop  + imgOffsetY + origTopPx  * scale;
+      const wA    = Math.max(0, origWPx * scale);
+      const hA    = Math.max(0, origHPx * scale);
 
-		// Ограничение: не даём выйти за видимую картинку
-		if (finalLeft < imgVisibleX) finalLeft = imgVisibleX;
-		if (finalTop < imgVisibleY) finalTop = imgVisibleY;
-		if (finalLeft + finalW > imgVisibleX + imgVisibleW) finalW = Math.max(0, imgVisibleX + imgVisibleW - finalLeft);
-		if (finalTop + finalH > imgVisibleY + imgVisibleH) finalH = Math.max(0, imgVisibleY + imgVisibleH - finalTop);
+      // ---- ВАРИант B: проценты относительно контейнера (container-based) ----
+      const leftB = (pLeft / 100) * clientWidth + imgRelLeft; // привязка к client внутри gameDiv
+      const topB  = (pTop  / 100) * clientHeight + imgRelTop;
+      const wB    = Math.max(0, (pW / 100) * clientWidth);
+      const hB    = Math.max(0, (pH / 100) * clientHeight);
 
-		// Убираем CSS translate, чтобы left/top были левым верхом
-		div.style.transform = "";
+      // площади пересечения с видимой областью картинки
+      const areaA = intersectionArea(leftA, topA, wA, hA, imgVisibleX, imgVisibleY, imgVisibleW, imgVisibleH);
+      const areaB = intersectionArea(leftB, topB, wB, hB, imgVisibleX, imgVisibleY, imgVisibleW, imgVisibleH);
 
-		// Применяем
-		div.style.left   = `${Math.round(finalLeft)}px`;
-		div.style.top    = `${Math.round(finalTop)}px`;
-		div.style.width  = `${Math.round(finalW)}px`;
-		div.style.height = `${Math.round(finalH)}px`;
+      const useA = (areaA >= areaB);
 
-		div.addEventListener("click", () => itemClick(div));
-		gameDiv.appendChild(div);
-	  });
-	};
+      let finalLeft = useA ? leftA : leftB;
+      let finalTop  = useA ? topA  : topB;
+      let finalW    = useA ? wA    : wB;
+      let finalH    = useA ? hA    : hB;
+
+      // ограничиваем чтобы зона была внутри видимой картинки
+      if (finalLeft < imgVisibleX) finalLeft = imgVisibleX;
+      if (finalTop  < imgVisibleY) finalTop  = imgVisibleY;
+      if (finalLeft + finalW > imgVisibleX + imgVisibleW) finalW = Math.max(0, imgVisibleX + imgVisibleW - finalLeft);
+      if (finalTop  + finalH > imgVisibleY + imgVisibleH) finalH = Math.max(0, imgVisibleY + imgVisibleH - finalTop);
+
+      // если зона слишком мала для тача — увеличим её, сохранив центр
+      if (finalW < MIN_HIT) {
+        const expand = (MIN_HIT - finalW) / 2;
+        finalLeft -= expand;
+        finalW += expand * 2;
+        if (finalLeft < imgVisibleX) { finalLeft = imgVisibleX; finalW = Math.max(MIN_HIT, imgVisibleX + imgVisibleW - finalLeft); }
+      }
+      if (finalH < MIN_HIT) {
+        const expand = (MIN_HIT - finalH) / 2;
+        finalTop -= expand;
+        finalH += expand * 2;
+        if (finalTop < imgVisibleY) { finalTop = imgVisibleY; finalH = Math.max(MIN_HIT, imgVisibleY + imgVisibleH - finalTop); }
+      }
+
+      // отключаем translate, чтобы left/top = левый верх
+      div.style.transform = "";
+
+      // применяем
+      div.style.left   = `${Math.round(finalLeft)}px`;
+      div.style.top    = `${Math.round(finalTop)}px`;
+      div.style.width  = `${Math.round(finalW)}px`;
+      div.style.height = `${Math.round(finalH)}px`;
+
+      // улучшение отклика на мобильных
+      div.style.touchAction = "manipulation";
+      div.style.webkitTapHighlightColor = "transparent";
+
+      div.addEventListener("click", () => itemClick(div));
+      gameDiv.appendChild(div);
+    });
+  } // renderZones end
+
+  // --- запускаем первое построение зон ---
+  renderZones();
+
+  // --- пересчёт при изменении размеров / повороте ---
+  // debounce
+  let resizeTimer = null;
+  function debouncedRender() {
+    if (resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      renderZones();
+      resizeTimer = null;
+    }, 120);
+  }
+
+  window.addEventListener('resize', debouncedRender);
+  window.addEventListener('orientationchange', debouncedRender);
 }
 
 
