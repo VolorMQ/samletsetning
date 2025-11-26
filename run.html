@@ -404,31 +404,6 @@ function startGame(mode) {
   runLevel();
 }
 
-function runLevel() {
-  currentLevel = getNextLevel();
-
-  timeLeft = difficulties[currentDifficulty];
-  correctCount = 0;
-  wrongCount = 0;
-  foundCount = 0;
-
-  loadLevel();
-
-  words = levels[currentLevel].items.map(i => i.word).sort(() => Math.random() - 0.5);
-  currentIndex = 0;
-  totalSpan.textContent = words.length;
-  updateStats();
-
-  document.getElementById("menu").style.display = "none";
-  document.getElementById("stats").style.display = "none";
-  document.getElementById("dialog").style.display = "none";
-
-  showWord();
-
-  if (timerInterval) clearInterval(timerInterval);
-  timerInterval = setInterval(tick, 1000);
-}
-
 function restartGame() { location.reload(); }
 
 function tick() {
