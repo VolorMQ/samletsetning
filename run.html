@@ -271,7 +271,7 @@
 		<p>Indtast dit navn for at starte spillet. Navnet gemmes lokalt.</p>
 
 		<!-- Сохраняем id для input, чтобы CSS работал -->
-		<input id="playerNameInput" type="text" placeholder="Skriv dit navn her" maxlength="30" autocomplete="name" />
+		<input id="playerName" type="text" placeholder="Skriv dit navn her" maxlength="30" autocomplete="name" />
 
 		<div id="startControls">
 		  <button id="startBtn" class="btn" type="button">Start</button>
@@ -821,7 +821,7 @@ function nextLevel() {
    START SCREEN логика
    --------------------------- */
 const startScreen = document.getElementById('startScreen');
-const nameInput = document.getElementById('playerNameInput'); // уникальный id для input
+const nameInput = document.getElementById('playerName'); // уникальный id для input
 const startBtn = document.getElementById('startBtn');
 const nameError = document.getElementById('nameError');
 const playerNameSpan = document.getElementById('playerNameDisplay'); // уникальный id для отображения
