@@ -169,7 +169,7 @@
     font-size: 16px;
     color: #ccc;
   }
-  #nameInput {
+  #playerName {
     width: 100%;
     padding: 12px 14px;
     font-size: 18px;
@@ -211,7 +211,7 @@
     #word { font-size: 20px; padding: 8px 12px; }
     #startCard h1 { font-size: 22px; }
     #startCard p { font-size: 14px; }
-    #nameInput { font-size: 16px; padding: 10px; }
+    #playerName { font-size: 16px; padding: 10px; }
   }
   
 /* Стартовое окно поверх всего */
@@ -256,7 +256,7 @@
 <body>
 
 <div id="startScreen">
-  <input type="text" id="playerName" placeholder="Введите имя">
+  <input type="text" id="playerName" placeholder="Indtast navn">
   <button id="startBtn">Start</button>
 </div>
 
@@ -294,7 +294,7 @@
         <p>Indtast dit navn for at starte spillet. Navnet gemmes lokalt, så du ikke behøver skrive det igen.</p>
 
         <form id="startForm" onsubmit="return false;">
-          <input id="nameInput" type="text" placeholder="Skriv dit navn her" maxlength="30" autocomplete="name" />
+          <input id="playerName" type="text" placeholder="Skriv dit navn her" maxlength="30" autocomplete="name" />
           <div id="startControls">
             <button id="startBtn" class="btn">Start</button>
           </div>
@@ -842,7 +842,7 @@ function nextLevel() {
    START SCREEN логика
    --------------------------- */
 const startScreen = document.getElementById('startScreen');
-const nameInput = document.getElementById('nameInput');
+const playerName = document.getElementById('playerName');
 const startBtn = document.getElementById('startBtn');
 const nameError = document.getElementById('nameError');
 const playerNameSpan = document.getElementById('playerName');
@@ -864,12 +864,12 @@ function openMenuAfterStart() {
 (function initStart() {
   const saved = localStorage.getItem('sg_player_name');
   if (saved) {
-    nameInput.value = saved;
+    playerName.value = saved;
   }
   setPlayerName(saved || '—');
 
   // Enter запускает
-  nameInput.addEventListener('keydown', (e) => {
+  playerName.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       handleStart();
@@ -883,14 +883,14 @@ function openMenuAfterStart() {
 })();
 
 function handleStart() {
-  const name = nameInput.value.trim();
+  const name = playerName.value.trim();
   if (!name) {
     // показываем ошибку
     nameError.style.display = 'block';
-    nameInput.classList.add('error');
+    playerName.classList.add('error');
     setTimeout(() => {
       nameError.style.display = 'none';
-      nameInput.classList.remove('error');
+      playerName.classList.remove('error');
     }, 2200);
     return;
   }
@@ -904,7 +904,7 @@ function handleStart() {
    --------------------------- */
 document.getElementById('startBtn').onclick = () => {
   const name = document.getElementById('playerName').value.trim();
-  if (!name) return alert("Indsæt Navn!");   // проверка, что поле не пустое
+  if (!name) return alert("Indtast navn!");   // проверка, что поле не пустое
   localStorage.setItem('playerName', name);  // сохраняем имя
   document.getElementById('startScreen').style.display = 'none'; // скрываем стартовый экран
   document.getElementById('menu').style.display = 'flex';        // показываем меню игры
