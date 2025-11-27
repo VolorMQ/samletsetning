@@ -761,7 +761,7 @@ function nextLevel() {
    START SCREEN логика
    --------------------------- */
 const startScreen = document.getElementById('startScreen');
-const nameInput = document.getElementById('nameInput');
+const nameInput = document.getElementById('playerName');  // ← исправлено под HTML
 const startBtn = document.getElementById('startBtn');
 const nameError = document.getElementById('nameError');
 const playerNameSpan = document.getElementById('playerName');
@@ -772,16 +772,13 @@ function setPlayerName(name) {
 }
 
 function openMenuAfterStart() {
-  // запускаем плавное скрытие стартового экрана
   startScreen.classList.add('fade-out');
 
-  // через 500ms скрываем окончательно
   setTimeout(() => {
     startScreen.style.display = 'none';
     startScreen.setAttribute('aria-hidden', 'true');
   }, 500);
 
-  // показать меню (кнопки сложности) сразу
   menuDiv.style.display = 'flex';
 }
 
@@ -793,7 +790,6 @@ function openMenuAfterStart() {
   }
   setPlayerName(saved || '—');
 
-  // Enter запускает
   nameInput.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -822,7 +818,6 @@ function handleStart() {
   localStorage.setItem('sg_player_name', name);
   setPlayerName(name);
 
-  // сразу открываем меню
   openMenuAfterStart();
 }
 
