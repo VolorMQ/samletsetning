@@ -237,116 +237,77 @@ function setOverlay(x, y, w, h) {
   overlay.style.pointerEvents = "auto";
 }
 
-function loadLevelDesktop() {
-  const lvl = levels[currentLevel];
-  const img = document.getElementById('level-bg');
-  img.src = lvl.bg;
+function loadLevelDesktop(levelIndex) {
+  const nameFile = document.querySelector('.level-name-file');
+  const overlay = document.querySelector('.overlay');
+  const img = document.querySelector('#game-img');
 
-  clearItems();
+  overlay.innerHTML = '';
 
-  img.onload = () => {
-    // реальные размеры исходного изображения
-    const naturalWidth = (lvl.scale && lvl.scale.width) ? lvl.scale.width : img.naturalWidth;
-    const naturalHeight = (lvl.scale && lvl.scale.height) ? lvl.scale.height : img.naturalHeight;
+  const data = levelsData[levelIndex];
+  const src = './assets/' + data.img;
+  nameFile.textContent = data.img;
 
-    const clientWidth = img.clientWidth;
-    const clientHeight = img.clientHeight;
+  img.onload = function () {
+    const naturalWidth = img.naturalWidth;
+    const naturalHeight = img.naturalHeight;
+    const imgDisplayWidth = img.clientWidth;
+    const imgDisplayHeight = img.clientHeight;
 
-    // равномерный масштаб (contain)
-    const scale = Math.min(clientWidth / naturalWidth, clientHeight / naturalHeight);
+    const scale = Math.min(
+      imgDisplayWidth / naturalWidth,
+      imgDisplayHeight / naturalHeight
+    );
 
-    // видимая часть картинки и отступ внутри <img> (центрирование)
-    const visW = naturalWidth * scale;
-    const visH = naturalHeight * scale;
-    const offsetX = (clientWidth - visW) / 2;
-    const offsetY = (clientHeight - visH) / 2;
+    const renderedWidth = naturalWidth * scale;
+    const renderedHeight = naturalHeight * scale;
 
-    // вычисляем позицию видимой картинки внутри gameDiv (в пикселях от левого верхнего угла gameDiv)
-    // img.offsetLeft/offsetTop — позиция элемента <img> внутри gameDiv; добавляем offsetX/Y чтобы получить позицию видимой картинки
-    const imgLeftInGame = img.offsetLeft + offsetX;
-    const imgTopInGame  = img.offsetTop  + offsetY;
+    const offsetLeft = (imgDisplayWidth - renderedWidth) / 2;
+    const offsetTop = (imgDisplayHeight - renderedHeight) / 2;
 
-    // устанавливаем overlay точно под видимой картинкой
-    setOverlay(imgLeftInGame, imgTopInGame, visW, visH);
+    const imgRect = img.getBoundingClientRect();
+    const imgLeftInGame = imgRect.left + offsetLeft;
+    const imgTopInGame = imgRect.top + offsetTop;
 
-    // helper: пересечение прямоугольников
-    function intersectionArea(ax, ay, aw, ah, bx, by, bw, bh) {
-      const ix = Math.max(ax, bx);
-      const iy = Math.max(ay, by);
-      const ir = Math.min(ax + aw, bx + bw);
-      const ib = Math.min(ay + ah, by + bh);
-      const iw = Math.max(0, ir - ix);
-      const ih = Math.max(0, ib - iy);
-      return iw * ih;
-    }
+    overlay.style.width = renderedWidth + 'px';
+    overlay.style.height = renderedHeight + 'px';
+    overlay.style.left = imgLeftInGame + 'px';
+    overlay.style.top = imgTopInGame + 'px';
 
-    lvl.items.forEach(obj => {
-      const div = document.createElement("div");
-      div.className = "item";
-      div.dataset.word = obj.word;
+    data.items.forEach((item, idx) => {
+      const pLeft = item.x;
+      const pTop = item.y;
+      const pW = item.w;
+      const pH = item.h;
 
-      // исходные проценты
-      const pLeft = parseFloat(obj.left);
-      const pTop  = parseFloat(obj.top);
-      const pW    = parseFloat(obj.w);
-      const pH    = parseFloat(obj.h);
-
-      // ---- ВАРИант A: проценты привязаны к исходному изображению (orig-based) ----
       const origLeftPx = (pLeft / 100) * naturalWidth;
-      const origTopPx  = (pTop  / 100) * naturalHeight;
-      const origWPx    = (pW    / 100) * naturalWidth;
-      const origHPx    = (pH    / 100) * naturalHeight;
+      const origTopPx = (pTop / 100) * naturalHeight;
+      const origWPx = (pW / 100) * naturalWidth;
+      const origHPx = (pH / 100) * naturalHeight;
 
-      const leftA = imgLeftInGame + origLeftPx * scale;
-      const topA  = imgTopInGame  + origTopPx * scale;
-      const wA    = Math.max(0, origWPx * scale);
-      const hA    = Math.max(0, origHPx * scale);
+      const finalLeft = origLeftPx * scale;
+      const finalTop = origTopPx * scale;
+      const finalW = origWPx * scale;
+      const finalH = origHPx * scale;
 
-      // ---- ВАРИант B: проценты привязаны к контейнеру (container-based) ----
-      const leftB = (pLeft / 100) * img.clientWidth + img.offsetLeft;
-      const topB  = (pTop  / 100) * img.clientHeight + img.offsetTop;
-      const wB    = Math.max(0, (pW / 100) * img.clientWidth);
-      const hB    = Math.max(0, (pH / 100) * img.clientHeight);
-
-      // вычисляем площадь пересечения с видимой картинкой
-      const areaA = intersectionArea(leftA, topA, wA, hA, imgLeftInGame, imgTopInGame, visW, visH);
-      const areaB = intersectionArea(leftB, topB, wB, hB, imgLeftInGame, imgTopInGame, visW, visH);
-
-      // выбираем вариант с большей пересекаемой площадью (если оба 0 -> берем A)
-      const useA = (areaA >= areaB);
-
-      let finalLeft, finalTop, finalW, finalH;
-      if (useA) {
-        finalLeft = leftA;
-        finalTop  = topA;
-        finalW    = wA;
-        finalH    = hA;
-      } else {
-        finalLeft = leftB;
-        finalTop  = topB;
-        finalW    = wB;
-        finalH    = hB;
-      }
-
-      // Ограничение: не даём выйти за видимую картинку
-      if (finalLeft < imgLeftInGame) finalLeft = imgLeftInGame;
-      if (finalTop < imgTopInGame) finalTop = imgTopInGame;
-      if (finalLeft + finalW > imgLeftInGame + visW) finalW = Math.max(0, imgLeftInGame + visW - finalLeft);
-      if (finalTop + finalH > imgTopInGame + visH) finalH = Math.max(0, imgTopInGame + visH - finalTop);
-
-      // Теперь координаты относительные overlay (левый верх overlay = 0,0)
-      const relLeft = finalLeft - imgLeftInGame;
-      const relTop  = finalTop  - imgTopInGame;
-
-      div.style.left   = `${Math.round(relLeft)}px`;
-      div.style.top    = `${Math.round(relTop)}px`;
-      div.style.width  = `${Math.round(finalW)}px`;
+      const div = document.createElement('div');
+      div.className = 'item';
+      div.style.left = `${Math.round(finalLeft)}px`;
+      div.style.top = `${Math.round(finalTop)}px`;
+      div.style.width = `${Math.round(finalW)}px`;
       div.style.height = `${Math.round(finalH)}px`;
+      div.textContent = idx + 1;
 
-      div.addEventListener("click", () => itemClick(div));
+      div.onclick = () => {
+        document.querySelector('.item-info').textContent =
+          `x: ${item.x}, y: ${item.y}, w: ${item.w}, h: ${item.h}`;
+      };
+
       overlay.appendChild(div);
     });
   };
+
+  img.src = src;
 }
 
 function loadLevelMobile() {
