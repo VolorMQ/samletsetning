@@ -15,25 +15,22 @@
 
 	#gameContainer {
 	  position: relative;
-	  width:100vw;
-	  height:100vh;
-	  overflow:hidden;
+	  width: 100vw;
+	  height: 100vh;
+	  overflow: hidden;
 	}
 
-	#game {
-	  position: relative;
-	  width:100%;
-	  height:100%;
+	#game img {
+	  width: 100%;
+	  height: 100%;
+	  object-fit: contain; /* идеально масштабируем без выхода за экран */
+	  display: block;
 	}
 
 	#overlay {
-	  position:absolute;
-	  left:0;
-	  top:0;
-	  width:0;
-	  height:0;
-	  pointer-events:auto;
-	  z-index:5;
+	  position: absolute;
+	  pointer-events: auto;
+	  z-index: 5;
 	}
 
 	.item {
@@ -208,23 +205,25 @@
     <div id="word">Tryk på en sværhedsgrad</div>
     <img id="level-bg" src="" alt="Level background">
     <div id="overlay"></div>
-
     <div id="menu">
       <div class="btn" onclick="startGame('let')">Let (90s)</div>
       <div class="btn" onclick="startGame('mellem')">Mellem (60s)</div>
       <div class="btn" onclick="startGame('svaer')">Svær (45s)</div>
       <div class="btn" onclick="restartGame()">Nyt spil</div>
     </div>
-
     <div id="stats">
-      Spiller: <span id="playerName">—</span> |
       Rigtige: <span id="correct">0</span> |
       Forkerte: <span id="wrong">0</span> |
       Fundet: <span id="found">0</span>/<span id="total">0</span> |
       Tid: <span id="time">0</span>s
     </div>
+    <div id="dialog">
+      <p id="dialog-line"></p>
+      <div id="dialog-options" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
+    </div>
   </div>
 </div>
+
 
 <script>
 let levels = [];
