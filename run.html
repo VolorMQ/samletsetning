@@ -285,7 +285,11 @@
 
 <script>
 let levels = [];
-fetch("levels.json").then(r => r.json()).then(data => { levels = data; });
+fetch("levels.json").then(r => r.json()).then(data => {
+  levels = data;
+  // гарантируем поле completed (если в JSON нет — false)
+  levels.forEach(l => { l.completed = !!l.completed; });
+});
 
 let currentLevel = 0;
 let orderIndex = 0;
@@ -298,6 +302,11 @@ let words = [];
 let currentIndex = 0;
 let timeLeft = 0;
 let availableLevels = [];
+
+// --- новые суммарные счётчики для финальной статистики ---
+let totalCorrect = 0;
+let totalWrong = 0;
+let totalFound = 0;
 
 const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
@@ -329,18 +338,21 @@ function shuffleArray(arr) {
   }
 }
 
+// resetLevelOrder теперь берёт только непройденные уровни
 function resetLevelOrder() {
-  availableLevels = [...Array(levels.length).keys()];
+  availableLevels = levels
+    .map((l, i) => l.completed ? null : i)
+    .filter(i => i !== null);
   shuffleArray(availableLevels);
 }
 
+// getNextLevel вернёт null, если уровни кончились
 function getNextLevel() {
-  if (!availableLevels.length) resetLevelOrder();
+  if (!availableLevels.length) return null;
   return availableLevels.shift();
 }
 
 function clearItems() {
-  // удаляем старые зоны из overlay
   overlay.innerHTML = "";
 }
 
@@ -360,34 +372,27 @@ function loadLevelDesktop() {
   clearItems();
 
   const onImg = () => {
-    // реальные размеры исходного изображения (в пикселях)
     const naturalWidth  = (lvl.scale && lvl.scale.width)  ? lvl.scale.width  : img.naturalWidth;
     const naturalHeight = (lvl.scale && lvl.scale.height) ? lvl.scale.height : img.naturalHeight;
 
     const clientWidth  = img.clientWidth;
     const clientHeight = img.clientHeight;
 
-    // равномерный масштаб (contain)
     const scale = Math.min(clientWidth / naturalWidth, clientHeight / naturalHeight);
 
-    // видимая часть картинки и отступ внутри <img> (центрирование)
     const visW = naturalWidth * scale;
     const visH = naturalHeight * scale;
     const offsetX = (clientWidth - visW) / 2;
     const offsetY = (clientHeight - visH) / 2;
 
-    // позиция <img> и #game на экране (viewport)
     const imgRect = img.getBoundingClientRect();
     const gameRect = gameDiv.getBoundingClientRect();
 
-    // позиция видимой картинки внутри gameDiv (в пикселях от левого верхнего угла gameDiv)
     const imgLeftInGame = (imgRect.left - gameRect.left) + offsetX;
     const imgTopInGame  = (imgRect.top  - gameRect.top)  + offsetY;
 
-    // устанавливаем overlay точно под видимой картинкой (координаты внутри gameDiv)
     setOverlay(imgLeftInGame, imgTopInGame, visW, visH);
 
-    // вспомогательная функция ограничения по границам видимой картинки
     function clampZone(relLeft, relTop, w, h) {
       if (relLeft < 0) {
         const shift = -relLeft;
@@ -409,32 +414,27 @@ function loadLevelDesktop() {
       div.className = "item";
       div.dataset.word = obj.word;
 
-      // исходные проценты
       const pLeft = parseFloat(obj.left);
       const pTop  = parseFloat(obj.top);
       const pW    = parseFloat(obj.w);
       const pH    = parseFloat(obj.h);
 
-      // ---- ВАРИант A: проценты привязаны к исходному изображению (orig-based) ----
       const origLeftPx = (pLeft / 100) * naturalWidth;
       const origTopPx  = (pTop  / 100) * naturalHeight;
       const origWPx    = (pW    / 100) * naturalWidth;
       const origHPx    = (pH    / 100) * naturalHeight;
 
-      // вычисляем координаты и размеры внутри видимой картинки (relative to overlay)
-      let relLeft = origLeftPx * scale; // координата внутри overlay
+      let relLeft = origLeftPx * scale;
       let relTop  = origTopPx  * scale;
       let finalW  = Math.max(1, origWPx * scale);
       let finalH  = Math.max(1, origHPx * scale);
 
-      // ограничим зону, чтобы не выходила за видимую картинку
       const clamped = clampZone(relLeft, relTop, finalW, finalH);
       relLeft = clamped.relLeft;
       relTop  = clamped.relTop;
       finalW  = clamped.w;
       finalH  = clamped.h;
 
-      // если после ограничения зона стала нулевой — пропускаем
       if (finalW <= 0 || finalH <= 0) return;
 
       div.style.left   = `${Math.round(relLeft)}px`;
@@ -448,7 +448,6 @@ function loadLevelDesktop() {
   };
 
   img.onload = onImg;
-  // если картинка уже загружена (кеш), вызовем обработчик сразу
   if (img.complete && img.naturalWidth) onImg();
 }
 
@@ -479,35 +478,28 @@ function loadLevelMobile() {
   function renderMobile() {
     clearItems();
 
-    // реальные размеры исходного изображения
     const naturalWidth  = (lvl.scale && lvl.scale.width)  ? lvl.scale.width  : img.naturalWidth;
     const naturalHeight = (lvl.scale && lvl.scale.height) ? lvl.scale.height : img.naturalHeight;
 
-    // ширина контейнера (gameDiv)
     const containerW = gameDiv.clientWidth;
 
-    // масштабируем по ширине
     const scale = containerW / naturalWidth;
     const visW = naturalWidth * scale;
     const visH = naturalHeight * scale;
 
-    // применяем размеры
     img.style.width  = `${Math.round(visW)}px`;
     img.style.height = `${Math.round(visH)}px`;
     img.style.display = "block";
     img.style.marginLeft = "auto";
     img.style.marginRight = "auto";
 
-    // вертикальный скролл при необходимости
     gameDiv.style.overflowY = (visH > gameDiv.clientHeight) ? "scroll" : "hidden";
 
-    // позиция изображения внутри gameDiv
     const imgRect = img.getBoundingClientRect();
     const gameRect = gameDiv.getBoundingClientRect();
     const imgLeftInGame = imgRect.left - gameRect.left;
     const imgTopInGame  = imgRect.top  - gameRect.top;
 
-    // overlay
     setOverlay(imgLeftInGame, imgTopInGame, visW, visH);
 
     const MIN_HIT = Math.max(40, Math.round(visW * 0.04));
@@ -522,7 +514,6 @@ function loadLevelMobile() {
       const pW    = parseFloat(obj.w);
       const pH    = parseFloat(obj.h);
 
-      // конвертируем координаты исходного изображения
       const origLeftPx = (pLeft / 100) * naturalWidth;
       const origTopPx  = (pTop  / 100) * naturalHeight;
       const origWPx    = (pW    / 100) * naturalWidth;
@@ -533,7 +524,6 @@ function loadLevelMobile() {
       let widthPx  = Math.max(1, origWPx * scale);
       let heightPx = Math.max(1, origHPx * scale);
 
-      // минимальный размер
       if (widthPx < MIN_HIT) {
         const cx = leftPx + widthPx / 2;
         widthPx = MIN_HIT;
@@ -545,7 +535,6 @@ function loadLevelMobile() {
         topPx = cy - heightPx / 2;
       }
 
-      // обрезка зон по картинке
       const clamped = clampZone(leftPx, topPx, widthPx, heightPx, visW, visH);
       if (clamped.w <= 0 || clamped.h <= 0) return;
 
@@ -560,10 +549,8 @@ function loadLevelMobile() {
   }
 
   img.onload = () => {
-    // двойной RAF для точности
     requestAnimationFrame(() => requestAnimationFrame(renderMobile));
 
-    // навешиваем обработчики один раз
     if (!window.__mobileLevelResizeAdded) {
       let rt = null;
 
@@ -579,7 +566,6 @@ function loadLevelMobile() {
       window.addEventListener("resize", deb);
       window.addEventListener("orientationchange", deb);
 
-      // NEW: orientation fix — пересчёт сразу при реальном повороте
       if (screen.orientation && screen.orientation.addEventListener) {
         screen.orientation.addEventListener("change", () => {
           requestAnimationFrame(() => requestAnimationFrame(renderMobile));
@@ -594,9 +580,18 @@ function loadLevelMobile() {
 }
 
 
-// В runLevel выбираем функцию в зависимости от устройства
-function runLevel() {
-  currentLevel = getNextLevel();
+// runLevel теперь может перезапускать тот же уровень (forceSame = true)
+// и корректно обрабатывает ситуацию, когда уровни закончились.
+function runLevel(forceSame = false) {
+  if (!forceSame) {
+    const next = getNextLevel();
+    if (next === null) {
+      // все уровни пройдены — показываем финал
+      showEndScreen();
+      return;
+    }
+    currentLevel = next;
+  } // если forceSame === true, currentLevel не меняется
 
   timeLeft = difficulties[currentDifficulty];
   correctCount = 0;
@@ -626,6 +621,10 @@ function runLevel() {
 
 function startGame(mode) {
   currentDifficulty = mode;
+  // обнуляем суммарные счётчики при старте новой игровой сессии
+  totalCorrect = 0;
+  totalWrong = 0;
+  totalFound = 0;
   resetLevelOrder();
   runLevel();
 }
@@ -658,7 +657,6 @@ function itemClick(item) {
   if (!timerInterval) return;
   const targetWord = words[currentIndex];
 
-  // rect относительно viewport, но мы используем центр для фейерверка (переводим в координаты relative-to-gameDiv)
   const rect = item.getBoundingClientRect();
   const gameRect = gameDiv.getBoundingClientRect();
   const x = rect.left + rect.width/2 - gameRect.left;
@@ -699,7 +697,17 @@ function endGame(win) {
   wordDiv.textContent = win ? "Du fandt alt! 🎉" : "Tid er slut! ❌";
   document.querySelectorAll('.item').forEach(i => i.style.pointerEvents = "none");
 
-  if (win && levels[currentLevel] && levels[currentLevel].dialog.length) startDialog();
+  // Если выиграли и есть диалог — запускаем диалог.
+  // Если выиграли и диалога нет — считаем уровень пройденным и идём дальше.
+  if (win) {
+    const lvl = levels[currentLevel];
+    if (lvl && lvl.dialog && lvl.dialog.length) {
+      startDialog();
+    } else {
+      finishLevel(true);
+      nextLevel();
+    }
+  }
 }
 
 function spawnFirework(x, y) {
@@ -715,7 +723,7 @@ function spawnFirework(x, y) {
   }
 }
 
-// Диалог
+// --- Диалог ---
 let dialogStep = 0;
 function startDialog() {
   dialogStep = 0;
@@ -741,7 +749,6 @@ function showDialog() {
   container.innerHTML = "";
   container.style.display = "flex";
 
-  // Смешиваем варианты ответов
   const allPlayerAnswers = levels[currentLevel].dialog.map(pair => pair[1]).sort(() => Math.random() - 0.5);
 
   allPlayerAnswers.forEach(answer => {
@@ -753,12 +760,14 @@ function showDialog() {
     btn.onclick = () => {
       if (answer === correctAnswer) {
         dialogStep++;
-        
+
         if (dialogStep >= levels[currentLevel].dialog.length) {
+          // диалог полностью пройден — помечаем уровень как пройденный и идём дальше
           document.getElementById("dialog").style.display = "none";
-          nextLevel(); // переход к следующему уровню
+          finishLevel(true);
+          nextLevel();
         } else {
-          showDialog(); // следующий вопрос диалога
+          showDialog();
         }
       } else {
         dialogAttempts++;
@@ -769,7 +778,8 @@ function showDialog() {
             document.getElementById("dialog").style.display = "none";
             dialogStep = 0;
             dialogAttempts = 0;
-            runLevel(); // перезапуск уровня с предметами
+            // рестарт того же уровня
+            runLevel(true);
           }, 3000);
         } else {
           const prevText = dialogLine.textContent;
@@ -787,32 +797,48 @@ function showDialog() {
   });
 }
 
-function nextLevel() {
-  if (!availableLevels.length) {
-    // если уровни закончились — показываем экран конца игры
-    const endStats = document.createElement("div");
-    endStats.innerHTML = `
-      <div style="
-        width:100%; height:100%;
-        background: url('end.gif') center/cover no-repeat;
-        display:flex; justify-content:center; align-items:center;
-        flex-direction:column; color:#fff; text-align:center;
-      ">
-        <h1 style="font-size:40px; margin-bottom:20px;">Spillet er slut! 🎉</h1>
-        <p style="font-size:24px; margin-bottom:10px;">Rigtige: ${correctCount}</p>
-        <p style="font-size:24px; margin-bottom:30px;">Forkerte: ${wrongCount}</p>
-        <button id="restartBtn" style="
-          padding:20px 40px; font-size:28px; border-radius:10px;
-          cursor:pointer; background:#222; color:#fff; border:2px solid #888;
-        ">Start igen</button>
-      </div>
-    `;
-    gameDiv.innerHTML = "";
-    gameDiv.appendChild(endStats);
-    document.getElementById("restartBtn").onclick = () => location.reload();
-    return;
+// --- новый helper: завершаем уровень (накопление статистики + пометка) ---
+function finishLevel(markCompleted) {
+  totalCorrect += correctCount;
+  totalWrong += wrongCount;
+  totalFound += foundCount;
+
+  if (markCompleted) {
+    levels[currentLevel].completed = true;
+    // если текущий уровень где-то ещё в очереди — удалим его
+    availableLevels = availableLevels.filter(i => i !== currentLevel);
   }
+}
+
+// nextLevel теперь просто запускает следующий этап через runLevel.
+// runLevel сам покажет финал, если уровни закончились.
+function nextLevel() {
   runLevel();
+}
+
+// финальный экран — использует суммарные счётчики
+function showEndScreen() {
+  const endStats = document.createElement("div");
+  endStats.innerHTML = `
+    <div style="
+      width:100%; height:100%;
+      background: url('end.gif') center/cover no-repeat;
+      display:flex; justify-content:center; align-items:center;
+      flex-direction:column; color:#fff; text-align:center;
+    ">
+      <h1 style="font-size:40px; margin-bottom:20px;">Spillet er slut! 🎉</h1>
+      <p style="font-size:24px; margin-bottom:10px;">Rigtige (total): ${totalCorrect}</p>
+      <p style="font-size:24px; margin-bottom:10px;">Forkerte (total): ${totalWrong}</p>
+      <p style="font-size:24px; margin-bottom:30px;">Fundet (total): ${totalFound}</p>
+      <button id="restartBtn" style="
+        padding:20px 40px; font-size:28px; border-radius:10px;
+        cursor:pointer; background:#222; color:#fff; border:2px solid #888;
+      ">Start igen</button>
+    </div>
+  `;
+  gameDiv.innerHTML = "";
+  gameDiv.appendChild(endStats);
+  document.getElementById("restartBtn").onclick = () => location.reload();
 }
 
 
