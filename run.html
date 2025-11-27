@@ -830,9 +830,14 @@ function handleStart() {
     return;
   }
 
-  localStorage.setItem('sg_player_name', name);
-  setPlayerName(name);
+  // попытка сохранить в localStorage, если доступен
+  try {
+    localStorage.setItem('sg_player_name', name);
+  } catch(e) {
+    console.warn("LocalStorage недоступен:", e);
+  }
 
+  setPlayerName(name);
   openMenuAfterStart();
 }
 
