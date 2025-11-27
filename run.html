@@ -280,6 +280,9 @@ let currentIndex = 0;
 let timeLeft = 0;
 let availableLevels = [];
 
+let dialogAttempts = 0;
+const MAX_DIALOG_ATTEMPTS = 3;
+
 const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
 const difficulties = { let:90, mellem:60, svaer:45 };
@@ -713,33 +716,53 @@ function showDialog() {
   const correctAnswer = levels[currentLevel].dialog[dialogStep][1];
   const dialogLine = document.getElementById("dialog-line");
   dialogLine.textContent = npcLine;
+
   const container = document.getElementById("dialog-options");
   container.innerHTML = "";
+  container.style.display = "flex";
+
+  // Смешиваем варианты ответов
   const allPlayerAnswers = levels[currentLevel].dialog.map(pair => pair[1]).sort(() => Math.random() - 0.5);
+
   allPlayerAnswers.forEach(answer => {
     const btn = document.createElement("button");
     btn.style.padding = "10px 20px";
     btn.style.fontSize = "20px";
     btn.textContent = answer;
+
     btn.onclick = () => {
       if (answer === correctAnswer) {
         dialogStep++;
+        dialogAttempts = 0; // сброс попыток при верном ответе
         if (dialogStep >= levels[currentLevel].dialog.length) {
           document.getElementById("dialog").style.display = "none";
-          nextLevel();
+          nextLevel(); // переход к следующему уровню
         } else {
-          showDialog();
+          showDialog(); // следующий вопрос диалога
         }
       } else {
-        const prevText = dialogLine.textContent;
-        dialogLine.textContent = "Jeg forstår ikke, hvad du mener.";
-        container.querySelectorAll("button").forEach(b => b.disabled = true);
-        setTimeout(() => {
-          dialogLine.textContent = prevText;
-          container.querySelectorAll("button").forEach(b => b.disabled = false);
-        }, 3000);
+        dialogAttempts++;
+        if (dialogAttempts >= MAX_DIALOG_ATTEMPTS) {
+          dialogLine.textContent = "Du har fejlet 3 gange. Niveauet genstartes ❌";
+          container.style.display = "none";
+          setTimeout(() => {
+            document.getElementById("dialog").style.display = "none";
+            dialogStep = 0;
+            dialogAttempts = 0;
+            runLevel(); // перезапуск уровня с предметами
+          }, 3000);
+        } else {
+          const prevText = dialogLine.textContent;
+          dialogLine.textContent = `Forkert! Forsøg ${dialogAttempts}/${MAX_DIALOG_ATTEMPTS}`;
+          container.querySelectorAll("button").forEach(b => b.disabled = true);
+          setTimeout(() => {
+            dialogLine.textContent = prevText;
+            container.querySelectorAll("button").forEach(b => b.disabled = false);
+          }, 2000);
+        }
       }
     };
+
     container.appendChild(btn);
   });
 }
