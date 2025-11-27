@@ -264,22 +264,22 @@
       <div id="dialog-options" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
     </div>
 
-    <!-- START SCREEN -->
-    <div id="startScreen" aria-hidden="false">
+	<!-- START SCREEN -->
+	<div id="startScreen" aria-hidden="false">
 	  <div id="startCard" role="dialog" aria-labelledby="startTitle" aria-modal="true">
 		<h1 id="startTitle">Velkommen til Søgeordsspil</h1>
 		<p>Indtast dit navn for at starte spillet. Navnet gemmes lokalt.</p>
 
-		<!-- !!! ВАЖНО: id = playerName (совпадает с CSS) -->
+		<!-- Сохраняем id для input, чтобы CSS работал -->
 		<input id="playerName" type="text" placeholder="Skriv dit navn her" maxlength="30" autocomplete="name" />
 
 		<div id="startControls">
-		  <button id="startBtn" class="btn">Start</button>
+		  <button id="startBtn" class="btn" type="button">Start</button>
 		</div>
-		<div id="nameError">Indtast et navn for at fortsætte.</div>
+		<div id="nameError" style="display:none">Indtast et navn for at fortsætte.</div>
 	  </div>
 	</div>
-    <!-- /START SCREEN -->
+	<!-- /START SCREEN -->
 
   </div>
 </div>
