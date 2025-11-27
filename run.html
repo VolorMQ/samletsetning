@@ -244,6 +244,7 @@
     <div id="overlay"></div>
 
     <div id="menu">
+	  <span id="playerNameDisplay">—</span>
       <div class="btn" onclick="startGame('let')">Let (90s)</div>
       <div class="btn" onclick="startGame('mellem')">Mellem (60s)</div>
       <div class="btn" onclick="startGame('svaer')">Svær (45s)</div>
@@ -264,19 +265,10 @@
     </div>
 
     <!-- START SCREEN -->
-    <div id="startScreen" aria-hidden="false">
-	  <div id="startCard" role="dialog" aria-labelledby="startTitle" aria-modal="true">
-		<h1 id="startTitle">Velkommen til Søgeordsspil</h1>
-		<p>Indtast dit navn for at starte spillet. Navnet gemmes lokalt.</p>
-
-		<!-- !!! ВАЖНО: id = playerName (совпадает с CSS) -->
-		<input id="playerName" type="text" placeholder="Skriv dit navn her" maxlength="30" autocomplete="name" />
-
-		<div id="startControls">
-		  <button id="startBtn" class="btn">Start</button>
-		</div>
-		<div id="nameError">Indtast et navn for at fortsætte.</div>
-	  </div>
+    <div id="startScreen">
+	  <input id="playerNameInput" type="text" placeholder="Имя игрока" />
+	  <div id="nameError" style="display:none">Введите имя</div>
+	  <button id="startBtn" type="button">Start</button>
 	</div>
     <!-- /START SCREEN -->
 
@@ -796,10 +788,10 @@ function nextLevel() {
    START SCREEN логика
    --------------------------- */
 const startScreen = document.getElementById('startScreen');
-const nameInput = document.getElementById('playerName'); // input для имени
-const startBtn = document.getElementById('startBtn');    // кнопка Start
-const nameError = document.getElementById('nameError');  // ошибка
-const playerNameSpan = document.getElementById('playerName'); // для отображения имени в stats/menu
+const nameInput = document.getElementById('playerNameInput'); // уникальный id для input
+const startBtn = document.getElementById('startBtn');
+const nameError = document.getElementById('nameError');
+const playerNameSpan = document.getElementById('playerNameDisplay'); // уникальный id для отображения
 const menuDiv = document.getElementById('menu');
 
 function setPlayerName(name) {
@@ -807,15 +799,30 @@ function setPlayerName(name) {
 }
 
 function openMenuAfterStart() {
-  // плавное скрытие стартового экрана
   startScreen.classList.add('fade-out');
   setTimeout(() => {
     startScreen.style.display = 'none';
     startScreen.setAttribute('aria-hidden', 'true');
   }, 500);
 
-  // показать меню сразу
   menuDiv.style.display = 'flex';
+}
+
+function safeSetStorage(key, value) {
+  try {
+    localStorage.setItem(key, value);
+  } catch (e) {
+    console.warn('LocalStorage недоступен:', e);
+  }
+}
+
+function safeGetStorage(key) {
+  try {
+    return localStorage.getItem(key);
+  } catch (e) {
+    console.warn('LocalStorage недоступен:', e);
+    return null;
+  }
 }
 
 function handleStart() {
@@ -830,32 +837,39 @@ function handleStart() {
     return;
   }
 
-  // попытка сохранить в localStorage, если доступен
-  try {
-    localStorage.setItem('sg_player_name', name);
-  } catch(e) {
-    console.warn("LocalStorage недоступен:", e);
-  }
-
+  safeSetStorage('sg_player_name', name);
   setPlayerName(name);
   openMenuAfterStart();
 }
 
 // инициализация
 (function initStart() {
-  // загрузка сохранённого имени
-  const saved = localStorage.getItem('sg_player_name');
+  const saved = safeGetStorage('sg_player_name');
   if (saved) nameInput.value = saved;
   setPlayerName(saved || '—');
 
-  // Enter на клавиатуре
+  // Enter на клавиатуре — предотвращаем дефолтное поведение формы
   nameInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') handleStart();
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleStart();
+    }
   });
 
-  // click и touchstart для кнопки Start (чтобы работало на мобильных)
-  startBtn.addEventListener('click', handleStart);
-  startBtn.addEventListener('touchstart', handleStart);
+  // Универсальная обработка клика/касания:
+  if (window.PointerEvent) {
+    startBtn.addEventListener('pointerup', (e) => {
+      // если нужно — можно e.preventDefault();
+      handleStart();
+    });
+  } else {
+    // резерв: click + touchstart (touchstart с preventDefault чтобы не было двойного события)
+    startBtn.addEventListener('click', handleStart);
+    startBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault(); // предотвращаем последующий click в некоторых браузерах
+      handleStart();
+    }, { passive: false });
+  }
 })();
 
 
