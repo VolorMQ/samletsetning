@@ -754,7 +754,7 @@ function showDialog() {
     btn.onclick = () => {
       if (answer === correctAnswer) {
         dialogStep++;
-        dialogAttempts = 0; // сброс попыток при верном ответе
+        
         if (dialogStep >= levels[currentLevel].dialog.length) {
           document.getElementById("dialog").style.display = "none";
           nextLevel(); // переход к следующему уровню
