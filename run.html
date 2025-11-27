@@ -791,14 +791,15 @@ function nextLevel() {
   runLevel();
 }
 
+
 /* ---------------------------
    START SCREEN логика
    --------------------------- */
 const startScreen = document.getElementById('startScreen');
-const nameInput = document.getElementById('playerName');  // ← исправлено под HTML
-const startBtn = document.getElementById('startBtn');
-const nameError = document.getElementById('nameError');
-const playerNameSpan = document.getElementById('playerName');
+const nameInput = document.getElementById('playerName'); // input для имени
+const startBtn = document.getElementById('startBtn');    // кнопка Start
+const nameError = document.getElementById('nameError');  // ошибка
+const playerNameSpan = document.getElementById('playerName'); // для отображения имени в stats/menu
 const menuDiv = document.getElementById('menu');
 
 function setPlayerName(name) {
@@ -806,36 +807,16 @@ function setPlayerName(name) {
 }
 
 function openMenuAfterStart() {
+  // плавное скрытие стартового экрана
   startScreen.classList.add('fade-out');
-
   setTimeout(() => {
     startScreen.style.display = 'none';
     startScreen.setAttribute('aria-hidden', 'true');
   }, 500);
 
+  // показать меню сразу
   menuDiv.style.display = 'flex';
 }
-
-// загрузка сохранённого имени
-(function initStart() {
-  const saved = localStorage.getItem('sg_player_name');
-  if (saved) {
-    nameInput.value = saved;
-  }
-  setPlayerName(saved || '—');
-
-  nameInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      handleStart();
-    }
-  });
-
-  startBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    handleStart();
-  });
-})();
 
 function handleStart() {
   const name = nameInput.value.trim();
@@ -854,6 +835,23 @@ function handleStart() {
 
   openMenuAfterStart();
 }
+
+// инициализация
+(function initStart() {
+  // загрузка сохранённого имени
+  const saved = localStorage.getItem('sg_player_name');
+  if (saved) nameInput.value = saved;
+  setPlayerName(saved || '—');
+
+  // Enter на клавиатуре
+  nameInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') handleStart();
+  });
+
+  // click и touchstart для кнопки Start (чтобы работало на мобильных)
+  startBtn.addEventListener('click', handleStart);
+  startBtn.addEventListener('touchstart', handleStart);
+})();
 
 
 /* ---------------------------
