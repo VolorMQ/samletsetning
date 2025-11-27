@@ -265,10 +265,19 @@
     </div>
 
     <!-- START SCREEN -->
-    <div id="startScreen">
-	  <input id="playerNameInput" type="text" placeholder="Имя игрока" />
-	  <div id="nameError" style="display:none">Введите имя</div>
-	  <button id="startBtn" type="button">Start</button>
+    <div id="startScreen" aria-hidden="false">
+	  <div id="startCard" role="dialog" aria-labelledby="startTitle" aria-modal="true">
+		<h1 id="startTitle">Velkommen til Søgeordsspil</h1>
+		<p>Indtast dit navn for at starte spillet. Navnet gemmes lokalt.</p>
+
+		<!-- !!! ВАЖНО: id = playerName (совпадает с CSS) -->
+		<input id="playerName" type="text" placeholder="Skriv dit navn her" maxlength="30" autocomplete="name" />
+
+		<div id="startControls">
+		  <button id="startBtn" class="btn">Start</button>
+		</div>
+		<div id="nameError">Indtast et navn for at fortsætte.</div>
+	  </div>
 	</div>
     <!-- /START SCREEN -->
 
