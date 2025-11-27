@@ -245,9 +245,9 @@
 
     <div id="menu">
 	  <span id="playerNameDisplay">—</span>
-      <div class="btn" onclick="startGame('let')">Let (90s)</div>
-      <div class="btn" onclick="startGame('mellem')">Mellem (60s)</div>
-      <div class="btn" onclick="startGame('svaer')">Svær (45s)</div>
+      <div class="btn" onclick="startGame('let')">Let (120s)</div>
+      <div class="btn" onclick="startGame('mellem')">Mellem (90s)</div>
+      <div class="btn" onclick="startGame('svaer')">Svær (60s)</div>
       <div class="btn" onclick="restartGame()">Nyt spil</div>
     </div>
 
@@ -301,7 +301,7 @@ let availableLevels = [];
 
 const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-const difficulties = { let:90, mellem:60, svaer:45 };
+const difficulties = { let:120, mellem:90, svaer:60 };
 const wordDiv = document.getElementById('word');
 const correctSpan = document.getElementById('correct');
 const wrongSpan = document.getElementById('wrong');
