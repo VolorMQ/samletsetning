@@ -345,15 +345,30 @@ function loadLevelMobile() {
 
   clearItems();
 
-  // renderMobile использует gameDiv (id="game"), а не несуществующий gameDiv
+  function clampZone(relLeft, relTop, w, h, visW, visH) {
+    if (relLeft < 0) {
+      const shift = -relLeft;
+      relLeft = 0;
+      w = Math.max(0, w - shift);
+    }
+    if (relTop < 0) {
+      const shift = -relTop;
+      relTop = 0;
+      h = Math.max(0, h - shift);
+    }
+    if (relLeft + w > visW) w = Math.max(0, visW - relLeft);
+    if (relTop + h > visH) h = Math.max(0, visH - relTop);
+    return { relLeft, relTop, w, h };
+  }
+
   function renderMobile() {
     clearItems();
 
-    // реальные размеры картинки
-    const naturalWidth  = lvl.scale?.width  || img.naturalWidth;
-    const naturalHeight = lvl.scale?.height || img.naturalHeight;
+    // реальные размеры исходного изображения
+    const naturalWidth  = (lvl.scale && lvl.scale.width)  ? lvl.scale.width  : img.naturalWidth;
+    const naturalHeight = (lvl.scale && lvl.scale.height) ? lvl.scale.height : img.naturalHeight;
 
-    // ширина контейнера (используем ширину игрового блока)
+    // ширина контейнера (gameDiv)
     const containerW = gameDiv.clientWidth;
 
     // масштабируем по ширине
@@ -361,11 +376,9 @@ function loadLevelMobile() {
     const visW = naturalWidth * scale;
     const visH = naturalHeight * scale;
 
-    // применяем размеры к img
-    img.style.width  = `${visW}px`;
-    img.style.height = `${visH}px`;
-
-    // располагаем картинку по центру по горизонтали внутри gameDiv
+    // применяем размеры
+    img.style.width  = `${Math.round(visW)}px`;
+    img.style.height = `${Math.round(visH)}px`;
     img.style.display = "block";
     img.style.marginLeft = "auto";
     img.style.marginRight = "auto";
@@ -373,11 +386,13 @@ function loadLevelMobile() {
     // вертикальный скролл при необходимости
     gameDiv.style.overflowY = (visH > gameDiv.clientHeight) ? "scroll" : "hidden";
 
-    // позиция изображения внутри gameDiv (offsetLeft учитывает margin центровки)
-    const imgLeftInGame = img.offsetLeft;
-    const imgTopInGame  = img.offsetTop;
+    // позиция изображения внутри gameDiv
+    const imgRect = img.getBoundingClientRect();
+    const gameRect = gameDiv.getBoundingClientRect();
+    const imgLeftInGame = imgRect.left - gameRect.left;
+    const imgTopInGame  = imgRect.top  - gameRect.top;
 
-    // установим overlay ровно под картинкой
+    // overlay
     setOverlay(imgLeftInGame, imgTopInGame, visW, visH);
 
     const MIN_HIT = Math.max(40, Math.round(visW * 0.04));
@@ -392,13 +407,18 @@ function loadLevelMobile() {
       const pW    = parseFloat(obj.w);
       const pH    = parseFloat(obj.h);
 
-      // координаты и размеры зон пропорционально реальной картинке
-      let leftPx   = (pLeft / 100) * visW;
-      let topPx    = (pTop  / 100) * visH;
-      let widthPx  = (pW / 100) * visW;
-      let heightPx = (pH / 100) * visH;
+      // конвертируем координаты исходного изображения
+      const origLeftPx = (pLeft / 100) * naturalWidth;
+      const origTopPx  = (pTop  / 100) * naturalHeight;
+      const origWPx    = (pW    / 100) * naturalWidth;
+      const origHPx    = (pH    / 100) * naturalHeight;
 
-      // минимальный размер зоны
+      let leftPx   = origLeftPx * scale;
+      let topPx    = origTopPx  * scale;
+      let widthPx  = Math.max(1, origWPx * scale);
+      let heightPx = Math.max(1, origHPx * scale);
+
+      // минимальный размер
       if (widthPx < MIN_HIT) {
         const cx = leftPx + widthPx / 2;
         widthPx = MIN_HIT;
@@ -410,12 +430,14 @@ function loadLevelMobile() {
         topPx = cy - heightPx / 2;
       }
 
-      // leftPx/topPx — уже относительные координаты внутри видимой картинки,
-      // поэтому можно просто назначить их для overlay
-      div.style.left   = `${Math.round(leftPx)}px`;
-      div.style.top    = `${Math.round(topPx)}px`;
-      div.style.width  = `${Math.round(widthPx)}px`;
-      div.style.height = `${Math.round(heightPx)}px`;
+      // обрезка зон по картинке
+      const clamped = clampZone(leftPx, topPx, widthPx, heightPx, visW, visH);
+      if (clamped.w <= 0 || clamped.h <= 0) return;
+
+      div.style.left   = `${Math.round(clamped.relLeft)}px`;
+      div.style.top    = `${Math.round(clamped.relTop)}px`;
+      div.style.width  = `${Math.round(clamped.w)}px`;
+      div.style.height = `${Math.round(clamped.h)}px`;
 
       div.addEventListener("click", () => itemClick(div));
       overlay.appendChild(div);
@@ -423,17 +445,34 @@ function loadLevelMobile() {
   }
 
   img.onload = () => {
-    // двойной RAF для стабильности отрисовки
+    // двойной RAF для точности
     requestAnimationFrame(() => requestAnimationFrame(renderMobile));
 
-    let rt = null;
-    const deb = () => {
-      clearTimeout(rt);
-      rt = setTimeout(() => requestAnimationFrame(() => requestAnimationFrame(renderMobile)), 150);
-    };
+    // навешиваем обработчики один раз
+    if (!window.__mobileLevelResizeAdded) {
+      let rt = null;
 
-    window.addEventListener("resize", deb);
-    window.addEventListener("orientationchange", deb);
+      const deb = () => {
+        clearTimeout(rt);
+        rt = setTimeout(() =>
+          requestAnimationFrame(() =>
+            requestAnimationFrame(renderMobile)
+          ),
+        150);
+      };
+
+      window.addEventListener("resize", deb);
+      window.addEventListener("orientationchange", deb);
+
+      // NEW: orientation fix — пересчёт сразу при реальном повороте
+      if (screen.orientation && screen.orientation.addEventListener) {
+        screen.orientation.addEventListener("change", () => {
+          requestAnimationFrame(() => requestAnimationFrame(renderMobile));
+        });
+      }
+
+      window.__mobileLevelResizeAdded = true;
+    }
   };
 
   if (img.complete && img.naturalWidth) img.onload();
