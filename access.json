@@ -20,12 +20,6 @@
       "password": "",
       "accessLevel": 0
     },
-    {
-      "username": "IRINA HANSEN",
-      "password": "IRINA74",
-      "accessLevel": 1
-    }
-  ],
 
   "links": {
     "public": [
@@ -54,6 +48,7 @@
     ]
   }
 }
+
 
 
 
